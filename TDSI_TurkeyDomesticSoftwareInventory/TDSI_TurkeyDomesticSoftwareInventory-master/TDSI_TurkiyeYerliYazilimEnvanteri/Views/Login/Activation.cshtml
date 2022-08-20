@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Activation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+
+
+@Styles.Render("~/Content/Site.css")
+<h2>Activation</h2>
+@using (Html.BeginForm("Activation", "Login", FormMethod.Post))
+{
+    <input type="text" id="actCode" name="activationCode" value="" autocomplete="off" />
+    <button type="submit" class="button button-block">Gönder</button>
+    // Düzenlenecek
+    <button type="button" class="button button-block">Daha Sonra</button>
+}

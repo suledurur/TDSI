@@ -1,0 +1,279 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+
+@Styles.Render("~/Content/login.css")
+@Scripts.Render("~/Scripts/login.js")
+@Styles.Render("~/Content/Site.css")
+
+
+
+<div class="form">
+    <h1>ÜYE OL</h1>
+    <ul class="tab-group">
+        <li class="tab active" id="individualTab"><a href="#individual">Bireysel</a></li>
+        <li class="tab" id="companyTab"><a href="#company">Kurumsal </a></li>
+    </ul>
+
+    <div class="tab-content">
+
+        <div id="individual">
+
+            @using (Html.BeginForm("Register", "Login", FormMethod.Post))
+            {
+                <div id="individualLogin">
+                    <textarea name="individualLogin" style="display:none;">1</textarea>
+                </div>
+                <div class="field-wrap">
+                    <label>Kullanıcı Adı<span class="req">*</span></label>
+                    <input type="text" name="loginName" required autocomplete="off" />
+                    <div class="help-tip">
+                        <p>
+                            Giriş yaparken kullanılacak kullanıcı adı.<br />
+                        </p>
+                    </div>
+                </div>
+                <div class="field-wrap">
+                    <label>Ad Soyad<span class="req">*</span></label>
+                    <input type="text" name="accountName" required autocomplete="off" />
+                    <div class="help-tip">
+                        <p>
+                            Diğer kullanıcılar tarafından görünecek olan kullanıcı adı.<br />
+                        </p>
+                    </div>
+                </div>
+                <div class="field-wrap">
+                    <label>Email<span class="req">*</span></label>
+                    <input type="email" name="email" autocomplete="off" />
+                </div>
+                <div class="field-wrap">
+                    <label>Telefon</label>
+                    <input name="tel" type="text">
+                </div>
+                <div class="field-wrap">
+                    <label>Şifre<span class="req">*</span></label>
+                    <input type="password" name="password" id="password" class="validate password" value="" required autocomplete="off" />
+                </div>
+                <div class="field-wrap">
+                    <label>Şifre(Tekrar)<span class="req">*</span></label>
+                    <input type="password" id="confirmpw" class="validate passwordConfirm" value="" required autocomplete="off" />
+                </div>
+                <div class="field-wrap">
+                    <div id="password_rulesInd">
+                        <h4>Şifre Koşulları:</h4>
+                        <ul>
+                            <li class="password_length">En az 8 karakter</li>
+                            <li class="password_uppercase">En az bir büyük harf</li>
+                            <li class="password_number">En az bir rakam</li>
+                            <li class="password_match">Şifre ve Şifre(Tekrar) eşleşti</li>
+                        </ul>
+                    </div>
+                </div>
+
+                @*//kvkk checkbox*@
+                <div class="field-wrap">
+                    <div class="checkbox">
+
+                        <input id="term" name="terms" type="checkbox" required autocomplete="off" />  <a href="#popup1"> &nbsp &nbsp &nbsp<u>Verilerinin Korunması Kanunu hakkında Bilgilendirme'yi</u></a> <p>okudum, onaylıyorum.</p>
+
+                    </div>
+                </div>
+
+                <div id="popup1" class="overlay">
+                    <div class="popup">
+                        <h2>Here i am</h2>
+                        <a class="close" href="#">&times;</a>
+                        <div class="content">
+                            <p>
+                                Kişisel verilerin korunması
+                                Unilever Sanayi ve Ticaret Türk A.Ş. (“Unilever”) olarak kişisel verilerinizin güvenliği hususuna azami hassasiyet göstermekteyiz. Unilever olarak ürün ve hizmetlerimizden faydalanan kişiler dahil, Unilever ile ilişkili tüm şahıslara ait her türlü kişisel verilerin 6698 sayılı Kişisel Verilerin Korunması Kanunu'na (“KVKK”) uygun olarak işlenerek, muhafaza edilmesine önem vermekteyiz. Bu sorumluluğumuzun tam bilinci ile KVKK uyarınca “Veri Sorumlusu” sıfatıyla, kişisel verilerinizi aşağıda yer alan kapsamda ve şartlarda işlemekteyiz.
+
+                                Unilever tarafından kişisel verilerinizin ne tür yöntemler aracılığıyla ve hangi amaçlar doğrultusunda işlendiği ve saklandığı hakkında daha detaylı bilgi için Unilever Gizlilik İlkeleri ve Çerezler Hakkında Bildirim'i inceleyebilirsiniz.
+
+                                Kişisel Veri Nedir?
+                                Kişisel veri, KVKK’da kimliği belirli veya belirlenebilir gerçek kişiye ilişkin her türlü bilgi olarak tanımlanmıştır. Buna göre bizimle paylaştığınız adınız, soyadınız, doğum tarihiniz, kimlik numaranız, elektronik posta adresiniz, telefon numaranız ve benzeri bilgiler kişisel veri olarak adlandırılmaktadır.
+
+                                Unilever, kişisel verilerinizi, Unilever ile doğrudan paylaştığınız hallerde, otomatik yollarla veya üçüncü şahıs platformları gibi başka kaynaklar aracılığıyla toplamaktadır.
+
+                                Kişisel verilerinizin işlenme amacı ve dayanağı nedir?
+                                Unilever ile olan ürün ve hizmet ilişkiniz dolayısıyla yasal yükümlülüklerimizi yerine getirebilmek ve sizi kampanyalar ve avantajlardan haberdar edebilmek için Unilever kişisel bilgilerinizi toplamaktadır ve bu kapsamda işlemektedir.
+
+                                Bu doğrultuda Unilever; kişisel verilerinizi, her türlü şikâyetinizi değerlendirmek ve işleme almak, ödemelerinizi işleme almak, ürünlerimizi, hizmetlerimizi, iletişim yöntemlerimizi ve internet sitelerimizin işlevselliğini geliştirmek ve sizin için kişiselleştirilmiş ürünler, iletişim içerikleri ve hedefe yönelik reklamlar ve ayrıca ürün tavsiyeleri sunmak için toplamakta ve işlemektedir.
+
+                                Yukarıda sayılan amaçlar doğrultusunda Unilever, kişisel verilerinizi, açık rızanıza istinaden, veya sizinle yaptığımız sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması halinde veya temel hak ve özgürlüklerinize zarar vermemek kaydıyla meşru menfaatimizin gerektirdiği hallerde, burada belirtilen amaçlar ve kapsam dahilinde işlemekte ve saklamaktadır.
+
+                                Kişisel verilerinizi hangi amaçla, kimlere aktarıyoruz?
+                                Kişisel verileriniz Unilever hissedarlarıyla, doğrudan/dolaylı yurtiçi/yurtdışı iştiraklerimizle, iş ilişkisinin devamı esnasında birlikte bizi temsil eden ve/veya faaliyetlerimizi yürütebilmek için işbirliği yaptığımız iş ortağımız olan yurtiçi/yurtdışı kişi ve kurumlarla (kargo, gönderi, çağrı merkezi, veri tabanı, bulut vb. hizmetleri sunan şirketlerle) paylaşılabilmektedir. Ayrıca, yasal yükümlülüklerimiz nedeniyle ve bunlarla sınırlı olmak üzere mahkemeler ve diğer kamu kurumları ile kişisel veriler paylaşılmaktadır. Ayrıca, Unilever internet sitelerini ziyaretinize ilişkin kişisel verilerinizi ve gezinme bilgileriniz gibi trafik bilgilerinizi; güvenliğiniz ve Unilever'in ilgili mevzuat kapsamındaki yükümlülüklerinin ifası amacıyla yasal olarak bu bilgileri kanunen talep etmeye yetkili olan kamu kurum ve kuruluşları ile paylaşabilecektir.
+
+                                Kişisel verilerinizi nasıl saklıyoruz?
+                                Şirketimiz ile paylaşılan kişisel verileriniz Unilever’in yurtiçi/yurtdışı güvenli sunucularında ilgili yasal düzenlemelere, KVKK hükümlerine ve Unilever standartlarına uygun olarak saklanmaktadır. Bu kapsamda Unilever, kişisel verilerinizin güvenliğini sağlamak adına yasal mevzuat ile belirlenen gerekli teknik ve idari güvenlik önlemlerini almaktadır.
+
+                                Kişisel verilerinizi ne kadar süre ile tutuyoruz?
+                                KVKK Madde 7/f.1. hükmü uyarınca, kişisel verilerinizin işlenmesi gerektiren amaç ortadan kalktığında ve/veya ilgili mevzuat uyarınca verilerinizi saklamakla yükümlü kılındığımız yasal süreler dolduğunda, kişisel verileriniz tarafımızca silinecek, yok edilecek veya anonim hale getirilecektir.
+
+                                Kişisel Verilerin Korunması Kanunu’ndan doğan haklarınız nelerdir?
+                                KVKK Madde 11 uyarınca, kişisel verilerinizin işlendiği Unilever tarafından veri sorumlusu sıfatı ile işlediği ölçüde;
+
+                                herhangi bir kişisel verinizin işlenip işlenmediğini öğrenme;
+                                kişisel verilerinizin işlenme faaliyetlerine ilişkin olarak bilgi talep etme;
+                                kişisel verilerinizin işlenme amaçlarını öğrenme;
+                                kişisel verilerin yurt içinde veya yurt dışında üçüncü kişilere aktarılmış olması durumunda bu kişileri öğrenme;
+                                kişisel verilerin eksik veya yanlış işlenmiş olması halinde bunların düzeltilmesini isteme;
+                                kişisel verilerin işlenmesini gerektiren sebeplerin ortadan kalkması halinde kişisel verilerin silinmesini veya yok edilmesini isteme;
+                                silme ve düzeltme işlemlerinin, verilerin aktarıldığını üçüncü kişilere bildirilmesi isteme;
+                                kişisel verilerin otomatik sistemler vasıtasıyla işlenmesi sonucu ortaya çıkabilecek aleyhte sonuçlara itiraz etme; ve
+                                kişisel verilerinizin kanuna aykırı bir şekilde işlenmesi sebebiyle zarara uğramanız halinde bu zararın tazmin edilmesini isteme hakkına sahipsiniz.
+                                Başvurunuzda yer alan talepleriniz, talebin niteliğine göre en kısa sürede ve en geç otuz gün içinde sonuçlandırılacaktır.
+
+                                Tarafımıza bildirmiş olduğunuz kişisel verilerinize ilişkin haklarınızı ne şekilde kullanabilirsiniz?
+                                KVKK Madde 11'de yer alan ve yukarıda sayılan haklarınızı https://www.unilever.com.tr/contact/contact-form adr
+
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="button button-block">Üye Ol</button>
+
+            }
+        </div>
+        <div id="company">
+            @using (Html.BeginForm("Register", "Login", FormMethod.Post))
+            {
+                <div id="companyLogin">
+                    <textarea name="companyLogin" style="display:none"></textarea>
+                </div>
+                <div class="field-wrap">
+
+                    <label> Kullanıcı Adı<span class="req">*</span></label>
+                    <input type="text" name="loginNameComp" required autocomplete="off" />
+                    <div class="help-tip">
+                        <p>
+                            Giriş yaparken kullanılacak kullanıcı adı.<br />
+                        </p>
+                    </div>
+                </div>
+                <div class="field-wrap">
+                    <label>Kurum Adı<span class="req">*</span></label>
+                    <input type="text" name="accountNameComp" required autocomplete="off" />
+                </div>
+
+                <div class="field-wrap">
+                    <label>Email<span class="req">*</span></label>
+                    <input type="email" name="emailComp" required autocomplete="off" />
+                </div>
+
+                <div class="field-wrap">
+                    <label>Sicil Numarası <span class="req">*</span></label>
+                    <input type="text" name="taxNum" required autocomplete="off" />
+                    <div class="help-tip">
+                        <p>
+                            Kurumun gerçek olduğunu belirten vergi sicil numarası.<br />
+                        </p>
+                    </div>
+                </div>
+
+                <div class="field-wrap">
+                    <label>Telefon<span class="req">*</span></label>
+                    <input name="telComp" type="text" required autocomplete="off" />
+                </div>
+                <div class="field-wrap">
+                    <label>Şifre<span class="req">*</span></label>
+                    <input type="password" name="passwordComp" id="passwordComp" required autocomplete="off" />
+                </div>
+
+                <div class="field-wrap">
+                    <label>Şifre(Tekrar)<span class="req">*</span></label>
+                    <input type="password" id="confirmComp" required autocomplete="off" />
+                </div>
+
+                <div class="field-wrap">
+                    <div id="password_rulesComp">
+                        <h4>Şifre Koşulları:</h4>
+                        <ul>
+                            <li class="password_length_comp">En az 8 karakter</li>
+                            <li class="password_uppercase_comp">En az bir büyük harf</li>
+                            <li class="password_number_comp">En az bir rakam</li>
+                            <li class="password_match_comp">Şifre ve Şifre(Tekrar) eşleşti</li>
+                        </ul>
+                    </div>
+                </div>
+                @*//kvkk checkbox*@
+
+                <div class="field-wrap">
+                    <div class="checkbox">
+
+                        <input id="term" name="terms" type="checkbox" required autocomplete="off" />  <a href="#popup2"> &nbsp &nbsp &nbsp<u>Verilerinin Korunması Kanunu hakkında Bilgilendirme'yi</u></a> <p>okudum, onaylıyorum.</p>
+
+                    </div>
+                </div>
+
+                <div id="popup2" class="overlay">
+                    <div class="popup">
+                        <h2>Here i am</h2>
+                        <a class="close" href="#">&times;</a>
+                        <div class="content">
+                            <p>
+                                Kişisel verilerin korunması
+                                Unilever Sanayi ve Ticaret Türk A.Ş. (“Unilever”) olarak kişisel verilerinizin güvenliği hususuna azami hassasiyet göstermekteyiz. Unilever olarak ürün ve hizmetlerimizden faydalanan kişiler dahil, Unilever ile ilişkili tüm şahıslara ait her türlü kişisel verilerin 6698 sayılı Kişisel Verilerin Korunması Kanunu'na (“KVKK”) uygun olarak işlenerek, muhafaza edilmesine önem vermekteyiz. Bu sorumluluğumuzun tam bilinci ile KVKK uyarınca “Veri Sorumlusu” sıfatıyla, kişisel verilerinizi aşağıda yer alan kapsamda ve şartlarda işlemekteyiz.
+
+                                Unilever tarafından kişisel verilerinizin ne tür yöntemler aracılığıyla ve hangi amaçlar doğrultusunda işlendiği ve saklandığı hakkında daha detaylı bilgi için Unilever Gizlilik İlkeleri ve Çerezler Hakkında Bildirim'i inceleyebilirsiniz.
+
+                                Kişisel Veri Nedir?
+                                Kişisel veri, KVKK’da kimliği belirli veya belirlenebilir gerçek kişiye ilişkin her türlü bilgi olarak tanımlanmıştır. Buna göre bizimle paylaştığınız adınız, soyadınız, doğum tarihiniz, kimlik numaranız, elektronik posta adresiniz, telefon numaranız ve benzeri bilgiler kişisel veri olarak adlandırılmaktadır.
+
+                                Unilever, kişisel verilerinizi, Unilever ile doğrudan paylaştığınız hallerde, otomatik yollarla veya üçüncü şahıs platformları gibi başka kaynaklar aracılığıyla toplamaktadır.
+
+                                Kişisel verilerinizin işlenme amacı ve dayanağı nedir?
+                                Unilever ile olan ürün ve hizmet ilişkiniz dolayısıyla yasal yükümlülüklerimizi yerine getirebilmek ve sizi kampanyalar ve avantajlardan haberdar edebilmek için Unilever kişisel bilgilerinizi toplamaktadır ve bu kapsamda işlemektedir.
+
+                                Bu doğrultuda Unilever; kişisel verilerinizi, her türlü şikâyetinizi değerlendirmek ve işleme almak, ödemelerinizi işleme almak, ürünlerimizi, hizmetlerimizi, iletişim yöntemlerimizi ve internet sitelerimizin işlevselliğini geliştirmek ve sizin için kişiselleştirilmiş ürünler, iletişim içerikleri ve hedefe yönelik reklamlar ve ayrıca ürün tavsiyeleri sunmak için toplamakta ve işlemektedir.
+
+                                Yukarıda sayılan amaçlar doğrultusunda Unilever, kişisel verilerinizi, açık rızanıza istinaden, veya sizinle yaptığımız sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması halinde veya temel hak ve özgürlüklerinize zarar vermemek kaydıyla meşru menfaatimizin gerektirdiği hallerde, burada belirtilen amaçlar ve kapsam dahilinde işlemekte ve saklamaktadır.
+
+                                Kişisel verilerinizi hangi amaçla, kimlere aktarıyoruz?
+                                Kişisel verileriniz Unilever hissedarlarıyla, doğrudan/dolaylı yurtiçi/yurtdışı iştiraklerimizle, iş ilişkisinin devamı esnasında birlikte bizi temsil eden ve/veya faaliyetlerimizi yürütebilmek için işbirliği yaptığımız iş ortağımız olan yurtiçi/yurtdışı kişi ve kurumlarla (kargo, gönderi, çağrı merkezi, veri tabanı, bulut vb. hizmetleri sunan şirketlerle) paylaşılabilmektedir. Ayrıca, yasal yükümlülüklerimiz nedeniyle ve bunlarla sınırlı olmak üzere mahkemeler ve diğer kamu kurumları ile kişisel veriler paylaşılmaktadır. Ayrıca, Unilever internet sitelerini ziyaretinize ilişkin kişisel verilerinizi ve gezinme bilgileriniz gibi trafik bilgilerinizi; güvenliğiniz ve Unilever'in ilgili mevzuat kapsamındaki yükümlülüklerinin ifası amacıyla yasal olarak bu bilgileri kanunen talep etmeye yetkili olan kamu kurum ve kuruluşları ile paylaşabilecektir.
+
+                                Kişisel verilerinizi nasıl saklıyoruz?
+                                Şirketimiz ile paylaşılan kişisel verileriniz Unilever’in yurtiçi/yurtdışı güvenli sunucularında ilgili yasal düzenlemelere, KVKK hükümlerine ve Unilever standartlarına uygun olarak saklanmaktadır. Bu kapsamda Unilever, kişisel verilerinizin güvenliğini sağlamak adına yasal mevzuat ile belirlenen gerekli teknik ve idari güvenlik önlemlerini almaktadır.
+
+                                Kişisel verilerinizi ne kadar süre ile tutuyoruz?
+                                KVKK Madde 7/f.1. hükmü uyarınca, kişisel verilerinizin işlenmesi gerektiren amaç ortadan kalktığında ve/veya ilgili mevzuat uyarınca verilerinizi saklamakla yükümlü kılındığımız yasal süreler dolduğunda, kişisel verileriniz tarafımızca silinecek, yok edilecek veya anonim hale getirilecektir.
+
+                                Kişisel Verilerin Korunması Kanunu’ndan doğan haklarınız nelerdir?
+                                KVKK Madde 11 uyarınca, kişisel verilerinizin işlendiği Unilever tarafından veri sorumlusu sıfatı ile işlediği ölçüde;
+
+                                herhangi bir kişisel verinizin işlenip işlenmediğini öğrenme;
+                                kişisel verilerinizin işlenme faaliyetlerine ilişkin olarak bilgi talep etme;
+                                kişisel verilerinizin işlenme amaçlarını öğrenme;
+                                kişisel verilerin yurt içinde veya yurt dışında üçüncü kişilere aktarılmış olması durumunda bu kişileri öğrenme;
+                                kişisel verilerin eksik veya yanlış işlenmiş olması halinde bunların düzeltilmesini isteme;
+                                kişisel verilerin işlenmesini gerektiren sebeplerin ortadan kalkması halinde kişisel verilerin silinmesini veya yok edilmesini isteme;
+                                silme ve düzeltme işlemlerinin, verilerin aktarıldığını üçüncü kişilere bildirilmesi isteme;
+                                kişisel verilerin otomatik sistemler vasıtasıyla işlenmesi sonucu ortaya çıkabilecek aleyhte sonuçlara itiraz etme; ve
+                                kişisel verilerinizin kanuna aykırı bir şekilde işlenmesi sebebiyle zarara uğramanız halinde bu zararın tazmin edilmesini isteme hakkına sahipsiniz.
+                                Başvurunuzda yer alan talepleriniz, talebin niteliğine göre en kısa sürede ve en geç otuz gün içinde sonuçlandırılacaktır.
+
+                                Tarafımıza bildirmiş olduğunuz kişisel verilerinize ilişkin haklarınızı ne şekilde kullanabilirsiniz?
+                                KVKK Madde 11'de yer alan ve yukarıda sayılan haklarınızı https://www.unilever.com.tr/contact/contact-form adr
+
+
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <button type="submit" class="button button-block">Üye Ol</button>
+            }
+        </div>
+
+    </div><!-- tab-content -->
+</div> <!-- /form -->

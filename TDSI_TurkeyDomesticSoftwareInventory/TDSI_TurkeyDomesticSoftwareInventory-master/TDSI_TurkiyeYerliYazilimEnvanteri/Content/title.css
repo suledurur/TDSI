@@ -1,0 +1,28 @@
+﻿
+h1 {
+    color: #85d2e4 !important;
+}
+
+h2, h3, h4 {
+    color: #65def9;
+    font-size: xx-large;
+}
+
+p {
+    color: lavender;
+}
+
+.jumbotron {
+    background-color: rgba(108,159,185,0.15);
+}
+
+.darkmode--activated p{
+    color:black;
+}
+
+.darkmode--activated h2,h3,h4{
+    color:#068ba9;
+}
+.darkmode--activated h1{
+    color:#54bed6;
+}

@@ -1,0 +1,17 @@
+﻿
+#resim {
+    background-color: aliceblue;
+}
+
+#soft_title {
+    color: #65def9;
+}
+
+body{
+    color: #000;
+
+}
+
+th {
+    background: linear-gradient(#85d2e4,rgb(57,72,82));
+}

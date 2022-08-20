@@ -1,0 +1,1429 @@
+﻿
+@{
+    ViewBag.Title = "User Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@Styles.Render("~/Content/Site.css")
+
+
+<h2>User Profile</h2>
+<br>
+<br>
+
+@{
+    TDSI_TurkiyeYerliYazilimEnvanteri.Models.TDSIEntities db = new TDSI_TurkiyeYerliYazilimEnvanteri.Models.TDSIEntities();
+    
+}
+
+@*User profil css*@
+
+
+@*User Profile Sidebar by @keenthemes
+    A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: https://j.mp/metronictheme
+    Licensed under MIT*@
+
+<script>
+    $(document).ready(function () {
+
+        $("#softwares").click(function () {
+
+            //alanları gizleyip açma
+            $("#software-area").removeClass("hide");
+            $("#account-settings-area").addClass("hide");
+            $("#follows-area").addClass("hide");
+            $("#favorites-area").addClass("hide");
+
+            //tab aktif etme
+            $("#softwares-tab").addClass("active");
+            $("#account-settings-tab").removeClass("active");
+            $("#follows-tab").removeClass("active");
+            $("#favorites-tab").removeClass("active");
+        });
+
+        $("#account-settings").click(function () {
+
+            //alanları gizleyip açma
+            $("#software-area").addClass("hide");
+            $("#account-settings-area").removeClass("hide");
+            $("#follows-area").addClass("hide");
+            $("#favorites-area").addClass("hide");
+
+            //tab aktif etme
+            $("#softwares-tab").removeClass("active");
+            $("#account-settings-tab").addClass("active");
+            $("#follows-tab").removeClass("active");
+            $("#favorites-tab").removeClass("active");
+
+        });
+        $("#follows").click(function () {
+
+            //alanları gizleyip açma
+            $("#software-area").addClass("hide");
+            $("#account-settings-area").addClass("hide");
+            $("#follows-area").removeClass("hide");
+            $("#favorites-area").addClass("hide");
+
+            //tab aktif etme
+            $("#softwares-tab").removeClass("active");
+            $("#account-settings-tab").removeClass("active");
+            $("#follows-tab").addClass("active");
+            $("#favorites-tab").removeClass("active");
+        });
+        $("#favorites").click(function () {
+
+            //alanları gizleyip açma
+            $("#software-area").addClass("hide");
+            $("#account-settings-area").addClass("hide");
+            $("#follows-area").addClass("hide");
+            $("#favorites-area").removeClass("hide");
+
+            //tab aktif etme
+            $("#softwares-tab").removeClass("active");
+            $("#account-settings-tab").removeClass("active");
+            $("#follows-tab").removeClass("active");
+            $("#favorites-tab").addClass("active");
+
+        });
+        $('#account-settings-area').find('input, textarea').on('keyup blur focus', function (e) {
+
+            var $this = $(this),
+                label = $this.prev('label');
+
+            if (e.type === 'keyup') {
+                if ($this.val() === '') {
+                    label.removeClass('active highlight');
+                } else {
+                    label.addClass('active highlight');
+                }
+            } else if (e.type === 'blur') {
+                if ($this.val() === '') {
+                    label.removeClass('active highlight');
+                } else {
+                    label.removeClass('highlight');
+                }
+            } else if (e.type === 'focus') {
+
+                if ($this.val() === '') {
+                    label.removeClass('highlight');
+                }
+                else if ($this.val() !== '') {
+                    label.addClass('highlight');
+                }
+            }
+        });
+    });
+</script>
+
+
+
+
+
+<style>
+    /*body {
+        background: rgb(57,72,82);
+    }*/
+
+    /* Profile container */
+    /*.profile {
+        margin: 20px 0;
+    }*/
+
+    /* Profile sidebar */
+    /*.profile-sidebar {
+        padding: 20px 0 10px 0;
+        background: #1F2D34;
+    }
+
+    .profile-userpic img {
+        float: none;
+        margin: 0 auto;
+        width: 50%;
+        height: 50%;
+        -webkit-border-radius: 50% !important;
+        -moz-border-radius: 50% !important;
+        border-radius: 50% !important;
+    }
+
+    .profile-usertitle {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .profile-usertitle-name {
+        color: #5a7391;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .profile-usertitle-job {
+        text-transform: uppercase;
+        color: #5b9bd1;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .profile-userbuttons {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+        .profile-userbuttons .btn {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 15px;
+            margin-right: 5px;
+        }
+
+            .profile-userbuttons .btn:last-child {
+                margin-right: 0px;
+            }
+
+    .profile-usermenu {
+        margin-top: 30px;
+    }
+
+        .profile-usermenu ul li {
+            border-bottom: 1px solid #f0f4f7;
+        }
+
+            .profile-usermenu ul li:last-child {
+                border-bottom: none;
+            }
+
+            .profile-usermenu ul li a {
+                color: #65def9;
+                font-size: 14px;
+                font-weight: 400;
+            }
+
+                .profile-usermenu ul li a i {
+                    margin-right: 8px;
+                    font-size: 14px;
+                }
+
+                .profile-usermenu ul li a:hover {
+                    background-color: #fafcfd;
+                    color: #5b9bd1;
+                }
+
+            .profile-usermenu ul li.active {
+                border-bottom: none;
+            }
+
+                .profile-usermenu ul li.active a {
+                    color: #5b9bd1;
+                    background-color: #f6f9fb;
+                    border-left: 2px solid #5b9bd1;
+                    margin-left: -2px;
+                }*/
+
+    /* Profile Content */
+    /*.profile-content {
+        padding: 20px;
+        background: #1F2D34;
+        min-height: 460px;
+    }
+
+    a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, td, textarea, th, ul {
+        -webkit-border-radius: 0 !important;
+        -moz-border-radius: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    .dashboard-stat, .portlet {
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+    }
+
+    .portlet {
+        margin-top: 0;
+        margin-bottom: 25px;
+        padding: 0;
+        border-radius: 4px;
+    }
+
+        .portlet.bordered {
+            border-left: 2px solid #394852 !important;
+        }
+
+        .portlet.light {
+            padding: 12px 20px 15px;
+            background-color: #23313c;
+        }
+
+            .portlet.light.bordered {
+                border: 1px solid #394852 !important;
+            }
+
+    .list-separated {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+    .profile-stat {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #394852;
+    }
+
+    .profile-stat-title {
+        color: #7f90a4;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    .uppercase {
+        text-transform: uppercase !important;
+    }
+
+    .profile-stat-text {
+        color: #5b9bd1;
+        font-size: 10px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .profile-desc-title {
+        color: #7f90a4;
+        font-size: 17px;
+        font-weight: 600;
+    }
+
+    .profile-desc-text {
+        color: #7e8c9e;
+        font-size: 14px;
+    }
+
+    .margin-top-20 {
+        margin-top: 20px !important;
+    }
+
+    [class*=" fa-"]:not(.fa-stack), [class*=" glyphicon-"], [class*=" icon-"], [class^=fa-]:not(.fa-stack), [class^=glyphicon-], [class^=icon-] {
+        display: inline-block;
+        line-height: 14px;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .profile-desc-link i {
+        width: 22px;
+        font-size: 19px;
+        color: #abb6c4;
+        margin-right: 5px;
+    }*/
+
+    /*   Yeni css*/
+    body {
+        background: rgb(57,72,82);
+    }
+    /*PROFİL GENEL*/
+    /* Profile container */
+    .profile-row {
+        margin: 20px 0;
+    }
+
+    /* Profile sidebar */
+    .profile-sidebar {
+        padding: 20px 0 10px 0;
+        background: #23313c;
+    }
+
+
+    .profile-userpic {
+        margin: 0 auto;
+        height: 175px;
+        width: 175px;
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: multiply;
+        color: transparent;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-border-radius: 50% !important;
+        -moz-border-radius: 50% !important;
+        border-radius: 50% !important;
+    }
+
+        .profile-userpic:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            color: #fafafa;
+            transition: all 0.3s ease;
+        }
+
+        .profile-userpic span {
+            display: inline-flex;
+            padding: 0.2em;
+        }
+
+    .profile-usertitle {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .profile-usertitle-name {
+        color: #5a7391;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .profile-usertitle-job {
+        text-transform: uppercase;
+        color: #5b9bd1;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .profile-userbuttons {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+        .profile-userbuttons .btn {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 15px;
+            margin-right: 5px;
+        }
+
+            .profile-userbuttons .btn:last-child {
+                margin-right: 0px;
+            }
+
+    .profile-usermenu {
+        margin-top: 30px;
+    }
+
+        .profile-usermenu ul li {
+            border-bottom: 1px solid #394852;
+        }
+
+            .profile-usermenu ul li:last-child {
+                border-bottom: none;
+            }
+
+            .profile-usermenu ul li a {
+                color: #93a3b5;
+                font-size: 14px;
+                font-weight: 400;
+            }
+
+                .profile-usermenu ul li a i {
+                    margin-right: 8px;
+                    font-size: 14px;
+                }
+
+                .profile-usermenu ul li a:hover {
+                    background-color: #fafcfd;
+                    color: #5b9bd1;
+                }
+
+            .profile-usermenu ul li.active {
+                border-bottom: none;
+            }
+
+                .profile-usermenu ul li.active a {
+                    color: #5b9bd1;
+                    background-color: #f6f9fb;
+                    border-left: 2px solid #394852;
+                    margin-left: -2px;
+                }
+
+    /* Profile Content */
+    .profile-content {
+        padding: 20px;
+        background: #23313c;
+    }
+
+
+    a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, td, textarea, th, ul {
+        -webkit-border-radius: 0 !important;
+        -moz-border-radius: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    .dashboard-stat, .portlet {
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+    }
+
+    .portlet {
+        margin-top: 0;
+        margin-bottom: 25px;
+        padding: 0;
+        border-radius: 4px;
+    }
+
+        .portlet.bordered {
+            border-left: 2px solid #394852 !important;
+        }
+
+        .portlet.light {
+            padding: 12px 20px 15px;
+            background-color: #23313c;
+        }
+
+            .portlet.light.bordered {
+                border: 1px solid #394852 !important;
+            }
+
+    .list-separated {
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+    .profile-stat {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #394852;
+    }
+
+    .profile-stat-title {
+        color: #7f90a4;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    .uppercase {
+        text-transform: uppercase !important;
+    }
+
+    .profile-stat-text {
+        color: #5b9bd1;
+        font-size: 10px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .profile-desc-title {
+        color: #7f90a4;
+        font-size: 17px;
+        font-weight: 600;
+    }
+
+    .profile-desc-text {
+        color: #7e8c9e;
+        font-size: 14px;
+    }
+
+    .margin-top-20 {
+        margin-top: 20px !important;
+    }
+
+    [class*=" fa-"]:not(.fa-stack), [class*=" glyphicon-"], [class*=" icon-"], [class^=fa-]:not(.fa-stack), [class^=glyphicon-], [class^=icon-] {
+        display: inline-block;
+        line-height: 14px;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .profile-desc-link i {
+        width: 22px;
+        font-size: 19px;
+        color: #abb6c4;
+        margin-right: 5px;
+    }
+
+
+
+
+    /*Yazılım listesi css*/
+    /* Tablo, tablo başlıkları ve tablo dataları için border özelliği*/
+    /*table,*/ th {
+        border: 2px solid /*white*/;
+    }
+
+    /* Borderları Daraltma */
+
+    table {
+        border-collapse: collapse;
+    }
+
+    /* Tablo genişlik ve Yükseklikleri */
+
+    tr, th {
+        width: 200px;
+        height: 50px;
+    }
+
+    /* Yatay ve Dikey Hizalama*/
+    th {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    td {
+        text-align: left;
+        vertical-align: bottom;
+    }
+
+    /* Padding Özellikleri*/
+
+    th, td {
+        padding-left: 20px;
+        padding-right: 50px;
+    }
+
+    /* Hover class'ı atanması */
+
+    tr {
+        /*background-color: #b0d1e8;*/
+    }
+
+        tr:hover {
+            opacity: 0.8;
+        }
+
+    /* Satırları Farklı Renkte Yapma
+    Kaçıncı çocuk elemen değerine even (çift) ve odd (tek)
+    sayılar olarak seçilmesi sağlanır.
+    */
+
+    th {
+        /*background-color: #7dafd3;*/
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        /* background-color: #f5f4f4;*/
+    }
+
+    /*Caption Özelliğinin Konumu*/
+
+    caption {
+        margin: 10px;
+        caption-side: bottom;
+    }
+
+    /* Hesap Ayarları*/
+
+    .form {
+        background: #8888;
+        padding: 40px;
+        max-width: 600px;
+        margin: 40px auto;
+        border-radius: 4px;
+        box-shadow: 0 4px 10px 4px rgba(19, 35, 47, .3);
+    }
+
+
+
+    h1 {
+        text-align: center;
+        color: #fff;
+        font-weight: 300;
+        margin: 0 0 40px;
+    }
+
+    label {
+        position: absolute;
+        transform: translateY(6px);
+        left: 13px;
+        color: rgba(255, 255, 255, .5);
+        transition: all 0.25s ease;
+        -webkit-backface-visibility: hidden;
+        pointer-events: none;
+        font-size: 22px;
+    }
+
+        label .req {
+            margin: 2px;
+            color: #1ab188;
+        }
+
+        label.active {
+            transform: translateY(50px);
+            left: 2px;
+            font-size: 14px;
+        }
+
+            label.active .req {
+                opacity: 0;
+            }
+
+        label.highlight {
+            color: #fff;
+        }
+
+    input, textarea {
+        font-size: 22px;
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 5px 10px;
+        background: none;
+        background-image: none;
+        border: 1px solid #a0b3b0;
+        color: #fff;
+        border-radius: 0;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+        input:focus, textarea:focus {
+            outline: 0;
+            border-color: #3991d1;
+        }
+
+    textarea {
+        border: 2px solid #a0b3b0;
+        resize: vertical;
+    }
+
+    .field-wrap {
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+    .top-row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .top-row > div {
+        float: left;
+        width: 48%;
+        margin-right: 4%;
+    }
+
+        .top-row > div:last-child {
+            margin: 0;
+        }
+
+    .button {
+        border: 0;
+        outline: none;
+        border-radius: 0;
+        padding: 15px 0;
+        font-size: 2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        background: #3991d1;
+        color: #fff;
+        transition: all 0.5s ease;
+        -webkit-appearance: none;
+    }
+
+        .button:hover, .button:focus {
+            background: #3177aa;
+        }
+
+    .button-block {
+        display: block;
+        width: 100%;
+    }
+
+    .forgot {
+        margin-top: -20px;
+        text-align: right;
+    }
+
+    h2 {
+        color: #3991d1;
+    }
+
+    h3 {
+        color: #3991d1;
+    }
+    /* TAKİP EDİLENLER  FAVORİLER*/
+
+    /*wrapper element so column padding doesn't affect fixed header background*/
+    .scroll-window-wrapper {
+        position: relative;
+    }
+    /* element containing the table */
+    .scroll-window {
+        height: 50rem;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+
+        .scroll-window table {
+            margin-bottom: 0;
+        }
+
+
+    .user-list {
+        width: 100%;
+    }
+
+    /*-----experimental scrollbar styles-----*/
+    /* line 199, ../scss/main.scss */
+    #bodywrap ::-webkit-scrollbar {
+        width: 1rem;
+    }
+    /* line 202, ../scss/main.scss */
+    #bodywrap ::-webkit-scrollbar-button {
+        /* width:1rem;*/
+    }
+    /* line 205, ../scss/main.scss */
+    #bodywrap ::-webkit-scrollbar-track {
+        background-color: #eaeaea;
+        border-left: 1px solid #ccc;
+    }
+    /* line 212, ../scss/main.scss */
+    #bodywrap ::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+    }
+
+    line 215, ../scss/main.scss
+    #bodywrap ::-webkit-scrollbar-thumb:hover {
+        background-color: #aaa;
+    }
+
+    button.tiny, .button.tiny {
+        padding-top: 0.625rem;
+        padding-right: 1.25rem;
+        padding-bottom: 0.6875rem;
+        padding-left: 1.25rem;
+        font-size: 0.6875rem;
+        display: inline-block;
+    }
+
+    button.alert, .button.alert {
+        background-color: rgba(255, 0, 0, 0.80);
+        border-color: #ea2f10;
+        color: #fff;
+        display: inline-block;
+    }
+    /*Sosyal medya*/
+    import url(https://fonts.googleapis.com/css?family=Lato);
+    import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
+    a {
+        text-decoration: none !important;
+        color: #fff;
+    }
+
+    p > a:hover {
+        color: #d9d9d9;
+        text-decoration: underline;
+    }
+
+    u {
+        color: #5b9bd1;
+    }
+
+    h1,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 1% 0 1% 0;
+    }
+
+    ._12 {
+        font-size: 1.2em;
+    }
+
+    ._14 {
+        font-size: 1.4em;
+    }
+
+    ul {
+        padding: 0;
+        list-style: none;
+    }
+
+    .footer-social-icons {
+        width: 350px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .social-icon {
+        color: #fff;
+    }
+
+    ul.social-icons {
+        margin-top: 10px;
+    }
+
+    .social-icons li {
+        vertical-align: top;
+        display: inline;
+        height: 100px;
+    }
+
+    .social-icons a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .fa-facebook {
+        padding: 10px 14px;
+        -o-transition: .5s;
+        -ms-transition: .5s;
+        -moz-transition: .5s;
+        -webkit-transition: .5s;
+        transition: .5s;
+        background-color: #23313c;
+    }
+
+        .fa-facebook:hover {
+            background-color: #3d5b99;
+        }
+
+    .fa-twitter {
+        padding: 10px 12px;
+        -o-transition: .5s;
+        -ms-transition: .5s;
+        -moz-transition: .5s;
+        -webkit-transition: .5s;
+        transition: .5s;
+        background-color: #23313c;
+    }
+
+        .fa-twitter:hover {
+            background-color: #00aced;
+        }
+
+    .fa-instagram {
+        padding: 10px 14px;
+        -o-transition: .5s;
+        -ms-transition: .5s;
+        -moz-transition: .5s;
+        -webkit-transition: .5s;
+        transition: .5s;
+        background-color: #23313c;
+    }
+
+        .fa-instagram:hover {
+            background-color: #eb2481;
+        }
+
+    .fa-youtube {
+        padding: 10px 14px;
+        -o-transition: .5s;
+        -ms-transition: .5s;
+        -moz-transition: .5s;
+        -webkit-transition: .5s;
+        transition: .5s;
+        background-color: #23313c;
+    }
+
+        .fa-youtube:hover {
+            background-color: #e64a41;
+        }
+
+    .fa-linkedin {
+        padding: 10px 14px;
+        -o-transition: .5s;
+        -ms-transition: .5s;
+        -moz-transition: .5s;
+        -webkit-transition: .5s;
+        transition: .5s;
+        background-color: #23313c;
+    }
+
+        .fa-linkedin:hover {
+            background-color: #0073a4;
+        }
+
+    .fa-github {
+        padding: 10px 14px;
+        -o-transition: .5s;
+        -ms-transition: .5s;
+        -moz-transition: .5s;
+        -webkit-transition: .5s;
+        transition: .5s;
+        background-color: #23313c;
+    }
+
+        .fa-github:hover {
+            background-color: #5a32a3;
+        }
+
+
+    label {
+        position: absolute;
+        transform: translateY(6px);
+        left: 13px;
+        color: rgba(255, 255, 255, 0.5);
+        transition: all 0.25s ease;
+        -webkit-backface-visibility: hidden;
+        pointer-events: none;
+        font-size: 22px;
+    }
+
+        label .req {
+            margin: 2px;
+            color: #85d2e4;
+        }
+
+        label.active {
+            transform: translateY(-90%);
+            left: 2px;
+            font-size: 14px;
+        }
+
+            label.active .req {
+                opacity: 0;
+            }
+
+        label.highlight {
+            color: #fff;
+        }
+
+    input, textarea {
+        font-size: 22px;
+        display: block;
+        width: 96%;
+        height: 100%;
+        padding: 5px 10px;
+        background: none;
+        background-image: none;
+        border: 1px solid #a0b3b0;
+        color: #fff;
+        border-radius: 0;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+
+
+        input:focus, textarea:focus {
+            outline: 0;
+            border-color: #85d2e4;
+        }
+
+    .btn {
+        background-color: #23313c;
+        border: none; /* Remove borders */
+        color: #5b9bd8; /* White text */
+        padding: 0px 0px; /* Some padding */
+        font-size: 17px; /* Set a font size */
+        cursor: pointer; /* Mouse pointer on hover */
+    }
+
+        .btn:hover {
+            color: white;
+        }
+</style>
+
+
+@*User profil Html*@
+
+
+
+
+
+<div class="container">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <!-- SIDEBAR USERPIC -->
+                @*<label>
+                        <img src="https://image.freepik.com/free-icon/small-camera_318-11159.jpg " width="100">
+                        <input type="file" hidden>
+                    </label>*@
+
+                @*<div class="profile-userpic">
+                        <img src="https://image.freepik.com/free-icon/small-camera_318-11159.jpg " width="100">
+
+                    </div>*@
+                &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp
+                <a href="#">
+                    <span style="color: #5b9bd1" class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <a href="#" aria-label="Change Profile Picture">
+                    <div class="profile-userpic" style="background-image: url('https://images.unsplash.com/photo-1532021361900-b5c5f49a5679?ixlib=rb-0.3.5&s=00217d9ff796b7d5bae62d2c9dc5994b&auto=format&fit=crop&w=500&q=60')">
+                        <span class="glyphicon glyphicon-camera"></span>
+                        <span>Change Image</span>
+                    </div>
+                </a>
+
+
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        Kullanıcı Adı
+                       
+
+                    </div>
+                    <div class="profile-usertitle-job">
+                        Yazılımcı
+                       
+                    </div>
+                </div>
+                <!-- END SIDEBAR USER TITLE -->
+                <!-- END SIDEBAR BUTTONS -->
+                <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li id="softwares-tab" class="active">
+                            @*<li class="active">*@
+                            @*<a href="#">*@
+                            <a id="softwares">
+                                <i class="glyphicon glyphicon-home"></i>
+                                Yazılımlar
+                            </a>
+                        </li>
+                        <li>
+                            @*<a href="#">*@
+                        <li id="account-settings-tab">
+                            <a id="account-settings">
+                                <i class="glyphicon glyphicon-user"></i>
+                                Hesap Ayarları
+                            </a>
+                        </li>
+                        <li>
+                        <li id="follows-tab">
+                            <a id="follows">
+                                @*<a href="#" target="_blank">*@
+                                <i class="glyphicon glyphicon-ok"></i>
+                                Takip Edilenler
+                            </a>
+                        </li>
+                        <li>
+                        <li id="favorites-tab">
+                            <a id="favorites">
+                                @*<a href="#">*@
+                                <i class="glyphicon glyphicon-flag"></i>
+                                Favoriler
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END MENU -->
+
+                <div class="portlet light bordered">
+                    <!-- STAT -->
+                    <div class="row list-separated profile-stat">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="uppercase profile-stat-title"> 37 </div>
+                            <div class="uppercase profile-stat-text"> PROJE </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="uppercase profile-stat-title"> 51 </div>
+                            <div class="uppercase profile-stat-text"> YAZILIM </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="uppercase profile-stat-title"> 61 </div>
+                            <div class="uppercase profile-stat-text"> GÜNCELLEME </div>
+                        </div>
+                    </div>
+                    <!-- END STAT -->
+                    <div>
+                        <h4 style="display:inline-block"><b>İletişim Bilgileri</b></h4>
+
+                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp
+                        <a href="#">
+                            <span style="color: #5b9bd1" class="glyphicon glyphicon-pencil"></span>
+                        </a>
+
+
+
+                        <div class="margin-top-20 profile-desc-link">
+                            <i class="fa fa-phone"></i>
+                            <a>telefon numara</a>
+                        </div>
+                        <div class="margin-top-20 profile-desc-link">
+                            <i class="fa fa-google-plus"></i>
+                            <a>Mail</a>
+                        </div>
+
+                        <div class="margin-top-20 profile-desc-link">
+                            <i class="fa fa-map-marker"></i>
+                            <a href="https://www.google.com.tr/maps">adres</a>
+                        </div>
+
+                        <div class="margin-top-20 profile-desc-link">
+                            <i class="fa fa-globe"></i>
+                            <a href="https://www.apollowebstudio.com">KullanıcıAdı.com</a>
+                        </div>
+                        <div class="footer-social-icons">
+                            <h4 class="_14">Bizi Takip Edin</h4>
+                            <ul class="social-icons">
+                                <li><a href="https://www.linkedin.com/" class="social-icon"> <i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="https://github.com/" class="social-icon"> <i class="fa fa-github"></i></a></li>
+                                <li><a href="https://www.facebook.com/" class="social-icon"> <i class="fa fa-facebook"></i></a></li>
+                                <br>
+                                <br>
+                                <li><a href="https://twitter.com/" class="social-icon"> <i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/" class="social-icon"> <i class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://www.youtube.com/" class="social-icon"> <i class="fa fa-youtube"></i></a></li>
+
+                            </ul>
+                        </div>
+
+
+                        @*<div class="margin-top-20 profile-desc-link">
+                                <i class="fa fa-twitter"></i>
+                                <a href="https://www.twitter.com/jasondavisfl/">Jasondavisfl</a>
+                            </div>
+                            <div class="margin-top-20 profile-desc-link">
+                                <i class="fa fa-facebook"></i>
+                                <a href="https://www.facebook.com/">JasonDavisFL</a>
+                            </div>
+                            <div class="margin-top-20 profile-desc-link">
+                                <i class="fa fa-github"></i>
+                                <a href="https://www.github.com">JasonDavisFL</a>
+                            </div>
+                            <div class="margin-top-20 profile-desc-link">
+                                <i class="fa fa-linkedin"></i>
+                                <a href="https://www.linkedin.com/">JasonDavisFL</a>
+                            </div>
+                            <div class="margin-top-20 profile-desc-link">
+                                <i class="fa fa-instagram"></i>
+                                <a href="https://www.instagram.com/">JasonDavisFL</a>
+                            </div>*@
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="profile-content">
+                @*yazılımlar listesi*@
+                <div id="software-area">
+                    @*<h3>Yazılım eklemeye ne dersin?</h3>
+
+                        <button class="button tiny">Yazılım Ekle</button>*@
+
+                    <div class="row">
+
+                        <div class="col-md-1">
+                            <h2 style="color: #5b9bd1; display:inline-block;">Yazılımlar</h2>
+                        </div>
+
+                        <div class="col-md-offset-11">
+                            <h2 class="btn add-btn" data-target="#software-adding" data-toggle="modal"><i class="fa fa-plus-circle"></i></h2>
+                            @*<button class="btn"><i class="fa fa-plus-circle"></i></button>*@
+                        </div>
+
+                    </div>
+                    @*&nbsp*@
+
+                    @*<h2>Yazılımlar</h2>*@
+                    <table>
+
+                        <tr>
+
+                            <th style=" background-color : #7f90a4  ">Yazılım Adı</th>
+                            <th style=" background-color : #7f90a4  ">Açıklama</th>
+                            <th style=" background-color : #7f90a4  ">Güncelleme Tarihi</th>
+                            <th style=" background-color : #7f90a4  ">Düzenleme</th>
+                        </tr>
+
+                        <tr>
+
+                            <th>Yazılım Adı</th>
+                            <th>Yazılım hakkında bilgi</th>
+                            <th>../../....</th>
+
+                            <td><button class="button tiny">Düzenle</button></td>
+
+                        </tr>
+
+
+
+                    </table>
+
+                </div>
+                @*profil düzenleme*@
+
+                @*<h2 style="color: #5b9bd1">Hesap Ayarları</h2><br>*@
+                <div id="account-settings-area" class="hide">
+
+                    <h2>Hesap Ayarları</h2><br>
+                    <div class="field-wrap">
+
+                        <label> Kullanıcı Adı</label>
+                        <input type="text" name="loginNameComp">
+                    </div>
+                    <div class="field-wrap">
+                        <label>Ad Soyad</label>
+                        <input type="text" name="accountNameComp">
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>Email</label>
+                        <input type="email" name="emailComp">
+                    </div>
+                    <div class="field-wrap">
+                        <label>Adres</label>
+                        <input type="adres" name="emailComp">
+                    </div>
+
+
+
+                    <div class="field-wrap">
+                        <label>Telefon</label>
+                        <input name="telComp" type="text">
+                    </div>
+                    <button type="update" class="button button-block"> Güncelle</button>
+                    <h2>Şifre Değiştir</h2><br>
+                    <div class="field-wrap">
+                        <label> Yeni Şifre</label>
+
+                        <input type="password" name="passwordComp" id="passwordComp">
+                    </div>
+                    <div class="field-wrap">
+                        <label>Şifre (tekrar)</label>
+                        <input type="password" name="passwordComp" id="passwordComp">
+                    </div>
+
+                    <button type="changepw" class="button button-block">Güncelle</button>
+
+                </div>
+
+                @*takip edilenler*@
+                <div id="follows-area" class="hide">
+                    <div id="bodywrap">
+                        <div class="scroll-window-wrapper">
+                            <h2 style="color: #5b9bd1">
+                                Takip Edilenler<br>
+
+                            </h2>
+                            <div class="scroll-window" style=" overflow-y:auto;">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Foto</td>
+                                            <td>Ad Soyad</td>
+                                            <td class="text-right">
+                                                <button class="button tiny">Profili Görüntüle</button>
+                                                <button class="button alert tiny">Takibi Bırak</button>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Foto</td>
+                                            <td>Ad Soyad</td>
+                                            <td class="text-right">
+                                                <button class="button tiny">Profili Görüntüle</button>
+                                                <button class="button alert tiny">Takibi Bırak</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Foto</td>
+                                            <td>Ad Soyad</td>
+                                            <td class="text-right">
+                                                <button class="button tiny">Profili Görüntüle</button>
+                                                <button class="button alert tiny">Takibi Bırak</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Foto</td>
+                                            <td>Ad Soyad</td>
+                                            <td class="text-right">
+                                                <button class="button tiny">Profili Görüntüle</button>
+                                                <button class="button alert tiny">Takibi Bırak</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Foto</td>
+                                            <td>Ad Soyad</td>
+                                            <td class="text-right">
+                                                <button class="button tiny">Profili Görüntüle</button>
+                                                <button class="button alert tiny">Takibi Bırak</button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                @*favoriler*@
+
+
+                <div id="favorites-area" class="hide">
+
+                    <div id="bodywrap">
+                        <div class="scroll-window-wrapper">
+                            <h2 style="color: #5b9bd1">
+                                Favori Yazılımlar<br>
+
+                            </h2>
+                            <div class="scroll-window" style="overflow-y:auto;">
+                                <table class="table">
+                                    <tbody>
+
+
+
+
+                                        <tr>
+                                            <td>Yazılım Adı</td>
+                                            <td>Yazılım Açılama</td>
+                                            <td>Yazılım Sahibi</td>
+                                            <td class="text-right">
+                                                <button class="button tiny">Yazılımı Görüntüle</button>
+                                                <button class="button alert tiny">Favorilerden Çıkar</button>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Yazılım Adı</td>
+                                            <td>Yazılım Açılama</td>
+                                            <td>Yazılım Sahibi</td>
+                                            <td class="text-right">
+                                                <button class="button tiny">Yazılımı Görüntüle</button>
+                                                <button class="button alert tiny">Favorilerden Çıkar</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Yazılım Adı</td>
+                                            <td>Yazılım Açılama</td>
+                                            <td>Yazılım Sahibi</td>
+                                            <td class="text-right">
+                                                <button class="button tiny">Yazılımı Görüntüle</button>
+                                                <button class="button alert tiny">Favorilerden Çıkar</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Yazılım Adı</td>
+                                            <td>Yazılım Açılama</td>
+                                            <td>Yazılım Sahibi</td>
+                                            <td class="text-right">
+                                                <button class="button tiny">Yazılımı Görüntüle</button>
+                                                <button class="button alert tiny">Favorilerden Çıkar</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Yazılım Adı</td>
+                                            <td>Yazılım Açılama</td>
+                                            <td>Yazılım Sahibi</td>
+                                            <td class="text-right">
+                                                <button class="button tiny">Yazılımı Görüntüle</button>
+                                                <button class="button alert tiny">Favorilerden Çıkar</button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div> @*yandaki alan*@
+            </div>
+
+
+        </div> @*1*@
+
+
+
+    </div>@*2*@
+</div>@*3*@
+
+
+
+

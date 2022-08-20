@@ -1,0 +1,561 @@
+﻿@{
+    ViewBag.Title = "SoftwareDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+@Styles.Render("~/Content/template.css")
+@Styles.Render("~/Content/SocialMedia.css")
+@Styles.Render("~/Content/SoftwareDetailsTable.css")
+@Styles.Render("~/Content/Layout.css")
+@Styles.Render("~/Content/Site.css")
+@Scripts.Render("~/Scripts/Rating.js")
+@Styles.Render("~/Content/iletisim.css")
+@Styles.Render("~/Content/CompanyDetails.css")
+@Scripts.Render("~/Scripts/Follow.js")
+@* @Styles.Render("~/Content/Rating.css") *@
+
+
+@{
+    var software = TempData["SoftwareDetail"] as TDSI_TurkiyeYerliYazilimEnvanteri.Models.Software;
+    var company = TempData["SoftwareCompany"] as TDSI_TurkiyeYerliYazilimEnvanteri.Models.Company;
+}
+
+<div class="header">
+
+    <div align="left">
+        <img class="circular--square" src="~/Images/havelsan.jpg" style="width:20%;height:auto;">
+        <h2 style="color:#1f2d34">@software.softwareName</h2>
+        @*<h2 style="color:#1f2d34">Görüntü İşleme ile Plaka Takip Sistemi</h2>*@
+
+    </div>
+</div>
+
+
+
+@*POP UP SCRİPT CSS HTML*@
+<script>
+    function popupOpenClose(popup) {
+
+        /* Add div inside popup for layout if one doesn't exist */
+        if ($(".wrapper").length == 0) {
+            $(popup).wrapInner("<div class='wrapper'></div>");
+        }
+
+        /* Open popup */
+        $(popup).show();
+
+        /* Close popup if user clicks on background */
+        $(popup).click(function (e) {
+            if (e.target == this) {
+                if ($(popup).is(':visible')) {
+                    $(popup).hide();
+                }
+            }
+        });
+
+        /* Close popup and remove errors if user clicks on cancel or close buttons */
+        $(popup).find("button[name=close]").on("click", function () {
+            if ($(".formElementError").is(':visible')) {
+                $(".formElementError").remove();
+            }
+            $(popup).hide();
+        });
+    }
+
+    $(document).ready(function () {
+        $("[data-js=open]").on("click", function () {
+            popupOpenClose($(".popup"));
+        });
+    });
+</script>
+
+<style>
+
+    a {
+        color: #FFF;
+        border-radius: 5px;
+    }
+
+
+    #container {
+        margin: 0 auto;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    nav {
+        margin: 50px 0;
+        background-color: rgb(57,72,82);
+    }
+
+        nav ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            position: relative;
+        }
+
+            nav ul li {
+                display: inline-block;
+                background-color: #85d2e4;
+            }
+
+        nav a {
+            display: block;
+            padding: 0 10px;
+            color: rgb(57,72,82);
+            font-size: 20px;
+            line-height: 40px;
+            text-decoration: none;
+        }
+
+            nav a:hover {
+                background-color: #000000;
+            }
+
+        /* Hide Dropdowns by Default */
+        nav ul ul {
+            display: none;
+            position: absolute;
+            top: 40px; /* the height of the main nav */
+        }
+
+        /* Display Dropdowns on Hover */
+        nav ul li:hover > ul {
+            display: inherit;
+        }
+
+        /* Fisrt Tier Dropdown */
+        nav ul ul li {
+            width: 170px;
+            float: none;
+            display: list-item;
+            position: relative;
+        }
+
+        /* Second, Third and more Tiers */
+        nav ul ul ul li {
+            position: relative;
+            top: -60px;
+            left: 170px;
+        }
+
+
+    /* Change this in order to change the Dropdown symbol */
+    li > a:after {
+        content: ' ↓';
+    }
+
+    li > a:only-child:after {
+        content: '';
+    }
+
+
+    button {
+        background: #5a8a98;
+        border: 0;
+        border-radius: 4px;
+        font-size: 18px;
+        color: #FFFFFF;
+        cursor: pointer;
+        &:focus
+
+    {
+        outline: none;
+    }
+
+    &:hover {
+        background: lighten($btn-color, 10%);
+    }
+
+    }
+
+    .popup {
+        border: solid;
+        border-color: #f5b006;
+        background: #23313c;
+        opacity: 0.9;
+        position: center;
+        display: none;
+        z-index: 5000;
+        height: 60%;
+        width: 100%;
+        margin-top: 100px;
+
+    {
+        max-width: 600px;
+        // Max-width of popup can be changed width: 70%;
+        // Width of popup position: fixed;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        background: #FFFFFF;
+        padding: 30px;
+        z-index: 5001;
+        text-align: center;
+        border: 5px solid #9AD3DE;
+        border-radius: 20px;
+        box-shadow: 0px 0px 15px 0px rgba(#000000, 0.4);
+    }
+
+    #softwares-tabs:hover {
+        background-color: #cae9f1;
+    }
+
+    .field-wrap {
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+    }
+
+    label {
+        font: 1rem 'Fira Sans', sans-serif;
+    }
+
+    input {
+        margin: .4rem;
+    }
+</style>
+
+<div align="center" class="popup">
+    <br /><br />
+    <h2 style="color: #f5b006;">Bu Şirketi Bildir!</h2>
+    <div id="container">
+        <nav>
+            <ul style="z-index:5;" class="col-md-12">
+                <li>
+                    <a href="#">Bir Şikayet Sebebi Seçiniz </a>
+                    <!-- First Tier Drop Down -->
+                    <ul>
+                        <li><a href="#">Sahte yazılım</a></li>
+                        <li><a href="#">Spam</a></li>
+                        <li><a href="#">Uygunsuz İçerik</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <br />
+    </div>
+    <p style="color: #85d2e4;">Şirket hakkında bildiri yaparken doğru sebebi seçtiğinize lütfen emin olunuz.</p>
+    <fieldset>
+        <textarea style="width:537px;height:107px;" placeholder="Iletinizi buraya yazınız..." tabindex="10" required></textarea>
+    </fieldset>
+    <br />
+    <div class="col-md-12">
+        <button style="padding: 10px 25px;" name="Gönder" type="submit" id="contact-submit" data-submit="...Sending">Gönder</button>
+        <button style="padding: 10px 25px;" name="close">Kapat</button>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="column middle">
+        <div class="info-section">
+            <div>
+                <ul class="nav nav-tabs" style="border-color: #65def9; width:40%;">
+                    <li>
+                        <a style="color:white" href="#newversion" data-toggle="tab" id="softwares-tabs">Güncel Sürüm</a>
+                    </li>
+                    <li>
+                        <a style="color:white" href="#oldversion" data-toggle="tab" id="softwares-tabs">Eski Sürüm</a>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div>
+                    <h2>@software.softwareName</h2>
+                </div>
+                <div class="tab-pane fade in active" id="newversion">
+                    <div class="card">
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div>
+                                    <span style="color:aqua;" align="left"> Sürüm: @software.softwareVersion  </span> <br />
+                                    <span style="color:aqua;" align="right"> Platform: Masaüstü Uygulaması</span>
+                                </div>
+                                @*<div>
+                                        <span style="color:aqua;" align="left"> Sürüm:  5.1.1  </span> <br />
+                                        <span style="color:aqua;" align="right"> Platform: Masaüstü Uygulaması</span>
+                                    </div>*@
+
+                            </div>
+
+                            @* FAVORİLERE EKLEME BUTONU ve İÇERİĞİ BİLDİR *@
+                            <ul class="nav navbar-nav">
+
+                                @{
+
+                                    List<TDSI_TurkiyeYerliYazilimEnvanteri.Models.FavoriteSoftware> favorites = new List<TDSI_TurkiyeYerliYazilimEnvanteri.Models.FavoriteSoftware>();
+                                    foreach (var item in TempData["Favorites"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.FavoriteSoftware>)
+                                    {
+                                        if (TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID == item.accountID)
+                                        {
+                                            favorites.Add(item);
+                                        }
+                                    }
+
+                                    //incelenen şirketi takip eden hesaplar TempData["Favorites"] da tutuluyor
+                                    if (Session["OnlineKullanici"] != null)
+                                    {
+
+                                        if (software.accountID == TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID)
+                                        {
+                                            @Html.ActionLink("Profile Git", "CompanyProfile", "UserController", new { id = software.softwareID }, new { @class = "pull-left follow-button" });
+                                        }
+                                        else
+                                        {
+                                            if (favorites.Count == 0)
+                                            {
+                                                @Html.ActionLink("Takip Et", "AddToFavorites", "Softwares", new { id = software.softwareID }, new { @class = "pull-left follow-button" });
+                                            }
+                                            else if (favorites[0].accountID == TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID)
+                                            {
+                                                @Html.ActionLink("Takibi Bırak", "AddToFavorites", "Softwares", new { id = software.softwareID }, new { @class = "pull-left unfollow-button" });
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Takip Et", "AddToFavorites", "Softwares", new { id = software.softwareID }, new { @class = "pull-left follow-button" });
+                                            }
+
+                                        }
+
+
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Takip Et", "AddToFavorites", "Softwares", new { id = software.softwareID }, new { @class = "pull-left follow-button" });
+                                    }
+
+                                    if (software.accountID != TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID)
+                                    {
+                                        <li><button data-js="open" id="report-button">İçeriği Bildir!</button></li>
+
+                                    }
+                                }
+
+                            </ul>
+                        </div>
+
+                        <div style="width: 50%;">
+                            <h5 style="color:grey;"><i>Yüklenme Tarihi, @software.softwareCreatedDate<br></i></h5>
+                            @*<h5 style="color:grey;"><i>Yüklenme Tarihi, Aralık 2017<br></i></h5>*@
+                        </div>
+                        @* açıklama çekilecek *@
+                        <p align="left">&emsp; Bu  çalışmada,  bir  giriş  kapısına  gelen  aracın  plakasının  görüntü  işleme  algoritmaları  ile  tanınarak  kapının otomatik olarak açılıp kapanmasını sağlayan bir sistem geliştirilmiştir. Çalışmada, insan gücünden tasarruf sağlamak ve  güvenliği  artırmak  amaçlanmıştır.  Geliştirilen  sistemde,  kapıya  gelen  aracın  görüntüsü  kamera  ile  alınarak bilgisayara  aktarılmakta  ve  C#    programlama  dili  kullanılarak  geliştirilen  görüntü  işleme  algoritmaları  tabanlı  bir  yazılım sayesinde plaka tanıma işlemi çok hızlı bir şekilde gerçekleştirilmektedir. Yazılım tarafından okunan plaka veri  tabanından  kontrol  edilmekte  ve  plaka  veri  tabanında  kayıtlı  ise  kapı  açılmakta,  kayıtlı  değilse  uyarıverilmektedir.  Çalışmada  plakadaki  karakterleri  ayırmak  için  Blob  Coloring  (İkili  Renklendirme)  algoritmasıkullanılmıştır.  Geliştirilen  yazılım  ile  plakaların  yerinin  bulunmasında  %98,  plakaların  doğru  olarak  okunmasında ise % 88,1 başarı elde edilmiş ve daha önceki çalışmalara oranla bir iyileştirme sağlandığı görülmüştür.</p>
+                        <p align="left">Son  çeyrek  yüzyılda  araç  sayısının  artması  ve  trafikte  oluşan  sorunlar,  otomatik  araç  tanıma  ve  trafik  akış  kontrolü  sistemlerine  duyulan  ihtiyacıarttırmıştır.  Bu  amaca  yönelik  çalışmalar  temel  olarak    araçları    özel    bir    noktadan    geçerken    tanımlamak,      aracın      konumunu      belirlemek,      davranışlarını     gözlemlemek     ve     bu     verileri     kullanarak trafik denetimi sağlamaya yöneliktir. </p>
+                        <br /><br />
+                    </div>
+                </div>
+
+                @*ESKİ SÜRÜM*@
+                <div class="tab-pane fade" id="oldversion">
+                    <div>
+
+                        <div class="row">
+                            <div>
+
+                                <div>
+                                    <span style="color:aqua;" align="left"> Sürüm:  5.0.0  </span> <br />
+                                    <span style="color:aqua;" align="right"> Platform: Masaüstü Uygulaması</span>
+                                </div>
+                                <div style="width: 50%;">
+                                    <h5 style="color:grey;"><i>Yüklenme Tarihi, Şubat 2014<br></i></h5>
+                                </div>
+                                <p align="left">&emsp; Bu  çalışmada,  bir  giriş  kapısına  gelen  aracın  plakasının  görüntü  işleme  algoritmaları  ile  tanınarak  kapının otomatik olarak açılıp kapanmasını sağlayan bir sistem geliştirilmiştir. Çalışmada, insan gücünden tasarruf sağlamak ve  güvenliği  artırmak  amaçlanmıştır.  Geliştirilen  sistemde,  kapıya  gelen  aracın  görüntüsü  kamera  ile  alınarak bilgisayara  aktarılmakta  ve  C#    programlama  dili  kullanılarak  geliştirilen  görüntü  işleme  algoritmaları  tabanlı  bir  yazılım sayesinde plaka tanıma işlemi çok hızlı bir şekilde gerçekleştirilmektedir. Yazılım tarafından okunan plaka veri  tabanından  kontrol  edilmekte  ve  plaka  veri  tabanında  kayıtlı  ise  kapı  açılmakta,  kayıtlı  değilse  uyarıverilmektedir.  Çalışmada  plakadaki  karakterleri  ayırmak  için  Blob  Coloring  (İkili  Renklendirme)  algoritmasıkullanılmıştır.  Geliştirilen  yazılım  ile  plakaların  yerinin  bulunmasında  %98,  plakaların  doğru  olarak  okunmasında ise % 88,1 başarı elde edilmiş ve daha önceki çalışmalara oranla bir iyileştirme sağlandığı görülmüştür.</p>
+                                <p align="left">Son  çeyrek  yüzyılda  araç  sayısının  artması  ve  trafikte  oluşan  sorunlar,  otomatik  araç  tanıma  ve  trafik  akış  kontrolü  sistemlerine  duyulan  ihtiyacıarttırmıştır.  Bu  amaca  yönelik  çalışmalar  temel  olarak    araçları    özel    bir    noktadan    geçerken    tanımlamak,      aracın      konumunu      belirlemek,      davranışlarını     gözlemlemek     ve     bu     verileri     kullanarak trafik denetimi sağlamaya yöneliktir. </p>
+                                <br /><br />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="container">
+                <div class="items">
+                    <div class="items-head">
+                        <p>Firmaya ait diğer yazılımlar</p>
+                        <hr>
+                        @foreach (var softwares in TempData["CompanySoftwares"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Software>)
+                        {
+                            <div class="items-body-content">
+                                <a style="text-decoration:none;" href="@Url.Action("SoftwareDetails", new { id = softwares.softwareID})" class="other-softwares">@softwares.softwareName</a>
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                        }
+                        <!-- #region eski yazılmlar -->
+                        @*<div class="items-body">
+                                <div class="items-body-content">
+                                    <span class="other-softwares">Web Usabilty Testing</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </div>
+                                <div class="items-body-content">
+                                    <span class="other-softwares">Design of Everyday Things</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </div>
+                                <div class="items-body-content">
+                                    <span class="other-softwares">Practical Empathy: For Collaboration & Creativity in Your Work</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </div>
+                                <div class="items-body-content">
+                                    <span class="other-softwares">About Face: The Essentials of Interaction Design</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </div>
+                            </div>*@
+                        <!-- #endregion -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column side">
+        @*YILDIZ PUANLAMA*@
+        @*
+            <div class="card pull-left">
+
+                <input type="radio" name="rate2" value="5" />
+                <label for="rate2-star5" title="Awesome">5</label>
+
+                <input type="radio" name="rate2" value="4.5" />
+                <label class="star-half" for="rate2-star5-half" title="Excellent">4.5</label>
+
+                <input type="radio" name="rate2" value="4" />
+                <label for="rate2-star4" title="Very good">4</label>
+
+                <input type="radio" name="rate2" value="3.5" />
+                <label class="star-half" for="rate2-star3-half" title="Good">3.5</label>
+
+                <input type="radio" name="rate2" value="3" />
+                <label for="rate2-star3" title="Satisfactory">3</label>
+
+                <input type="radio" name="rate2" value="2.5" />
+                <label class="star-half" for="rate2-star2-half" title="Unsatisfactory">2.5</label>
+
+                <input type="radio" name="rate2" value="2" />
+                <label for="rate2-star2" title="Bad">2</label>
+
+                <input id="rate2-star1-half" type="radio" name="rate2" value="1.5" />
+                <label class="star-half" for="rate2-star1-half" title="Very bad">1.5</label>
+
+                <input id="rate2-star1" type="radio" name="rate2" value="1" />
+                <label for="rate2-star1" title="Awful">1</label>
+
+                <input type="radio" name="rate2" value="0.5" />
+                <label class="star-half" for="rate2-star0-half" title="Horrific">0.5</label>
+
+            </div>
+            <span style="color:white">&nbsp &nbsp (3.5) </span>
+        *@
+        <div class="card" align="center">
+
+            <h3 class="comp-section-titles" align="center"> <br>İLETİŞİM<br></h3>
+            <hr style="width:75%">
+
+            <p>
+                <i class="material-icons" style="font-size:20px">room</i>
+                @* ilk 10 yazılım admin tarafından test eklendiği için burada hata verir. *@
+
+                @*<i> @company.companyAddress </i>*@
+
+                @*<i> Mustafa Kemal Mahallesi 2120 Cad. No:39 P.K. : 06510 Çankaya/Ankara</i>*@
+            </p>
+
+            <p>
+                <span class="glyphicon glyphicon-earphone" style="font-size:20px"></span>
+                @* tel numarası eklencek *@
+                <i>0312 219 5787 </i>
+            </p>
+            <p>
+                <i class="fa fa-envelope" style="font-size:18px"></i>
+                <a href="https:// @software.Account.accountMail">@software.Account.accountMail</a>
+                <br><br><br><br>
+            </p>
+
+        </div>
+
+        <div align="center">
+            <br>
+            <h3 class="comp-section-titles" align="center">BİZİ TAKİP EDİN  </h3>
+            <hr style="width:75%">
+            <div class="exsprite" style="width: 120%">
+
+
+                <a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/f1.png" title="Facebook" id="ayırma" /></a>
+                <a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/t1.png" title="Twitter" id="ayırma" /></a>
+                <a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/g1.png" title="Google+" /></a>
+                <br /><a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/i1.png" title="Instagram" /></a>
+                <a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/t2.png" title="Tumblr" /></a>
+                <a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/y1.png" title="YouTube" /></a>
+            </div><br /><br />
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <form id="contact" action="" method="post" style="width:230%">
+
+        <h3>Proje Hakkında görüşlerinizi bizimle Paylaşın.</h3>
+        <hr />
+        <h3>ÜYEYSE KÜÇÜK ÜYE PROFİL FOTOSU+İSMİ</h3>
+
+        <fieldset>
+            <input placeholder="Lütfen adınızı giriniz." style="width:50%" type="text" tabindex="1" required autofocus>
+        </fieldset>
+
+        <hr />
+        <h4>Projeyi geliştirilebilir buluyorum.</h4>
+        <div>
+            <input type="radio" id="huey" name="drone" value="Evet">
+            <label for="Evet">Evet</label>
+        </div>
+        <div>
+            <input type="radio" id="dewey" name="drone" value="Emin değilim">
+            <label for="EminDegilim">Emin Değilim</label>
+        </div>
+        <div>
+            <input type="radio" id="louie" name="drone" value="Hayır">
+            <label for="Hayır">Hayır</label>
+        </div>
+        <hr style="width:30%" />
+        <h4>Projenin faydalı olduğunu düşünüyorum.</h4>
+        <div>
+            <input type="radio" id="huey" name="drone1" value="Evet">
+            <label for="Evet">Evet</label>
+        </div>
+        <div>
+            <input type="radio" id="dewey" name="drone1" value="Emindeğilim">
+            <label for="EminDegilim">Emin Değilim</label>
+        </div>
+        <div>
+            <input type="radio" id="louie" name="drone1" value="Hayır">
+            <label for="Hayır">Hayır</label>
+        </div>
+        <hr style="width:30%"/>
+        <h4>Projenin kötü örnek olduğunu düşünüyorum.</h4>
+        <div>
+            <input type="radio" id="huey" name="drone2" value="Evet">
+            <label for="Evet">Evet</label>
+        </div>
+        <div>
+            <input type="radio" id="dewey" name="drone2" value="Emindeğilim">
+            <label for="EminDegilim">Emin Değilim</label>
+        </div>
+        <div>
+            <input type="radio" id="louie" name="drone2" value="Hayır">
+            <label for="Hayır">Hayır</label>
+        </div>
+
+        <fieldset>
+            <button name="Gönder" type="submit" style="width:30%" id="contact-submit" data-submit="...Sending">Gönder</button>
+        </fieldset>
+    </form>
+</div>

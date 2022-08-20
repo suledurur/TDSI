@@ -1,0 +1,134 @@
+﻿
+.main-title-area, .button-area {
+    margin-top: 5%;
+}
+
+
+
+.main-title {
+    color: #85d2e4;
+    text-align: center;
+    margin-top: 5%;
+}
+
+.soft-title {
+    color: #a6ceca;
+    margin-top: 15%;
+}
+
+.information-text {
+    color: #b0c8dc;
+    text-align: center;
+    margin-top: 5%;
+}
+
+.glyphicon {
+    vertical-align: text-bottom;
+}
+
+@media(max-width: 768px) {
+    .main-title {
+        margin-top: 15%;
+    }
+    
+    .soft-title {
+        margin-top: 10%;
+    }
+
+    .information-text {
+        margin-top: 10%;
+    }
+}
+
+
+.div-home{
+    padding-right:2px;
+}
+
+.div-support{
+    padding-left:2px;
+}
+
+.go-to-home-button {
+    color: #ffffff;
+    font-family: "Helvetica";
+    font-size: 10pt;
+    text-align: center;
+    background-color: cornflowerblue;
+    border: 1px solid;
+    border-color: #3399FF;
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    top: 50px;
+    left: 50px;
+    margin: 2px;
+}
+
+    .go-to-home-button:hover {
+        color: #fff;
+        text-decoration: none;
+    }
+
+.go-to-support-button {
+    color: #ffffff;
+    font-family: "Helvetica";
+    font-size: 10pt;
+    text-align: center;
+    background-color: #f5b006;
+    border: 1px solid;
+    border-color: darkgoldenrod;
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    top: 50px;
+    left: 50px;
+    margin: 2px;
+}
+
+    .go-to-support-button:hover {
+        color: #fff;
+        text-decoration: none;
+    }
+
+#report-button {
+    color: #ffffff;
+    font-family: "Helvetica";
+    font-size: 10pt;
+    background-color: #f5b006;
+    border: 1px solid;
+    border-color: darkgoldenrod;
+    border-radius: 3px;
+    width: 85px;
+    height: 30px;
+    top: 50px;
+    left: 50px;
+    margin: 2px;
+}
+
+/*giriş hatası*/
+
+.go-to-login-button, .go-to-forgotpw-button, .go-to-register-button {
+    color: #ffffff;
+    font-family: "Helvetica";
+    font-size: 10pt;
+    text-align: center;
+    background-color: rgba(133, 210, 228, 0.46);
+    border: 1px solid;
+    border-color:white;
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    top: 50px;
+    left: 50px;
+    margin: 2px;
+    
+   
+}
+

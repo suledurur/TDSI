@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Error Page!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/Error.css")
+
+<h2>Error 101!</h2>
+<div class="row main-title-area">
+    <div class="col-md-6 col-xs-12 col-md-offset-3">
+        <h1 class="main-title"> Kullanıcı Adı veya Şifre Hatalı <span class="glyphicon glyphicon-exclamation-sign main-title"></span></h1>
+    </div>
+</div>
+<div class="row content-area">
+    <div class="col-md-6 col-xs-8 col-md-offset-3 col-xs-offset-2">
+        <h2 class="soft-title" align="center">Lütfen tekrar deneyiniz.</h2>
+    </div>
+</div>
+
+<div class="row button-area" style="display:inline">
+
+    <div class="col-md-2 col-xs-6 col-md-offset-3 ">
+        <a class="btn go-to-login-button" href="@Url.Action("Index","Login")">Tekrar dene</a>
+    </div>
+    <div class="col-md-2 col-xs-6">
+        <a href="" class="btn go-to-forgotpw-button">Şifremi Unuttum</a>
+    </div>
+    <div class="col-md-2 col-xs-6 ">
+        <a href="@Url.Action("Index","Register")" class="btn go-to-register-button">Üye Ol</a>
+    </div>
+</div>
+

@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "Error Page!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>Error 105!</h2>*@
+@Styles.Render("~/Content/Error.css")
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        background: #222;
+        margin: 2em 20em;
+        box-sizing: border-box;
+    }
+
+    .searchform {
+        display: block;
+        margin: 0;
+        overflow: hidden;
+        width: 50%;
+    }
+
+    label, input {
+        vertical-align: baseline;
+        color: #737373;
+    }
+
+    label {
+        margin: 0.125em 0.125em 0 0;
+        float: right;
+    }
+
+    input[type="search"] {
+        border: 2px solid #737373;
+        border-width: 0 0 3px;
+        background-color: transparent;
+        font: 22px "Open Sans", sans-serif;
+        padding: 0.125em 0.225em;
+        width: 85%;
+        float: left;
+    }
+
+        input[type="search"]:focus {
+            color: #E18728;
+            border-color: #E18728;
+            outline: none;
+        }
+
+  /*  body {
+        padding-top: 75px;
+    }
+
+    .search-container {
+        width: 490px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    input#search-bar {
+        margin: 0 auto;
+        width: 100%;
+        height: 45px;
+        padding: 0 20px;
+        font-size: 1rem;
+        border: 1px solid #D0CFCE;
+        outline: none;
+        &:focus
+
+    {
+        border: 1px solid #008ABF;
+        transition: 0.35s ease;
+        color: #008ABF;
+        &::-webkit-input-placeholder
+
+    {
+        transition: opacity 0.45s ease;
+        opacity: 0;
+    }
+
+    &::-moz-placeholder {
+        transition: opacity 0.45s ease;
+        opacity: 0;
+    }
+
+    &:-ms-placeholder {
+        transition: opacity 0.45s ease;
+        opacity: 0;
+    }
+
+    }
+    }
+
+    .search-icon {
+        position: relative;
+        float: right;
+        width: 75px;
+        height: 75px;
+        top: -62px;
+        right: -45px;
+    }*/
+
+
+</style>
+
+<div class="row main-title-area">
+    <div class="col-md-6 col-xs-12 col-md-offset-3">
+        <h1 class="main-title"> Sayfa Bulunamadı </h1>
+    </div>
+    <div class="row content-area">
+        <div class="col-md-6 col-xs-8 col-md-offset-3 col-xs-offset-2">
+            <h2 class="soft-title" align="center">Üzgünüz aradığınız sayfayı bulamadık.</h2>
+        </div>
+
+        <div class="col-md-6 col-xs-12 col-md-offset-3">
+            <h4 class="information-text">
+                Yanlış site url girdiniz veya böyle bir sayfa olmadığında bu durum gerçekleşir.
+                Lütfen tekrar arama sayfasını deneyin veya Ana Sayfaya giriş yapın. Teşekkür ederiz.
+            </h4>
+
+        </div>
+        @*<body>
+            <form class="search-container">
+                <input type="text" id="search-bar" placeholder="What can I help you with today?">
+                <a href="#"><img class="search-icon" src="https://www.google.com/intl/tr/toolbar/ie/images/features_find.png"></a>
+            </form>
+        </body>*@
+       
+    <div class="row button-area">
+        <div class="col-md-4 col-xs-6 col-md-offset-2 div-home">
+            <a class="btn go-to-home-button" href="@Url.Action("Index", "Home")">Anasayfaya Dön</a>
+        </div>
+        <div class="col-md-6 col-xs-11">
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+            <form class="searchform group">
+                <label for="search-box">
+                    <span class="fa fa-2x fa-search"></span>
+                </label>
+
+                <input type="search" id="search-box" placeholder="Search">
+            </form>
+        </div>
+
+    </div>
+
+    </div>
+
+

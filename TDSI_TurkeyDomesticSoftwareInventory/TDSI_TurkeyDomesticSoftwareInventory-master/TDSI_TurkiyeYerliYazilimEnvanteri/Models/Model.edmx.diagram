@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1e1d338e7dcc40dc96593afc09df9b12" Name="Diagram1">
+        <EntityTypeShape EntityType="TDSIModel.AccountNotificationBlock" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.Account" Width="1.5" PointX="3" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.Comment" Width="1.5" PointX="7.5" PointY="44.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.Company" Width="1.5" PointX="5.25" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.CompanySector" Width="1.5" PointX="7.5" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.CompanyStatistic" Width="1.5" PointX="7.5" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.FavoriteSoftware" Width="1.5" PointX="10.5" PointY="45.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.Follow" Width="1.5" PointX="10.5" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.MailActivation" Width="1.5" PointX="5.25" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.MonthlySoftwareStatistic" Width="1.5" PointX="7.5" PointY="48.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.Notification" Width="1.5" PointX="8.25" PointY="36" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.NotificationType" Width="1.5" PointX="6" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.Role" Width="1.5" PointX="0.75" PointY="34.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.Sector" Width="1.5" PointX="5.25" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.SocialMedia" Width="1.5" PointX="5.25" PointY="39.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.SoftwareEdit" Width="1.5" PointX="10.5" PointY="48.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.SoftwareIsFree" Width="1.5" PointX="7.5" PointY="51.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.SoftwareNewPatch" Width="1.5" PointX="7.5" PointY="54.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.SoftwareNotificationBlock" Width="1.5" PointX="10.5" PointY="42.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.SoftwareOldPatch" Width="1.5" PointX="7.5" PointY="57.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.Software" Width="1.5" PointX="5.25" PointY="56.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.SoftwareStatistic" Width="1.5" PointX="7.5" PointY="60" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.SoftwareTag" Width="1.5" PointX="10.5" PointY="57.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.SoftwareVideo" Width="1.5" PointX="7.5" PointY="65.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.SoftwareWorkPlatform" Width="1.5" PointX="7.5" PointY="68.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.Station" Width="1.5" PointX="7.5" PointY="31.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.Tag" Width="1.5" PointX="8.25" PointY="72.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.Ticket" Width="1.5" PointX="5.25" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TDSIModel.TicketTitle" Width="1.5" PointX="3" PointY="29.625" IsExpanded="true" />
+        <AssociationConnector Association="TDSIModel.FK_AccountNotificationBlocks_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_AccountNotificationBlocks_Accounts1" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Accounts_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Comments_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Companies_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_FavoriteSoftwares_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Follows_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_MailActivation_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Notifications_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Notifications_Accounts1" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SocialMedias_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareEdits_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareNotificationBlocks_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Softwares_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Tickets_Accounts" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Comments_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_CompanySectors_Companies" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_CompanyStatistics_Companies" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Follows_Companies" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Stations_Companies" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_CompanySectors_Sectors" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_FavoriteSoftwares_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_MonthlySoftwareStatistics_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Notifications_NotificationTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareEdits_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareIsFree_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareNewPatches_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareNotificationBlocks_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareOldPatches_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareStatistics_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareTags_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareVideos_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareWorkPlatform_Softwares" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_SoftwareTags_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="TDSIModel.FK_Tickets_TicketTitles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TDSIModel.InstantNotification" Width="1.5" PointX="3.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,170 @@
+﻿@using Microsoft.AspNet.Identity
+@using TDSI_TurkiyeYerliYazilimEnvanteri.Models
+
+@Styles.Render("~/Content/Notifications.css")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/Scripts/Notification.js")
+@Scripts.Render("~/Scripts/bildir.js")
+
+
+<style>
+    button {
+        background: #5a8a98;
+        border: 0;
+        border-radius: 4px;
+        font-size: 18px;
+        color: #FFFFFF;
+        cursor: pointer;
+
+    &:focus
+    {
+        outline: none;
+    }
+
+    &:hover {
+        background: lighten($btn-color, 10%);
+    }
+
+    .popup {
+        opacity: 0.9;
+        position: center;
+        display: none;
+        z-index: 5000;
+        height: 60%;
+        width: 100%;
+        margin-top: 100px;
+
+    {
+        max-width: 600px;
+        // Max-width of popup can be changed width: 70%;
+        // Width of popup position: fixed;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        background: #FFFFFF;
+        padding: 30px;
+        z-index: 5001;
+        text-align: center;
+        border: 5px solid #9AD3DE;
+        border-radius: 20px;
+        box-shadow: 0px 0px 15px 0px rgba(#000000, 0.4);
+    }
+
+    }
+
+</style>
+
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+    }
+}
+else
+{
+<ul class="nav navbar-nav navbar-right">
+    @if (Session["OnlineKullanici"] == null && Session["OnlineAdmin"] == null)
+    {
+        <li>@Html.ActionLink("Kayıt Ol", "Register", "Login", new { area = "" }, null)</li>
+        <li>@Html.ActionLink("Giriş", "Login", "Login", new { area = "" }, null)</li>
+    }
+    else if (Session["OnlineKullanici"] != null && Session["OnlineAdmin"] == null)
+    {
+        TDSIEntities db = new TDSIEntities();
+        Account acc = db.Accounts.Where(x => x.accountID == TemporaryUserData.OnlineUserID).FirstOrDefault();
+
+        //POPUP
+        <div align="left" class="popup">
+            <br />
+            <br />
+            <div style="background: #23313c; border: solid; border-color: aqua;">
+                
+
+                <style>
+                    p {
+                        margin: 0 0 0px;
+                    }
+
+
+                </style>
+
+          
+                    <fieldset>
+                        <div style="height: 320px; overflow-x: hidden; overflow-y: scroll;">
+                            <a href="#">
+                                <p style="margin-top:5px; margin-left: 7px;color: #e6e6fa;">Berk Çiftpınar seni takip etti. </p>
+                                <p align="right" style="margin-right: 7px;color: #808080;">09.09.2020 12:48</p>
+                            </a>
+                            <hr style="margin-top: 5px; margin-bottom:5px;" />
+                            <a href="#">
+                                <p style="margin: 7px;color: #e6e6fa;">Algoritma Hesaplama yazılımınıza yeni yorum yapıldı.</p>
+                                <p align="right" style="margin-right: 7px;color: #808080;">05.09.2020 08:30</p>
+                            </a>
+                            <hr style="margin-top: 5px; margin-bottom:5px;" />
+                            <a href="#">
+                                <p style="margin: 7px;color: #e6e6fa;">Hesabınız Şirket Hesabına yükseltildi.</p>
+                                <p align="right" style="margin-right: 7px;color: #808080;">29.08.2020 16:23</p>
+                            </a>
+                            <hr style="margin-top: 5px; margin-bottom:5px;" />
+                            <a href="#">
+                                <p style="margin: 7px;color: #e6e6fa;">Türkiye Yerli Yazılımlar Envanterine Hoşgeldiniz.</p>
+                                <p align="right" style="margin-right: 7px;color: #808080;">27.08.2020 17:40</p>
+                            </a>
+
+                            <div class="col-md-14" align="right">
+                                <strong style="color:#808080"  align="left">
+                                    Username için bildirimler
+                                </strong>
+                                <button style="padding: 1px 10px; margin: 1px;" name="close">x</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                
+            </div>
+        </div>
+        //POPUP
+
+        <li><a data-js="open" style="margin-right:3px;" href="#"><i class="far fa-bell"></i> Bildirimler <span class="badge">0</span></a></li>
+
+        if (acc.roleID == 3 || acc.roleID == 9 || acc.roleID == 10)
+        {
+            <li><a style="margin-right:3px;" class="profile profile_ul profile_dd" href="@Url.Action("UserProfile","User",new {id = TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID, area=""})"><i class="fas fa-user-alt"> &nbsp</i>@Session["OnlineKullanici"]<span class="picon"></span></a></li>
+        }
+        else if (acc.roleID >= 4 && acc.roleID <= 8)
+        {
+            <li><a style="margin-right:3px;" class="profile profile_ul profile_dd" href="@Url.Action("CompanyProfile","User",new {id = TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID, area=""})"><i class="fas fa-user-alt"> &nbsp</i>@Session["OnlineKullanici"]<span class="picon"></span></a></li>
+        }
+        else if (acc.roleID < 3)
+        {
+            <li><a style="margin-right:3px;" class="profile profile_ul profile_dd" href="@Url.Action("AdminProfile","User",new {id = TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID, area=""})"><i class="fas fa-user-alt"> &nbsp</i>@Session["OnlineKullanici"]<span class="picon"></span></a></li>
+        }
+        else
+        {
+            <li><a style="margin-right:3px;" class="profile profile_ul profile_dd" href="@Url.Action("UserProfile","User",new {id = TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID, area=""})"><i class="fas fa-user-alt"> &nbsp</i>@Session["OnlineKullanici"]<span class="picon"></span></a></li>
+        }
+        <li><a style="margin-right:3px;" class="settings" href="#"><span class="picon"><i class="fas fa-cog"></i></span> Ayarlar </a></li>
+        <li><a style="margin-right:3px;" class="logout" href=" @Url.Action( "Logout", "Login")"><span class="picon"><i class="fas fa-sign-out-alt"></i></span> Çıkış</a></li>
+
+    }
+    else if (Session["OnlineKullanici"] == null && Session["OnlineAdmin"] != null)
+    {
+        <li><a style="font-size:large;" href="@Url.Action("Index", "AdminHome",new { area = "Admin" })"><span style="margin-right:5px;" class="glyphicon glyphicon-home"></span> Admin Home</a></li>
+        <li><a href="@Url.Action("UpdateProfile","Profile",new { area=""})">@Session["OnlineAdmin"]</a></li>
+        <li><a href="@Url.Action("Logout","AdminLogin",new { area="Admin"})">Çıkış</a></li>
+    }
+    else
+    {
+        Session["OnlineKullanici"] = null;
+        Session["OnlineAdmin"] = null;
+    }
+</ul>
+}

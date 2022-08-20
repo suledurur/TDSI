@@ -1,0 +1,989 @@
+﻿
+@{
+    ViewBag.Title = "CompanyProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@*@Styles.Render("~/Content/bootstrap.css")*@
+@Styles.Render("~/Content/CompanyProfile.css")
+@Styles.Render("~/Content/Site.css")
+@Scripts.Render("~/Scripts/CompanyProfile.js")
+@*@Styles.Render("~/Content/login.css")*@
+@*@Scripts.Render("~/Scripts/login.js")*@
+@Scripts.Render("~/Scripts/Angular.min.js")
+
+
+<!-- Bildirim Mesajları-->
+<div class="container">
+    @{
+        switch (TempData["InstantNotification"])
+        {
+            case "SoftwareAddingSucceeded":
+                <div class="alert success">
+                    <span class="closebtn">&times;</span>
+                    <strong>Tebrikler!</strong> Yazılımınız başarıyla eklendi.
+                </div>
+                break;
+            case "SoftwareAddingFailure":
+                <div class="alert">
+                    <span class="closebtn">&times;</span>
+                    <strong>Hata!</strong> Yazılım eklenirken bir sorunla karşılaşıldı, lütfen daha sonra tekrar deneyin ya da destek ile iletişime geçin.
+                </div>
+                break;
+            case "SoftwareEditingSucceeded":
+                <div class="alert success">
+                    <span class="closebtn">&times;</span>
+                    <strong>Tebrikler!</strong> Yazılım bilgileri başarıyla düzenlendi.
+                </div>
+                break;
+            case "SoftwareEditingFailure":
+                <div class="alert">
+                    <span class="closebtn">&times;</span>
+                    <strong>Hata!</strong> Yazılım bilgileri düzenlenirken bir sorunla karşılaşıldı, lütfen daha sonra tekrar deneyin ya da destek ile iletişime geçin.
+                </div>
+                break;
+            case "BrachAddingSucceeded":
+                <div class="alert success">
+                    <span class="closebtn">&times;</span>
+                    <strong>Tebrikler!</strong> Şube başarıyla eklendi.
+                </div>
+                break;
+            case "BranchAddingFailure":
+                <div class="alert">
+                    <span class="closebtn">&times;</span>
+                    <strong>Hata!</strong> Şube eklenirken bir sorunla karşılaşıldı, lüften daha sonra tekrar deneyin ya da destek ile iletişime geçin.
+                </div>
+                break;
+            case "BranchEditingSucceeded":
+                <div class="alert success">
+                    <span class="closebtn">&times;</span>
+                    <strong>Tebrikler!</strong> Şube bilgileri başarıyla düzenlendi.
+                </div>
+                break;
+            case "BranchEditingFailure":
+                <div class="alert">
+                    <span class="closebtn">&times;</span>
+                    <strong>Hata!</strong> Şube bilgileri düzenlenirken bir sorunla karşılaşıldı, lüften daha sonra tekrar deneyin ya da destek ile iletişime geçin.
+                </div>
+                break;
+            case "AccountInformationsChangingSucceeded":
+                <div class="alert success">
+                    <span class="closebtn">&times;</span>
+                    <strong>Tebrikler!</strong> Hesap bilgileri başarıyla güncellendi.
+                </div>
+                break;
+            case "AccountInformationsChangingFailure":
+                <div class="alert">
+                    <span class="closebtn">&times;</span>
+                    <strong>Hata!</strong> Hesap bilgileri güncellenirken bir sorunla karşılaşıldı, lüften daha sonra tekrar deneyin ya da destek ile iletişime geçin.
+                </div>
+                break;
+            case "PasswordChangingSucceeded":
+                <div class="alert success">
+                    <span class="closebtn">&times;</span>
+                    <strong>Tebrikler!</strong> Şifreniz başarıyla değiştirildi.
+                </div>
+                break;
+            case "PasswordChangingFailure":
+                <div class="alert">
+                    <span class="closebtn">&times;</span>
+                    <strong>Hata!</strong> Şifreniz değiştirilirken bir sorunla karşılaşıldı, lüften daha sonra tekrar deneyin ya da destek ile iletişime geçin.
+                </div>
+                break;
+            case "DeleteFromFavoritesSucceeded":
+                <div class="alert success">
+                    <span class="closebtn">&times;</span>
+                    <strong>Tebrikler!</strong> İstediğiniz yazılım favorilerinizden başarıyla silindi.
+                </div>
+                break;
+            case "DeleteFromFavoritesFailure":
+                <div class="alert">
+                    <span class="closebtn">&times;</span>
+                    <strong>Hata!</strong> İstediğiniz yazılım favorilerinizden çıkarılırken bir hata oluştu, lütfen tekrar deneyin ya da destek ile iletişime geçin.
+                </div>
+                break;
+            case "DeleteFromFollowsSucceeded":
+                <div class="alert success">
+                    <span class="closebtn">&times;</span>
+                    <strong>Tebrikler!</strong> İstediğiniz kişi takip listenizden başarıyla silindi.
+                </div>
+                break;
+            case "DeleteFromFollowsFailure":
+                <div class="alert">
+                    <span class="closebtn">&times;</span>
+                    <strong>Tebrikler!</strong> İstediğiniz kişi takip listenizden çıkarılırken bir hata oluştu, lütfen tekrar deneyin ya da destek ile iletişime geçin.
+                </div>
+                break;
+            case "SoftwareUpdateCancelingSucceeded":
+                <div class="alert warning">
+                    <span class="closebtn">&times;</span>
+                    <strong>Uyarı!</strong> Yazılım düzenleme işlemi iptal edildi.
+                </div>
+                break;
+            default:
+                break;
+        }
+
+    }
+
+</div>
+
+
+@{
+    TDSI_TurkiyeYerliYazilimEnvanteri.Models.TDSIEntities db = new TDSI_TurkiyeYerliYazilimEnvanteri.Models.TDSIEntities();
+    TDSI_TurkiyeYerliYazilimEnvanteri.Models.Company company = TempData["Company"] as TDSI_TurkiyeYerliYazilimEnvanteri.Models.Company;
+    List<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Software> softwares = db.Softwares.Where(x => x.accountID == company.accountID).ToList();
+}
+<!-- Angular script -->
+<script>
+    var app = angular.module('checkSoftwareAddApp', []);
+
+    app.controller('softwareController', function ($scope, $http) {
+        $http.get('/User/GetSoftwares').then(function (response) {
+            $scope.softwares = response.data;
+        });
+
+    });
+</script>
+
+<div class="container">
+    <div class="row profile-row">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <!-- SIDEBAR USERPIC -->
+                &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp  &nbsp
+                <a href="#">
+                    <span style="color: #5b9bd1" class="btn-pen glyphicon glyphicon-pencil"></span>
+                </a>
+                <a href="#" aria-label="Change Profile Picture">
+                    <div class="profile-userpic" style="background-image: url('https://images.unsplash.com/photo-1532021361900-b5c5f49a5679?ixlib=rb-0.3.5&s=00217d9ff796b7d5bae62d2c9dc5994b&auto=format&fit=crop&w=500&q=60')">
+                        <span class="glyphicon glyphicon-camera"></span>
+                        <span>Change Image</span>
+                    </div>
+                </a>
+
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        @*Kurum Adı<br />*@
+
+                        @company.Account.accountName
+                    </div>
+
+                    <div class="profile-usertitle-job">
+                        Sektörler
+                        @{
+                            <ul style="color:white">
+                                @foreach (var compSector in TempData["CompanySectors"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.CompanySector>)
+                                {
+                                    <li id="box"> @compSector.Sector.sectorName </li>
+                                }
+                            </ul>
+                        }
+
+                    </div>
+
+                    <h4 style="color: #5b9bd1" class="profile-desc-title">Hakkımızda</h4>
+                    <span class="profile-desc-text"> Şirket bilgileri </span>
+                </div>
+                <!-- END SIDEBAR USER TITLE -->
+                <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li id="softwares-tab" class="active">
+                            <a id="softwares">
+                                <i class="glyphicon glyphicon-home"></i>
+                                Yazılımlar
+                            </a>
+                        </li>
+                        <li id="account-settings-tab">
+                            <a id="account-settings">
+                                <i class="glyphicon glyphicon-user"></i>
+                                Hesap Ayarları
+                            </a>
+                        </li>
+                        <li id="follows-tab">
+                            <a id="follows">
+                                <i class="glyphicon glyphicon-ok"></i>
+                                Takip Edilenler
+                            </a>
+                        </li>
+                        <li id="favorites-tab">
+                            <a id="favorites">
+                                <i class="glyphicon glyphicon-star"></i>
+                                Favoriler
+                            </a>
+                        </li>
+                        <li id="branches-tab">
+                            <a id="branches">
+                                <i class="glyphicon glyphicon-briefcase"></i>
+                                Şubeler
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END MENU -->
+
+                <div class="portlet light bordered">
+                    <!-- STAT -->
+                    <div class="row list-separated profile-stat">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="uppercase profile-stat-title"> @softwares.Count </div>
+                            <div class="uppercase profile-stat-text"> Yazılım </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="uppercase profile-stat-title"> 51 </div>
+                            <div class="uppercase profile-stat-text"> Aylık </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <div class="uppercase profile-stat-title"> 61 </div>
+                            <div class="uppercase profile-stat-text"> Toplam </div>
+                        </div>
+                    </div>
+                    <!-- END STAT -->
+                    <!-- CONTACT-->
+                    <div style="text-align: left;">
+                        <h4 style="display:inline-block"><b>İletişim Bilgileri</b></h4>
+                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp
+                        <a href="#">
+                            <span style="color: #5b9bd1" class="btn-pen glyphicon glyphicon-pencil"></span>
+                        </a>
+
+                        <div class="margin-top-20 profile-desc-link">
+                            <i class="fa fa-globe"></i>
+                            <a target="_blank" href="https://@company.companyWebSiteLink">@company.companyWebSiteLink</a>
+                        </div>
+
+                        <div class="margin-top-20 profile-desc-link">
+                            <i class="fa fa-map-marker"></i>
+                            <a target="_blank" href="https://www.google.com.tr/maps/search/@company.companyAddress">@company.companyAddress</a>
+                        </div>
+                        <div class="margin-top-20 profile-desc-link">
+                            <i class="fa fa-phone"></i>
+                            <a>@company.companyTelNum</a>
+                        </div> <br>
+                        <div class="footer-social-icons">
+                            <h4 class="_14">Bizi Takip Edin</h4>
+                            <ul class="social-icons">
+                                <li><a href="https://www.linkedin.com/" class="social-icon"> <i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="https://github.com/" class="social-icon"> <i class="fa fa-github"></i></a></li>
+                                <li><a href="https://www.facebook.com/" class="social-icon"> <i class="fa fa-facebook"></i></a></li>
+                                <br>
+                                <br>
+                                <li><a href="https://twitter.com/" class="social-icon"> <i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/" class="social-icon"> <i class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://www.youtube.com/" class="social-icon"> <i class="fa fa-youtube"></i></a></li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- END CONTACT-->
+
+                </div>
+            </div>
+        </div>
+        <style>
+            body {
+                height: 100vh;
+                text-align: center;
+            }
+            /*Trigger Button*/
+            .login-trigger {
+                font-weight: bold;
+                color: #fff;
+                background: linear-gradient(to bottom right, #B05574, #F87E7B);
+                padding: 15px 30px;
+                border-radius: 30px;
+                position: relative;
+                top: 50%;
+            }
+
+            /*Modal*/
+            h4 {
+                font-weight: bold;
+                color: #73bbf9;
+            }
+
+            .pop-close {
+                color: #2b7ac5;
+                opacity: 0.6;
+                transform: scale(1.6);
+                text-shadow: 0 1px 0 #0342dc;
+            }
+
+                .pop-close:hover {
+                    color: #2b7ac5;
+                    opacity: 1;
+                }
+
+            .modal-content {
+                font-weight: bold;
+                background: linear-gradient(to left,#1a31489c,#2d4f73)
+            }
+
+            .form-control-pop {
+                margin: 1em 0;
+            }
+
+            .form-control:hover, .form-control:focus {
+                box-shadow: none;
+                border-color: #5b9bd1;
+            }
+
+            .username, .password {
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+                border-bottom: 2px solid #5b9bd15c;
+                padding-left: 0;
+                font-weight: normal;
+                background: transparent;
+                color: #73bbf9;
+            }
+
+            .form-control::-webkit-input-placeholder {
+                color: #5b9bd15c;
+            }
+
+            .form-control:focus::-webkit-input-placeholder {
+                font-weight: bold;
+                color: #5b9bd1;
+            }
+
+            .check-grp {
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+                border-bottom: 2px solid #5b9bd1;
+                padding-left: 0;
+                font-weight: normal;
+                background: transparent;
+                color: #73bbf9;
+                width: auto;
+            }
+
+                .check-grp::-webkit-input-placeholder {
+                    color: #5b9bd1;
+                }
+
+            .software-add-btn {
+                padding: 6px 20px;
+                border-radius: 20px;
+                background: none;
+                border: 2px solid #5b9bd1;
+                color: #5b9bd1;
+                font-weight: bold;
+                transition: all .5s;
+                margin-top: 2em;
+            }
+
+                .software-add-btn:hover {
+                    background: #5b9bd1;
+                    color: #fff;
+                }
+
+            button.software-chck-btn {
+                width: 96%;
+                height: 100%;
+            }
+
+            button.software-add-btn:hover {
+                background: #5b9bd1;
+                color: #fff;
+            }
+
+            .checkbox {
+                height: 0px;
+                width: 0px;
+            }
+
+            .checkbox-button {
+                height: auto;
+                margin: 2px 2px;
+            }
+
+            .label {
+                padding: 5px 60px 5px 20px;
+                font-size: 15px;
+                font-weight: 500;
+                background-color: white;
+                position: relative;
+                color: #485474;
+                box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.08);
+                border-radius: 55px;
+                transition: 0.4s;
+                cursor: pointer;
+                -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            }
+
+                .label::after {
+                    position: absolute;
+                    content: "";
+                    height: 25px;
+                    width: 25px;
+                    border: 1px solid #c4c4c4;
+                    border-radius: 20px;
+                    right: 20px;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
+                    box-sizing: border-box;
+                }
+
+            .checkbox:checked + .label {
+                background-color: #2f80ed;
+                color: white;
+                border: 0;
+            }
+
+                .checkbox:checked + .label::after {
+                    background-color: white;
+                    border-color: white;
+                    content: "";
+                    height: 25px;
+                    width: 25px;
+                    background-size: 25px;
+                    box-sizing: border-box;
+                    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAIuSURBVHgB7do9bhNBGMbxZ4xEkJAid7ScINojhBIhivQ0nIAjJHSUcAMoqKlQ6GJuYJEDQEuFRVLkyzvZd5SNkihOvDPv7ryePD/Jn8XO6i97v2YBIiIiIiIiIiIiIiIiKkb1bTyWB5SN8ABs/Fh/59fm/+Sxsbu+DUWPUDgJ5rz/0H52wOazN0/w9+vxTygoOuBFvJ2b32tGLDbgongtrYhFBrwvXksjokNhlo13Ve3xdv/VwWdEKGovHBNPOPgKkYoJGBtPjE7OPiJSEQFT4rnm7zvdOvqDSCu/DUyOF7ntu1wGeiCnTPXa2baDq5oN9Jf9xJVcJHe8sBwok3j+cb3XrOHlhtk7t/Pr5f/3UGQhnlA9DrwtntA+fbIST6gFXBSvpRXRUjyhEvC+eK3UiNbiCZXDmGXitSRAzCUli/HCspGo2h0/937+Gx112bFYjSfSf4FHmDXPM3S07C/RcjyRHHC6NZs5X79ADxGtxwvjQEn1/Wnl3Wivedt53uG2v/MqxAtjQZFWxFWJF8aDstSI8roq8cKY6EFKxFg54oVx0ZMhI+aKF8ZGj4aImDNeGB896zNi7nhhHTCAPiJaiBfWAwPRjGglnhj0kr5GREvxxOBzIikRrcUTWSaVYiJajCeyzcp1iWg1nsg6rblMRMvxRPZ54bsiWo8nTEys34jYXFf0EzfHp+nrwwmMM3NngkwNoJ5v4uR0knKrBRERERERERERERERERERXXMOrql2bUZwzf0AAAAASUVORK5CYII=);
+                }
+
+            @@media only screen and (max-width:640px) {
+                .container {
+                    flex-direction: column;
+                }
+            }
+
+            .add-btn {
+                padding: 0;
+                color: #5b9bd1;
+                font-size: 27px;
+            }
+
+                .add-btn:hover {
+                    color: #fff;
+                }
+
+            tbody {
+                color: #cdd6da;
+                border-top: 1px solid #7eb1cc !important;
+            }
+        </style>
+
+        <div class="col-md-9" ng-app="checkSoftwareAddApp">
+            <div class="profile-content">
+                @*yazılımlar listesi*@
+                <div id="software-area">
+                    <div class="row">
+
+                        <div class="col-md-11">
+                            <h2 style="color: #5b9bd1; display:inline-block;">Yazılımlar</h2>
+                        </div>
+
+                        <div class="col-md-1">
+                            <h2 class="btn add-btn" data-target="#software-adding" data-toggle="modal"><i class="fa fa-plus-circle"></i></h2>
+                            @*<button class="btn"><i class="fa fa-plus-circle"></i></button>*@
+                        </div>
+
+                    </div>
+                    <div id="software-adding" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+                                <div class="modal-body" ng-controller="softwareController">
+                                    <button data-dismiss="modal" class="close pop-close ">&times;</button>
+                                    <h4>Yazılım Ekle</h4>
+                                    @{ int id = TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID; }
+                                    @using (Html.BeginForm("AddSoftwaresToCompany", "User", new { id = id }, FormMethod.Post))
+                                    {
+
+                                        <form>
+                                            <input type="text" name="s_name" class="username form-control form-control-pop" placeholder="Yazılım Adı" autocomplete="off" ng-model="search" />
+                                            <table class="table table-hover ">
+                                                <tr ng-repeat="sf in softwares | filter: search | limitTo:1| orderBy:'softwareName'">
+                                                    <td class="hide" style="width: 100%;text-align: left;color: #73bbf9; border-top-color:transparent; border-bottom: 2px solid #5b9bd1;" ng-model="software">
+                                                        {{sf.softwareName}} <span class="glyphicon glyphicon-remove pull-right"></span>
+                                                    </td>
+                                                    <td ng-if="sf.softwareName == search" class="no-pointer" style="width: 100%; font-size: 10px;text-align: left;color: #73bbf9; border-top-color:transparent; border-bottom: 1px solid #5b9bd1;">
+                                                        <span class="glyphicon glyphicon-remove-circle"></span> bu isimde bir yazılım bulunmakta
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <input type="text" name="s_description" class="username form-control form-control-pop" placeholder="Yazılım Açıklaması" autocomplete="off" />
+                                            <input type="text" name="s_version" class="password form-control form-control-pop" placeholder="Yazılım Versiyonu" autocomplete="off" />
+                                            <input type="file" name="s_image" class="password form-control form-control-pop" placeholder="Yazılım Resmi" value="Yazılım Resmi" autocomplete="off" />
+                                            <input type="text" style="cursor:auto; background-color:transparent;" name="s_workPlatform" class="check-grp form-control form-control-pop" autocomplete="off" placeholder="Yazılım Platform:" disabled />
+                                            <div class="row">
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_windows" value="true" class="checkbox" id="Windows">
+                                                        <label for="Windows" class="label">Windows</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_macOS" value="true" class="checkbox" id="MacOS">
+                                                        <label for="MacOS" class="label">MacOS</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_linux" value="true" class="checkbox" id="Linux">
+                                                        <label for="Linux" class="label">Linux</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_unix" value="true" class="checkbox" id="Unix">
+                                                        <label for="Unix" class="label">Unix</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_pardus" value="true" class="checkbox" id="Pardus">
+                                                        <label for="Pardus" class="label">Pardus</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_android" value="true" class="checkbox" id="Android">
+                                                        <label for="Android" class="label">Android</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_ios" value="true" class="checkbox" id="IOS">
+                                                        <label for="IOS" class="label">IOS</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_desktopApp" value="true" class="checkbox" id="DesktopApp">
+                                                        <label for="DesktopApp" class="label">DesktopApp</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_webApp" value="true" class="checkbox" id="WebApp">
+                                                        <label for="WebApp" class="label">WebApp</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_Other" value="true" class="checkbox" id="Other">
+                                                        <label for="Other" class="label">Other</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <input type="text" name="password" class="password form-control form-control-pop" autocomplete="off" placeholder="Yazılım Tanıtım Video Linki" />
+                                            <input type="text" style="cursor:auto; background-color:transparent;" name="s_workPlatform" class="check-grp form-control form-control-pop" autofocus placeholder="Yazılım Detayları" disabled />
+                                            <div class="pull-left">
+                                                <div class="checkbox-button">
+                                                    <input type="checkbox" name="chk_demo" value="true" class="checkbox" id="Demo">
+                                                    <label for="Demo" class="label">Demo</label>
+                                                </div>
+                                            </div>
+                                            <div class="pull-left">
+                                                <div class="checkbox-button">
+                                                    <input type="checkbox" name="chk_fullVersion" value="true" class="checkbox" id="Tam Sürüm">
+                                                    <label for="Tam Sürüm" class="label">Tam Sürüm</label>
+                                                </div>
+                                            </div>
+                                            <div class="pull-left">
+                                                <div class="checkbox-button">
+                                                    <input type="checkbox" name="chk_beta" value="true" class="checkbox" id="Beta">
+                                                    <label for="Beta" class="label">Beta</label>
+                                                </div>
+                                            </div>
+                                            <div class="pull-left">
+                                                <div class="checkbox-button">
+                                                    <input type="checkbox" name="chk_free" value="true" class="checkbox" id="Ücretsiz">
+                                                    <label for="Ücretsiz" class="label">Ücretsiz</label>
+                                                </div>
+                                            </div>
+                                            <button class=" software-add-btn software-chck-btn">Kontrol Et</button>
+                                            <input class="btn software-add-btn hide" type="submit" value="Ekle" />
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <br>
+                        <ul>
+
+                            <li style="background-color:rgba(91, 155, 209, 0.60)"><b>Yazılım Adı</b> </li>
+                            <li style="background-color:rgba(91, 155, 209, 0.60)"> <b>Açıklama</b></li>
+                            <li style="background-color:rgba(91, 155, 209, 0.60)"><b>Yazılım Sürümü</b></li>
+                            <li style="background-color:rgba(91, 155, 209, 0.60)"></li>
+                        </ul>
+                        @{
+                            foreach (var software in softwares)
+                            {
+                                <ul>
+                                    <li data-label="name">@software.softwareName</li>
+                                    <li data-label="info">@software.description</li>
+                                    <li data-label="date">@software.softwareVersion</li>
+                                    @*@{int softwareID = software.softwareID}*@
+                                    <li data-label="update"><a href="@Url.Action("UpdateSoftwareCompany","User", new { sID = software.softwareID })"><u>Düzenle</u></a></li>
+                                </ul>
+
+
+                            }
+                        }
+                    </div>
+                    <div id="software-editing" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body" ng-controller="softwareController">
+                                    <button data-dismiss="modal" class="close pop-close ">&times;</button>
+                                    <h4>Yazılım Düzenle</h4>
+                                    @using (Html.BeginForm("UpdateSoftwareCompany", "User", new { id = id }, FormMethod.Post))
+                                    {
+
+                                        <form>
+                                            <input type="text" name="su_name" class="username form-control form-control-pop" placeholder="" autocomplete="off" ng-model="search" />
+                                            <table class="table table-hover ">
+                                                <tr ng-repeat="sf in softwares | filter: search | limitTo:1| orderBy:'softwareName'">
+                                                    <td class="hide" style="width: 100%;text-align: left;color: #73bbf9; border-top-color:transparent; border-bottom: 2px solid #5b9bd1;" ng-model="software">
+                                                        {{sf.softwareName}} <span class="glyphicon glyphicon-remove pull-right"></span>
+                                                    </td>
+                                                    <td ng-if="sf.softwareName == search" class="no-pointer" style="width: 100%; font-size: 10px;text-align: left;color: #73bbf9; border-top-color:transparent; border-bottom: 1px solid #5b9bd1;">
+                                                        <span class="glyphicon glyphicon-remove-circle"></span> bu isimde bir yazılım bulunmakta
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <input type="text" name="s_description" class="username form-control form-control-pop" placeholder="Yazılım Açıklaması" autocomplete="off" />
+                                            <input type="text" name="s_version" class="password form-control form-control-pop" placeholder="Yazılım Versiyonu" autocomplete="off" />
+                                            <input type="file" name="s_image" class="password form-control form-control-pop" placeholder="Yazılım Resmi" value="Yazılım Resmi" autocomplete="off" />
+                                            <input type="text" style="cursor:auto; background-color:transparent;" name="s_workPlatform" class="check-grp form-control form-control-pop" autocomplete="off" placeholder="Yazılım Platform:" disabled />
+                                            <div class="row">
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_windows" value="true" class="checkbox" id="Windows">
+                                                        <label for="Windows" class="label">Windows</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_macOS" value="true" class="checkbox" id="MacOS">
+                                                        <label for="MacOS" class="label">MacOS</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_linux" value="true" class="checkbox" id="Linux">
+                                                        <label for="Linux" class="label">Linux</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_unix" value="true" class="checkbox" id="Unix">
+                                                        <label for="Unix" class="label">Unix</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_pardus" value="true" class="checkbox" id="Pardus">
+                                                        <label for="Pardus" class="label">Pardus</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_android" value="true" class="checkbox" id="Android">
+                                                        <label for="Android" class="label">Android</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_ios" value="true" class="checkbox" id="IOS">
+                                                        <label for="IOS" class="label">IOS</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_desktopApp" value="true" class="checkbox" id="DesktopApp">
+                                                        <label for="DesktopApp" class="label">DesktopApp</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_webApp" value="true" class="checkbox" id="WebApp">
+                                                        <label for="WebApp" class="label">WebApp</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="pull-left">
+                                                    <div class="checkbox-button">
+                                                        <input type="checkbox" name="chk_Other" value="true" class="checkbox" id="Other">
+                                                        <label for="Other" class="label">Other</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <input type="text" name="password" class="password form-control form-control-pop" autocomplete="off" placeholder="Yazılım Tanıtım Video Linki" />
+                                            <input type="text" style="cursor:auto; background-color:transparent;" name="s_workPlatform" class="check-grp form-control form-control-pop" autofocus placeholder="Yazılım Detayları" disabled />
+                                            <div class="pull-left">
+                                                <div class="checkbox-button">
+                                                    <input type="checkbox" name="chk_demo" value="true" class="checkbox" id="Demo">
+                                                    <label for="Demo" class="label">Demo</label>
+                                                </div>
+                                            </div>
+                                            <div class="pull-left">
+                                                <div class="checkbox-button">
+                                                    <input type="checkbox" name="chk_fullVersion" value="true" class="checkbox" id="Tam Sürüm">
+                                                    <label for="Tam Sürüm" class="label">Tam Sürüm</label>
+                                                </div>
+                                            </div>
+                                            <div class="pull-left">
+                                                <div class="checkbox-button">
+                                                    <input type="checkbox" name="chk_beta" value="true" class="checkbox" id="Beta">
+                                                    <label for="Beta" class="label">Beta</label>
+                                                </div>
+                                            </div>
+                                            <div class="pull-left">
+                                                <div class="checkbox-button">
+                                                    <input type="checkbox" name="chk_free" value="true" class="checkbox" id="Ücretsiz">
+                                                    <label for="Ücretsiz" class="label">Ücretsiz</label>
+                                                </div>
+                                            </div>
+                                            <button class=" software-add-btn software-chck-btn">Kontrol Et</button>
+                                            <input class="btn software-add-btn hide" type="submit" value="Ekle" />
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                @*profil düzenleme*@
+                <div id="account-settings-area" class="hide">
+
+                    <h2 style="color: #5b9bd1">Hesap Ayarları</h2><br>
+                    <div class="field-wrap">
+
+                        <label class="no-pointer"> Kullanıcı Adı</label>
+                        <input type="text" name="loginNameComp">
+                    </div>
+                    <div class="field-wrap">
+                        <label class="no-pointer">Kurum Adı</label>
+                        <input type="text" name="accountNameComp">
+                    </div>
+
+                    <div class="field-wrap">
+                        <label class="no-pointer">Email</label>
+                        <input type="email" name="emailComp">
+                    </div>
+
+                    <div class="field-wrap">
+                        <label class="no-pointer">Sicil Numarası</label>
+                        <input type="text" name="taxNum">
+                    </div>
+
+                    <div class="field-wrap">
+                        <label class="no-pointer">Telefon</label>
+                        <input name="telComp" type="text">
+                    </div>
+                    <button id="update" class="button button-block"> Güncelle</button>
+                    <h2 style="color: #5b9bd1">Şifre Değiştir</h2>
+                    <br />
+                    <div class="field-wrap">
+                        <label class="no-pointer"> Yeni Şifre</label>
+                        <input type="password" name="passwordComp" id="passwordComp">
+                    </div>
+                    <div class="field-wrap">
+                        <label class="no-pointer">Şifre (tekrar)</label>
+                        <input type="password" name="passwordComp" id="passwordComp">
+                    </div>
+
+                    <button id="changepw" class="button button-block">Güncelle</button>
+                </div>
+
+                @*takip edilenler*@
+                <div id="follows-area" class="hide">
+
+                    <div id="bodywrap">
+                        <div class="scroll-window-wrapper">
+                            @{ int count = (TempData["Follows"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Company>).Count();}
+                            <h2 style="color: #5b9bd1">
+                                Takip Edilenler - (@count)
+                            </h2>
+                            <br>
+                            <div class="scroll-window" style="overflow-y:auto;">
+                                <table class="table">
+                                    <tbody>
+                                        @{
+                                            foreach (var follow in TempData["Follows"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Company>)
+                                            {
+
+                                                if (follow == null)
+                                                {
+                                                    <tr>
+                                                        <td>Foto</td>
+                                                        <td>Henüz Takip Ettiğiniz Bir Üretici Hesap Bulunmamakta</td>
+                                                        <td class="text-right">
+                                                            <button class="button tiny">Profili Görüntüle</button>
+                                                            <button class="button alert tiny">Takibi Bırak</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+
+                                                    <tr>
+                                                        <td>Foto</td>
+                                                        <td>@follow.Account.accountName</td>
+                                                        <td class="text-right">
+                                                            @Html.ActionLink("Profili Görüntüle", "CompanyDetails", "Companies", new { id = follow.companyID }, new { @class = "button blue tiny" })
+                                                            @Html.ActionLink("Takibi Bırak", "DeleteFromFollows", "User", new { id = follow.companyID }, new { @class = "button alert tiny" })
+                                                            @*<button class="button tiny">Profili Görüntüle</button>*@
+                                                            @*<button class="button alert tiny">Takibi Bırak</button>*@
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                @*favoriler*@
+                <div id="favorites-area" class="hide">
+
+                    <div id="bodywrap">
+                        <div class="scroll-window-wrapper">
+                            @{ int countSft = (TempData["Favorites"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.FavoriteSoftware>).Count();}
+                            <h2 style="color: #5b9bd1">
+                                Favori Yazılımlar - (@countSft)
+                            </h2>
+
+                            <br>
+                            <div class="scroll-window" style="overflow-y:auto;">
+                                <table class="table">
+
+
+                                    <tbody>
+                                        @{
+                                            foreach (var favorite in TempData["Favorites"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.FavoriteSoftware>)
+                                            {
+
+                                                if (favorite == null)
+                                                {
+                                                    <tr>
+                                                        <td>Foto</td>
+                                                        <td>Henüz Takip Ettiğiniz Bir Üretici Hesap Bulunmamakta</td>
+                                                        <td class="text-right">
+                                                            <button class="button tiny">Profili Görüntüle</button>
+                                                            <button class="button alert tiny">Takibi Bırak</button>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+
+                                                    <tr>
+
+
+
+                                                        <td>@favorite.Software.softwareName</td>
+                                                        <td>@favorite.Software.description - (@favorite.Software.softwareVersion)</td>
+                                                        <td>@favorite.Software.Account.accountName</td>
+                                                        <td class="text-right">
+                                                            @Html.ActionLink("Yazılımı Görüntüle", "SoftwareDetails", "Softwares", new { id = favorite.Software.softwareID }, new { @class = "button blue tiny" })
+                                                            @Html.ActionLink("Favorilerden Çıkar", "DeleteFromFavorites", "User", new { id = favorite.Software.softwareID }, new { @class = "button alert tiny" })
+                                                            @*<button class="button tiny">Yazılımı Görüntüle</button>
+                                                                <button class="button alert tiny">Favorilerden Çıkar</button>*@
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="branches-area" class="hide">
+                    <div id="bodywrap">
+                        <div class="comp-software-section">
+                            <div class="row">
+
+                                <div class="col-md-11">
+                                    <h2 style="color: #5b9bd1; display:inline-block;">Şubeler</h2>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <h2 id="branches-add-btn" class="btn add-btn" data-target="#branch-adding" data-toggle="modal"><i class="fa fa-plus-circle"></i></h2>
+                                    @*<button class="btn"><i class="fa fa-plus-circle"></i></button>*@
+                                </div>
+                                <div id="branch-adding" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <button data-dismiss="modal" class="close pop-close ">&times;</button>
+                                                <h4>Şube/Dağıtıcı Ekle</h4>
+                                                <form>
+                                                    <input type="text" name="br_name" class="username form-control form-control-pop" placeholder="Şube Adı*" />
+                                                    <input type="text" name="br_description" class="username form-control form-control-pop" placeholder="Şube Açıklaması" />
+                                                    <input type="text" name="br_address" class="password form-control form-control-pop" placeholder="Şube Adresi" />
+                                                    <input type="text" name="br_telNo" class="password form-control form-control-pop" placeholder="Şube Telefonu" />
+                                                    <input type="text" name="br_website" class="password form-control form-control-pop" placeholder="Şube Website Linki" />
+
+
+                                                    <input class="btn software-add-btn" type="submit" value="Ekle" />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            @*Tablo kullan*@
+                            <dl style="color: white; text-align: left;">
+
+                                @{
+                                    foreach (var branch in TempData["Branches"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Station>)
+                                    {
+                                        <dt><u>@branch.stationName</u></dt>
+                                        <dd> <i class="fa fa-envelope" style="font-size:18px"></i> @branch.stationDescription</dd>
+                                        <dd><a target="_blank" href="https://www.google.com.tr/maps/search/@branch.stationAddress"> <i class="material-icons" style="font-size:20px">room</i>@branch.stationAddress</a> </dd>
+                                        <dd> <span class="glyphicon glyphicon-earphone" style="font-size:20px"></span> @branch.stationTelNum </dd>
+                                        <dd><br /></dd>
+                                    }
+                                }
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div> @*yandaki alan*@
+
+
+        </div> @*1*@
+
+
+
+    </div>@*2*@
+</div>@*3*@

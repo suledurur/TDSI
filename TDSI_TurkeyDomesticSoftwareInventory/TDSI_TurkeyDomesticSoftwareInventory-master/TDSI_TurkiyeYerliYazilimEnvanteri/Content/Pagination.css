@@ -1,0 +1,80 @@
+﻿* {
+    box-sizing: border-box;
+    font-family: arial;
+}
+
+.1container {
+    display: block;
+}
+
+.my-pagination {
+    list-style: none;
+    display: inline-block;
+    position: inherit;
+    padding: 0;
+    height: 40px;
+}
+
+    .my-pagination li {
+        display: inline;
+        text-align: center;
+    }
+
+    .my-pagination a {
+        float: left;
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 5px 12px;
+        color: #fff;
+        margin-left: -1px;
+        border: 1px solid transparent;
+        line-height: 1.5;
+    }
+
+    .darkmode--activated .my-pagination a{
+        color:black;
+    }
+
+        .my-pagination a:active {
+            outline: none;
+        }
+
+.modal a {
+    margin: 0 5px;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 100%;
+    background-color: #23313c;
+    transform: translateY(0);
+    transition: all .3s ease-out;
+}
+ .darkmode--activated .modal a{
+     background-color:#ece8db;
+
+ }
+    .modal a.prev {
+        border-radius: 50px 0 0 50px;
+        width: 100px;
+    }
+
+    .modal a.next {
+        border-radius: 0 50px 50px 0;
+        width: 100px;
+    }
+
+    .modal a:hover {
+        background-color: #65def9;
+        color: #fff;
+        font-weight: 100;
+        transform: translateY(8px);
+        transition: all .3s ease-out;
+    }
+
+
+    .modal a.active, .modal a:active {
+        background-color: #65def9;
+    }

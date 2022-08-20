@@ -1,0 +1,261 @@
+﻿body {
+}
+
+.ornek {
+    width: 900px;
+    margin: auto;
+}
+
+.sola-kaydir {
+    float: left;
+    padding: 0 10px 10px 0;
+}
+.container {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+/*######## Smart Green ########*/
+.smart-green {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px;
+    background: #F8F8F8;
+    padding: 30px 30px 20px 30px;
+    font: 12px Arial, Helvetica, sans-serif;
+    color: #666;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+    .smart-green h1 {
+        font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
+        padding: 20px 0px 20px 40px;
+        display: block;
+        margin: -30px -30px 10px -30px;
+        color: #FFF;
+        background: #9DC45F;
+        text-shadow: 1px 1px 1px #949494;
+        border-radius: 5px 5px 0px 0px;
+        -webkit-border-radius: 5px 5px 0px 0px;
+        -moz-border-radius: 5px 5px 0px 0px;
+        border-bottom: 1px solid #89AF4C;
+    }
+
+        .smart-green h1 > span {
+            display: block;
+            font-size: 11px;
+            color: #FFF;
+        }
+
+    .smart-green label {
+        display: block;
+        margin: 0px 0px 5px;
+    }
+
+        .smart-green label > span {
+            float: left;
+            margin-top: 10px;
+            color: #5E5E5E;
+        }
+
+    .smart-green input[type="text"], .smart-green input[type="email"], .smart-green textarea, .smart-green select {
+        color: #555;
+        height: 30px;
+        line-height: 15px;
+        width: 100%;
+        padding: 0px 0px 0px 10px;
+        margin-top: 2px;
+        border: 1px solid #E5E5E5;
+        background: #FBFBFB;
+        outline: 0;
+        -webkit-box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
+        box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
+        font: normal 14px/14px Arial, Helvetica, sans-serif;
+    }
+
+    .smart-green textarea {
+        height: 100px;
+        padding-top: 10px;
+    }
+
+    .smart-green select {
+        background: url('down-arrow.png') no-repeat right, -moz-linear-gradient(top, #FBFBFB 0%, #E9E9E9 100%);
+        background: url('down-arrow.png') no-repeat right, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FBFBFB), color-stop(100%,#E9E9E9));
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 0.01px;
+        text-overflow: '';
+        width: 100%;
+        height: 30px;
+    }
+
+    .smart-green .button {
+        background-color: #9DC45F;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border: none;
+        padding: 10px 25px 10px 25px;
+        color: #FFF;
+        text-shadow: 1px 1px 1px #949494;
+    }
+
+        .smart-green .button:hover {
+            background-color: #80A24A;
+        }
+
+.index-section-row {
+    height: 220px;
+}
+
+.index-section {
+    border-radius: 10px;
+    background-color: #1F2D34;
+    margin: 0.4%;
+    min-width: 32.5%;
+    height: inherit;
+}
+
+
+#index-section-title {
+    color: #65def9;
+    font-size: xx-large;
+}
+
+#index-section-content {
+    color: lavender;
+}
+
+#index-section-btn {
+    background-color: #D0E7F9;
+}
+
+#about-section {
+    font-family: Verdana, monospace, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: justify;
+    background: #1F2D34; /* Old browsers */
+    background: -moz-linear-gradient(top, #1F2D34 0%, #3B6C84 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1F2D34), color-stop(100%,#3B6C84)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #1F2D34 0%,#3B6C84 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #1F2D34 0%,#3B6C84 100%); /* Opera 11.10+ */
+    background: linear-gradient(to bottom, #1F2D34 0%,#3B6C84 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='1F2D34', endColorstr='#3B6C84',GradientType=0 ); /* IE6-9 */
+}
+
+#about-content {
+    color: lavender;
+}
+
+#about-photo {
+    border-radius: 25px 5px;
+    margin: 10px;
+    float: left;
+    width: 200px;
+    height: 200px;
+}
+
+h2.platforms {
+    color: #65def9;
+    font-size: xx-large;
+}
+
+p.platforms {
+    font-size: large;
+    color: lavender;
+}
+
+.platform-area {
+    position: relative;
+    width: 32.5%;
+    margin: 5px;
+    float: left;
+}
+
+.image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    border-radius: 15px;
+    transition: .5s ease;
+    background: #1F2D34; /* Old browsers */
+    background: -moz-linear-gradient(top, #1F2D34 0%, #3B6C84 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1F2D34), color-stop(100%,#3B6C84)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #1F2D34 0%,#3B6C84 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #1F2D34 0%,#3B6C84 100%); /* Opera 11.10+ */
+    background: linear-gradient(to bottom, #1F2D34 0%,#3B6C84 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='1F2D34', endColorstr='#3B6C84',GradientType=0 ); /* IE6-9 */
+}
+
+.platform-area:hover .overlay {
+    margin: 5px;
+    opacity: 1;
+}
+
+.hover {
+    float: left;
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+    overflow: hidden;
+    border-radius: 20px;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,.3);
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    background-color: #1F2D34;
+}
+
+.text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #65def9;
+    padding: 5px;
+}
+
+.hovturn {
+    float: left;
+    height: 100px;
+    width: 200px;
+    margin: 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,.3);
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+}
+
+    .hovturn > button {
+        height: 200px;
+        width: 200px;
+        -webkit-transition: all 1s ease;
+        -moz-transition: all 1s ease;
+        -o-transition: all 1s ease;
+        -ms-transition: all 1s ease;
+        transition: all 1s ease;
+    }
+
+        .hovturn > button:hover {
+            width: 225px;
+            height: 225px;
+        }
+

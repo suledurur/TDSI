@@ -1,0 +1,520 @@
+﻿
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    background: #394852;
+    font-family: "Titillium Web", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #85d2e4; 
+    transition: 0.5s ease;
+}
+
+    a:hover {
+        color: #65def9; 
+    }
+
+.form {
+    background: #23313c;
+    padding: 40px;
+    max-width: 500px;
+    margin: 40px auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px 4px color: #23313c;
+}
+.darkmode--activated .form{
+    background:#ece8db;
+}
+.tab-group {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+}
+
+    .tab-group:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    /* üye ol giriş yap seçenekleri*/
+    .tab-group li a {
+        display: block;
+        text-decoration: none;
+        padding: 15px;
+        background: #394852;
+        color: #fff; /*açık gri*/
+        font-size: 20px;
+        float: left;
+        width: 50%;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.5s ease;
+    }
+    .darkmode--activated .tab-group li a{
+        background:#fff;
+        color:black;
+    }
+
+        .tab-group li a:hover {
+            background: #65def9;
+            color: #fff;
+        }
+.darkmode--activated .tab-group li a:hover {
+    background: #c6b7ad;
+    color:000;
+}
+
+    .tab-group .active a {
+        background: #85d2e4;
+        color: #fff;
+    }
+
+.darkmode--activated .tab-group .active a {
+    background: #c6b7ad;
+    color: black;
+}
+   
+.tab-content > div:last-child {
+    display: none;
+}
+
+h1 {
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    margin: 0 0 40px;
+}
+.darkmode--activated h1{
+    color:black;
+}
+
+label {
+    position: absolute;
+    transform: translateY(6px);
+    left: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.25s ease;
+    -webkit-backface-visibility: hidden;
+    pointer-events: none;
+    font-size: 22px;
+}
+.darkmode--activated label{
+    color:#000;
+    font-weight:100;
+}
+
+    label .req {
+        margin: 2px;
+        color: #85d2e4;
+    }
+    .darkmode--activated .req{
+        color:#c6b7ad;
+    }
+
+    label.active {
+        transform: translateY(-90%);
+        left: 2px;
+        font-size: 14px;
+    }
+
+        label.active .req {
+            opacity: 0;
+        }
+
+    label.highlight {
+        color: #fff;
+    }
+    
+
+input, textarea {
+    font-size: 22px;
+    display: block;
+    width: 96%;
+    height: 100%;
+    padding: 5px 10px;
+    background: none;
+    background-image: none;
+    border: 1px solid #a0b3b0;
+    color: #fff;
+    border-radius: 0;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.darkmode--activated input, textarea {
+    background: #fff;
+    color: black;
+}
+
+
+    input:focus, textarea:focus {
+        outline: 0;
+        border-color: #85d2e4;
+    }
+
+    .darkmode--activated input:focus,textarea:focus{
+        border-color:#c6b7ad;
+    }
+
+textarea {
+    border: 2px solid #a0b3b0;
+    resize: vertical;
+}
+
+.field-wrap {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.top-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.top-row > div {
+    float: left;
+    margin-right: 4%;
+    width: 48%;
+}
+
+    .top-row > div:last-child {
+        margin: 0;
+    }
+
+.button {
+    border: 0;
+    outline: none;
+    border-radius: 0;
+    padding: 15px 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    background: #85d2e4;
+    color: #fff;
+    transition: all 0.5s ease;
+    -webkit-appearance: none;
+}
+.darkmode--activated .button {
+    background:#c6b7ad;
+    color: black;
+}
+
+    .button:hover, .button:focus {
+        background: #65def9;
+    }
+.darkmode--activated .button:hover, .button:focus {
+    background: #c6b7ad;
+}
+
+.button-block {
+    display: block;
+    width: 100%;
+}
+
+.forgot {
+    margin-top: -20px;
+    text-align: right;
+}
+
+/*eye icon(şifre için )*/
+.eye {
+    width: 1.25em;
+    height: 0.75em;
+    position: relative;
+    display: inline-block;
+    --background: #65def9;
+    --color: #23313c;
+}
+.darkmode--activated .eye{
+    --background:#c6b7ad;
+}
+    .eye div {
+        overflow: hidden;
+        height: 50%;
+        position: relative;
+        margin-bottom: -1px;
+    }
+
+        .eye div:before {
+            content: '';
+            background: #65def9;
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 300%;
+            border-radius: 100%;
+        }
+        .darkmode--activated .eye div:before{
+            background:#c6b7ad;
+        }
+
+        .eye div:last-child:before {
+            bottom: 0;
+        }
+
+    .eye:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-100%, -50%);
+        width: 0.35em;
+        height: 0.35em;
+        background: var(--background);
+        border: 0.1em solid var(--color);
+        border-radius: 100%;
+        z-index: 1;
+    }
+
+    .eye:after {
+        content: '';
+        position: absolute;
+        top: -0.15em;
+        left: calc(33.333% - 0.15em);
+        transform: rotate(45deg) scaleX(0);
+        transform-origin: left center;
+        width: 90%;
+        height: 0.1em;
+        background: var(--background);
+        border-top: 0.1em solid var(--color);
+        z-index: 2;
+        transition: transform 0.25s;
+    }
+
+    .eye.slash:after {
+        transform: rotate(45deg) scaleX(1);
+    }
+
+.center {
+    position: absolute;
+    top: 45%;
+    left: 65.5%;
+    transform: translate(-100%, -50%);
+}
+/* The icon (info)*/
+.help-tip {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(-50%, -50%);
+    margin: auto;
+    text-align: center;
+    border: 2px solid #65def9;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 24px;
+    line-height: 80%;
+    cursor: default;
+}
+.darkmode--activated .help-tip {
+    border: 2px solid #000;
+}
+
+    .help-tip:before {
+        content: '?';
+        font-family: sans-serif;
+        font-weigh: normal;
+        color: #85d2e4;
+        font-size: large;
+    }
+.darkmode--activated .help-tip:before {
+    color: #000;
+}
+
+    .help-tip:hover p {
+        display: block;
+        transform-origin: 100% 0%;
+        -webkit-animation: fadeIn 0.3s ease;
+        animation: fadeIn 0.3s ease;
+    }
+
+    /* The tooltip */
+    .help-tip p {
+        display: none;
+        font-family: sans-serif;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        text-align: center;
+        background-color: #FFFFFF;
+        padding: 12px 16px;
+        width: 178px;
+        height: auto;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 5%);
+        border-radius: 3px;
+        /* 	border: 1px solid #E0E0E0; */
+        box-shadow: 0 0px 20px 0 rgba(0,0,0,0.1);
+        color: #37393D;
+        font-size: 12px;
+        line-height: 18px;
+        z-index: 99;
+    }
+
+        .help-tip p a {
+            color: #067df7;
+            text-decoration: none;
+        }
+
+            .help-tip p a:hover {
+                text-decoration: underline;
+            }
+
+        /* The pointer of the tooltip */
+        .help-tip p:before {
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-bottom-color: #FFFFFF;
+            top: -9px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Prevents the tooltip from being hidden */
+        .help-tip p:after {
+            width: 10px;
+            height: 40px;
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 0;
+        }
+
+/* CSS animation */
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
+/*checkbox*/
+#term {
+    display: inline-block;
+    margin-left: -14%;
+    margin-top: 2%;
+    width: 30%;
+    height: 30%;
+}
+
+/*kvkk popup*/
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+    .overlay:target {
+        visibility: visible;
+        opacity: 1;
+    }
+
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+    transition: all 5s ease-in-out;
+}
+
+    .popup h2 {
+        margin-top: 0;
+        color: #333;
+        font-family: Tahoma, Arial, sans-serif;
+    }
+
+    .popup .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+    }
+
+        .popup .close:hover {
+            color: #06D85F;
+        }
+
+    .popup .content {
+        max-height: 500px;
+        overflow: scroll;
+    }
+
+
+.divInactive {
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .box {
+        width: 70%;
+    }
+
+    .popup {
+        width: 70%;
+    }
+}
+/*şifre kuralları*/
+
+#password_rulesInd ul li.complete {
+    color: #85D2E4;
+}
+#password_rulesComp ul li.complete {
+    color: #85D2E4;
+}
+
+
+.darkmode--activated h4{
+    color:black;
+}
+
+.darkmode--activated ul{
+    color:black;
+}
+p {
+    color: #a0b3b0;
+}
+.darkmode--activated p{
+    color:black;
+}
+
+.darkmode--activated u{
+    color:black;
+}

@@ -1,0 +1,129 @@
+﻿a {
+    color: #FFF;
+    border-radius: 5px;
+}
+
+
+#container {
+    margin: 0 auto;
+}
+
+p {
+    text-align: center;
+}
+
+nav {
+    margin: 50px 0;
+    background-color: rgb(57,72,82);
+}
+
+    nav ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        position: relative;
+    }
+
+        nav ul li {
+            display: inline-block;
+            background-color: #85d2e4;
+        }
+
+    nav a {
+        display: block;
+        padding: 0 10px;
+        color: rgb(57,72,82);
+        font-size: 20px;
+        line-height: 40px;
+        text-decoration: none;
+    }
+
+        nav a:hover {
+            background-color: #000000;
+        }
+
+    /* Hide Dropdowns by Default */
+    nav ul ul {
+        display: none;
+        position: absolute;
+        top: 40px; /* the height of the main nav */
+    }
+
+    /* Display Dropdowns on Hover */
+    nav ul li:hover > ul {
+        display: inherit;
+    }
+
+    /* Fisrt Tier Dropdown */
+    nav ul ul li {
+        width: 170px;
+        float: none;
+        display: list-item;
+        position: relative;
+    }
+
+    /* Second, Third and more Tiers */
+    nav ul ul ul li {
+        position: relative;
+        top: -60px;
+        left: 170px;
+    }
+
+
+/* Change this in order to change the Dropdown symbol */
+li > a:after {
+    content: ' ↓';
+}
+
+li > a:only-child:after {
+    content: '';
+}
+
+
+button {
+    background: #5a8a98;
+    border: 0;
+    border-radius: 4px;
+    font-size: 18px;
+    color: #FFFFFF;
+    cursor: pointer;
+    &:focus
+
+{
+    outline: none;
+}
+
+&:hover {
+    background: lighten($btn-color, 10%);
+}
+
+}
+
+.popup {
+    border: solid;
+    border-color: #f5b006;
+    background: #23313c;
+    opacity: 0.9;
+    position: center;
+    display: none;
+    z-index: 5000;
+    height: 60%;
+    width: 100%;
+    margin-top: 100px;
+
+{
+    max-width: 600px;
+    // Max-width of popup can be changed width: 70%;
+    // Width of popup position: fixed;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    background: #FFFFFF;
+    padding: 30px;
+    z-index: 5001;
+    text-align: center;
+    border: 5px solid #9AD3DE;
+    border-radius: 20px;
+    box-shadow: 0px 0px 15px 0px rgba(#000000, 0.4);
+}
+}

@@ -1,0 +1,42 @@
+﻿body {
+    background: rgb(57,72,82);
+}
+
+
+.footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: blue;
+    color: white;
+    text-align: center;
+    background: linear-gradient( #3333ff, #3399ff );
+}
+
+#softwares {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    #softwares td, #softwares th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #softwares tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #softwares tr:hover {
+        background-color: #ddd;
+    }
+
+    #softwares th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+

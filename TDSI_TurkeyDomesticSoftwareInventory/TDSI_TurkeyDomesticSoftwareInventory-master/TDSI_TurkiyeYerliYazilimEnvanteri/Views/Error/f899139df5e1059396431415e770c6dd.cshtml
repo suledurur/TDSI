@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Error Page!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/Error.css")
+
+<div class="row main-title-area">
+    <div class="col-md-6 col-xs-12 col-md-offset-3">
+        <h1 class="main-title"> Bir Hata Oluştu <span class="glyphicon glyphicon-exclamation-sign main-title"></span></h1>
+    </div>
+</div>
+<div class="row content-area">
+    <div class="col-md-6 col-xs-8 col-md-offset-3 col-xs-offset-2">
+        <h4 class="soft-title" align="center">Yaşadığınız bu durum için çok üzgünüz.</h4>
+    </div>
+    <div class="col-md-6 col-xs-12 col-md-offset-3">
+        <p class="information-text">Yapmak istediğiniz işlem bazı sebeplerden dolayı başarıyla gerçekleştirilemedi.</p>
+    </div>
+</div>
+<div class="row button-area">
+
+    <div class="col-md-4 col-xs-6 col-md-offset-2 div-home">
+        <a class="btn go-to-home-button" href="@Url.Action("Index", "Home")">Anasayfaya Dön</a>
+    </div>
+    <div class="col-md-4 col-xs-6 div-support">
+        @* TODO: Popup ile mesaj kutusu açılacak... *@
+        <a href="https://www.gmail.com" class=" btn go-to-support-button">Destekle İletişime Geç</a>
+    </div>
+</div>

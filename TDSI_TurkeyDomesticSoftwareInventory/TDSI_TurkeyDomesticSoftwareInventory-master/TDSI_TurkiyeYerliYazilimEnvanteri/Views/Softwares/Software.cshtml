@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "Yazılımlar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@Styles.Render("~/Content/SearchBar.css")*@
+@*@Scripts.Render("~/Scripts/SearchBar.js")*@
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@Styles.Render("~/Content/Site.css")
+@Styles.Render("~/Content/Company.css")
+<div>
+    <div class="header-div">
+        <h2>Yerli Yazılımlarımız</h2>
+        <div class="row">
+            <div style="margin: 10px; width:40%; padding: 8px;" class=" form-group pull-left">
+                <input type="text" size="70" class="search form-control" placeholder="Hangi yazılımı arıyorsunuz?">
+            </div>
+        </div>
+
+        <div>
+            <form>
+                <div class="row">
+                    <div class="col-md-2" style="margin: 5px; color: rgb(101 222 249);">
+                        Yazılım Durumu
+                    </div>
+                    <div class="col-md-2" style="margin: 5px; padding-left: 4vh; color: rgb(101 222 249);">
+                        Yazılım Etiketleri
+                    </div>
+                    <div class="col-md-2" style="margin: 5px; padding-left: 5vh; color: rgb(101 222 249);">
+                        Platform
+                    </div>
+                </div>
+                <select style="margin: 5px; border: solid; border-color: #23313c; color: #23313c; width: 200px;" id="isfree" name="isfree" size="6" multiple>
+                    <option style="margin: 2px;">Demo</option>
+                    <option style="margin: 2px;">Tam veriyon</option>
+                    <option style="margin: 2px;">Beta</option>
+                    <option style="margin: 2px;">Ücretsiz</option>
+                    <option style="margin: 2px;">Ücretli</option>
+                </select>
+
+
+                <select style="margin: 5px; border: solid; border-color: #23313c; color: #23313c; width: 200px;" id="tag" name="tag" size="6" multiple>
+                    <option style="margin: 2px;">Siber güvenlik</option>
+                    <option style="margin: 2px;">ERP</option>
+                    <option style="margin: 2px;">Oyun</option>
+                    <option style="margin: 2px;">Seyahat</option>
+                    <option style="margin: 2px;">Eğlence</option>
+                    <option style="margin: 2px;">Ziraat</option>
+                    <option style="margin: 2px;">Savunma Sanayi</option>
+                </select>
+
+                <select style="margin: 5px; border: solid; border-color: #23313c; color: #23313c; width: 200px;" id="tag" name="tag" size="6" multiple>
+                    <option style="margin: 2px;">Windows</option>
+                    <option style="margin: 2px;">Linux</option>
+                    <option style="margin: 2px;">ANDROID</option>
+                    <option style="margin: 2px;">iOS</option>
+                    <option style="margin: 2px;">Pardus</option>
+                    <option style="margin: 2px;">Unix</option>
+                    <option style="margin: 2px;">MAC</option>
+                </select>
+            </form>
+        </div>
+
+        <div>
+
+            @{
+                foreach (var item in TempData["Softwares"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Software>)
+                {
+                    <div id="section" class="col-md-2 col-xs-5">
+
+                        <link href="~/Content/Index.css">
+                        <a href="@Url.Action("SoftwareDetails",new {id=item.softwareID })"> <img src=~/Images/havelsan.jpg alt="Compimg" id="image" class="img-responsive" style="margin:0; margin-top:10px" /> </a>
+                        <h3 class="company-name" align="center" id="compnamedesign">@item.softwareName</h3>
+                        <br />
+                        <a class="btn btn-default" id="button-alignment" href="@Url.Action("SoftwareDetails",new {id=item.softwareID })"> Ziyaret Edin &raquo;</a>
+
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+
+    @Styles.Render("~/Content/Pagination.css")
+    <div class="page-link row">
+        <nav aria-label="Page navigation example" align="center">
+            <ul class="my-pagination modal">
+
+                @{
+                    int page = (int)TempData["Page"];
+                    if (page == 1)
+                    {
+                        <li><a href="/" onclick="return false" class="prev">Previous</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Software","Softwares",new {pg = page - 1})" class="prev">Previous</a></li>
+                    }
+
+                    int i = 0;
+                    int pg = 0;
+
+
+                    TDSI_TurkiyeYerliYazilimEnvanteri.Models.TDSIEntities db = new TDSI_TurkiyeYerliYazilimEnvanteri.Models.TDSIEntities();
+                    List<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Software> softwares = db.Softwares.ToList();
+                    do
+                    {
+                        pg = pg + 1;
+                        i = i + 8;
+                        if (page == pg)
+                        {
+                            <li class="page-item"><a class="page-link active" id="@pg" href="@Url.Action("Software","Softwares",new {pg = pg})">@pg</a></li>
+
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" id="@pg" href="@Url.Action("Software","Softwares",new {pg = pg})">@pg</a></li>
+                        }
+
+                    } while (i < softwares.Count);
+
+
+                    if (page == pg)
+                    {
+                        <li><a href="/" onclick="return false" class="next">Next</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Software","Softwares",new {pg = page + 1})" class="next">Next</a></li>
+                    }
+
+
+                }
+
+            </ul>
+        </nav>
+    </div>
+
+</div>

@@ -1,0 +1,50 @@
+﻿
+.header-div {
+    margin-top: 60px;
+    background-color: transparent;
+}
+
+h2, h3, h4 {
+    color: #65def9;
+    font-size: xx-large;
+}
+
+#textcolor {
+    color: #ffffff;
+}
+
+.company-name {
+    color: #ffffff;
+}
+.darkmode--activated .company-name{
+    color:black;
+}
+
+#image {
+ /*   padding: 40px 40px;*/
+    border-radius: 45px;
+}
+
+#section {
+    border-radius: 10px;
+    background-color: #1F2D34;
+    margin: 5px;
+    min-width: 24%;
+    height: 360px;
+    background: rgba(31, 45, 52, .76);
+}
+.darkmode--activated #section{
+    background:#ece8db;
+}
+
+#button-alignment {
+    position: absolute;
+    left: 4vw;
+    bottom: 10px;
+}
+.page-link {
+    
+    display: block;
+    background-color: transparent;
+    border-color: #ffffff;
+}

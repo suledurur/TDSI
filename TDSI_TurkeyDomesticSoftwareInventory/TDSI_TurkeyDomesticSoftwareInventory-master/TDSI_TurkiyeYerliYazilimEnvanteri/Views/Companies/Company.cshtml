@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@Styles.Render("~/Content/Site.css")
+@Styles.Render("~/Content/Company.css")
+
+
+
+<div>
+    <div class="header-div">
+        <h2> Yerli Şirketlerimiz</h2>
+        <div class="row">
+            <div style="margin: 10px; width:40%; padding: 8px;" class=" form-group pull-left">
+                <input type="text" size="70" class="search form-control" placeholder="Hangi şirketi arıyorsunuz?">
+            </div>
+        </div>
+
+
+
+
+        <div>
+            @foreach (var item in TempData["Companies"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Company>)
+            {
+                <div id="section" class="col-md-2 col-xs-5">
+                  
+                    <link href="~/Content/Index.css">
+                    <a href="#"> <img src=~/Images/havelsan.jpg alt="Compimg" id="image" class="img-responsive" style="margin:0; margin-top:10px" /> </a>
+                    <h3 class="company-name" align="center" id="compnamedesign">@item.Account.accountName</h3>
+                    <br />
+                    <a class="btn btn-default" id="button-alignment" href="@Url.Action("CompanyDetails", new { id = item.companyID })"> Ziyaret Edin &raquo;</a>
+
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+    @Styles.Render("~/Content/Pagination.css")
+    <div class="page-link row">
+        <nav aria-label="Page navigation example" align="center">
+            <ul class="my-pagination modal">
+
+                @{
+                    int page = (int)TempData["Page"];
+                    if (page == 1)
+                    {
+                        <li><a href="/" onclick="return false" class="prev">Previous</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Company","Companies",new {pg = page - 1})" class="prev">Previous</a></li>
+                    }
+
+                    int i = 0;
+                    int pg = 0;
+
+
+                    TDSI_TurkiyeYerliYazilimEnvanteri.Models.TDSIEntities db = new TDSI_TurkiyeYerliYazilimEnvanteri.Models.TDSIEntities();
+                    List<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Company> companies = db.Companies.ToList();
+                    do
+                    {
+                        pg = pg + 1;
+                        i = i + 8;
+                        if (page == pg)
+                        {
+                            <li class="page-item"><a class="page-link active" id="@pg" href="@Url.Action("Company","Companies",new {pg = pg})">@pg</a></li>
+
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" id="@pg" href="@Url.Action("Company","Companies",new {pg = pg})">@pg</a></li>
+                        }
+
+                    } while (i < companies.Count);
+
+
+                    if (page == pg)
+                    {
+                        <li><a href="/" onclick="return false" class="next active">Next</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Company","Companies",new {pg = page + 1})" class="next">Next</a></li>
+                    }
+
+
+                }
+
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,395 @@
+﻿
+@{
+    ViewBag.Title = "CompanyDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@*@Styles.Render("~/Content/Site.css")*@
+@Styles.Render("~/Content/template.css")
+@Styles.Render("~/Content/SocialMedia.css")
+@Styles.Render("~/Content/CompanyDetails.css")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/Scripts/Follow.js")
+@Scripts.Render("~/Scripts/bildir.js")
+@Styles.Render("~/Content/bildir.css")
+
+
+<div align="center" class="popup">
+    <br /><br />
+    <h2 style="color: #f5b006;">Bu Şirketi Bildir!</h2>
+    <div id="container">
+        <nav>
+            <ul style="z-index:5;" class="col-md-12">
+                <li>
+                    <a href="#">Bir Şikayet Sebebi Seçiniz </a>
+                    <!-- First Tier Drop Down -->
+                    <ul>
+                        <li><a href="#">Sahte Hesap</a></li>
+                        <li><a href="#">Spam</a></li>
+                        <li><a href="#">Uygunsuz İçerik</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <br />
+    </div>
+    <p style="color: #85d2e4;">Şirket hakkında bildiri yaparken doğru sebebi seçtiğinize lütfen emin olunuz.</p>
+    <fieldset>
+        <textarea style="width:537px;height:107px;" placeholder="Iletinizi buraya yazınız..." tabindex="10" required></textarea>
+    </fieldset>
+    <br />
+    <div class="col-md-12">
+        <button style="padding: 10px 25px;" name="Gönder" type="submit" id="contact-submit" data-submit="...Sending">Gönder</button>
+        <button style="padding: 10px 25px;" name="close">Kapat</button>
+
+    </div>
+</div>
+
+<div class="header-div">
+
+
+    <div class="row">
+        <div class="col-md-3 col-xs-6">
+            <img class="circular--square" src="~/Images/havelsan.jpg" style="width:100%; height:65%;" />
+        </div>
+        <div class="col-md-5 col-md-offset-1 col-xs-6">
+            <ul class="nav navbar-nav">
+                <li id="info"><i class="fa fa-bookmark-o" style="font-size:18px;"></i> Savunma Sanayi</li>
+                <li id="info"><i class='far fa-building' style='font-size:18px'></i> Özel Firma</li>
+                <li id="info"><i class="fa fa-calendar" style="font-size:18px"></i> 1982</li>
+                <li id="info"><i class="material-icons" style="font-size:20px">room</i> Ankara</li>
+            </ul>
+        </div>
+        <div class="col-md-3 col-xs-4">
+            <ul class="nav navbar-nav pull-right">
+                @{
+                    var company = TempData["CompanyDetail"] as TDSI_TurkiyeYerliYazilimEnvanteri.Models.Company;
+                    //TDSI_TurkiyeYerliYazilimEnvanteri.Models.Follow flw = new TDSI_TurkiyeYerliYazilimEnvanteri.Models.Follow();
+                    List<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Follow> follows = new List<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Follow>();
+                    foreach (var item in TempData["Follows"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Follow>)
+                    {
+                        if (TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID == item.accountID)
+                        {
+                            follows.Add(item);
+                        }
+                    }
+
+                    //incelenen şirketi takip eden hesaplar TempData["Follows"] da tutuluyor
+                    if (Session["OnlineKullanici"] != null)
+                    {
+                        if (company.accountID == TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID)
+                        {
+                            @Html.ActionLink("Profile Git", "CompanyProfile", "User", new { id = company.accountID }, new { @class = "pull-left follow-button" });
+                        }
+                        else
+                        {
+                            if (follows.Count == 0)
+                            {
+                                @Html.ActionLink("Takip Et", "AddToFollows", "Companies", new { id = company.companyID }, new { @class = "pull-left follow-button" });
+                            }
+                            else if (follows[0].accountID == TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID)
+                            {
+                                @Html.ActionLink("Takibi Bırak", "AddToFollows", "Companies", new { id = company.companyID }, new { @class = "pull-left unfollow-button" });
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Takip Et", "AddToFollows", "Companies", new { id = company.companyID }, new { @class = "pull-left follow-button" });
+                            }
+
+                        }
+
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Takip Et", "AddToFollows", "Companies", new { id = company.companyID }, new { @class = "pull-left follow-button" });
+                    }
+
+                }
+                <li><button data-js="open" id="report-button">Bildir!</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- #region Önceki Head Kodu -->
+    @*<p align="left" class="color">
+         <img class="circular--square" src="~/Images/havelsan.jpg" style="width:20%;height:20%;">
+         <ul class="nav navbar-nav">
+             <li><i class="fa fa-bookmark-o" style="font-size:18px"></i>    Savunma Sanayi&emsp;&emsp;&emsp;</li>
+             <li><i class='far fa-building' style='font-size:18px'></i>     Özel Firma&emsp;&emsp;&emsp;</li>
+             <li><i class="fa fa-calendar" style="font-size:18px"></i>    1982&emsp;&emsp;&emsp;</li>
+             <li><i class="material-icons" style="font-size:20px">room</i> Ankara</li>
+         </ul>
+         <ul class="nav navbar-nav pull-right">
+             <li class="pull-left"><button id="follow-button">Takip Et</button></li>
+             <li><button  id="report-button">Bildir</button></li>
+             <li><a class="btn btn-warning">Bildir!</a></li>
+         </ul>
+        </p>
+    *@
+    @*<td><i class="fa fa-bookmark-o" style="font-size:18px"></i>    Savunma Sanayi&emsp;&emsp;&emsp;</td>
+        <li><a class="btn btn-warning" id="" style="width:25%" href="https://go.microsoft.com/fwlink/?LinkId=301866"> Bildir!  </a></li>
+        <td><i class='far fa-building' style='font-size:18px'></i>     Özel Firma&emsp;&emsp;&emsp;</td>
+        <td align="left"><i class="fa fa-calendar" style="font-size:18px"></i>    1982&emsp;&emsp;&emsp;</td>
+        <td align="left"><i class="material-icons" style="font-size:20px">room</i> Ankara</td>*@
+
+    <!-- #endregion -->
+
+</div>
+
+
+<div class="row">
+    <div class="column middle">
+        <div class="info-section">
+            <h3 class="comp-section-titles" align="center">@company.Account.accountName</h3>
+            <ul class="nav nav-tabs" style="border-color: #65def9; width:40%;">
+                <li>
+                    <a style="color:white" href="#description" data-toggle="tab" id="company-tabs"> Açıklama </a>
+                </li>
+                <li>
+                    <a style="color:white" href="#softwares" data-toggle="tab" id="company-tabs"> Yazılımlar </a>
+                </li>
+
+                <li> <a style="color:white" href="#branches" data-toggle="tab" id="company-tabs">Şubeler</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="description">
+                    @*@Html.Raw(item.LongDescription)*@
+                    <p align="left" class="comp-main-section">
+                        @Html.Raw(company.Account.accountDescription)
+                        <!-- #region eski açıklama -->
+                        @*Havelsan A.Ş. (adının açılımı: Hava Elektronik Sanayii), 1982 yılında Türk Silahlı Kuvvetleri'nin Yazılım Mühendisliği alanındaki ihtiyaçlarının giderilmesi amacı ile kurulmuş
+                            olan bir şirkettir. 1985 yılından itibaren şirket yabancı ortaklarından ayrılarak %98'i Türk Silahlı Kuvvetlerini Güçlendirme Vakfı'na ait olan bir kuruluş haline gelmiştir.
+                            Şirket merkezi Ankara'da olmakla birlikte birçok farklı ilde ve yurt dışında ofisleri bulunmaktadır.<br /> <br />
+
+                            Havelsan, Savunma ve BT sektörlerinde global çözümler sunan bir bilişim ve sistem şirketidir. Havelsan, C4ISR, Anayurt Güvenliği,
+                            Simülasyon ve Eğitim Simülatörleri ve Bilgi Yönetim Sistemleri alanlarında kendini geliştirmiştir. Bu dallardan CN-235 CASA ucakları için pilot uçuş eğitim simülatörü üretmiş
+                            ve Türkiye tarihinde bir ilke imza atarak yurt dışına simülatör ihrac etmiştir.<br /> <br />
+
+                            Havelsan, genelde askeri yazılım ve siber güvenlik projelerinde yer almakla birlikte son yıllarda birçok e-devlet projesi ile ilgili sorumluluklar almış ve bu sorumluluklarını
+                            başarıyla yerine getirmiş ya da getirmeye devam etmektedir.<br /> <br />
+
+                            Havelsan, 2018'de Türkiye'nin en büyük kuruluşu arasında (İSO 500) 1.209.586.140 TL üretimden net satış miktarıyla geçen yıla göre 120 sıra birden yükselerek 153. sırada yer almıştır.
+                            Brüt katma değer sıralamasına göre de 530.902.933 TL ile 34. sırada yer almaktadır.Aynı zamanda Teknofest İstanbul'un paydaşlarından biridir.*@
+                        <!-- #endregion -->
+                        <br />
+                    </p>
+
+                </div>
+                <div class="tab-pane fade" id="softwares">
+                    <div class="comp-software-section">
+                        <h3 class="comp-section-titles">FİRMAYA AİT YAZILIMLAR</h3>
+                        <div class="items-body">
+                            @foreach (var software in TempData["CompanySoftwares"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.Software>)
+                            {
+                                <div>
+                                    <p> <a class="btn btn-default" id="button" style="width:60%" href="@Url.Action("SoftwareDetails","Softwares")"> @software.softwareName  </a> </p>
+                                </div>
+                            }
+                            <!-- #region Eski Yazılımlar alanı -->
+                            @*<div>
+                                    <p> <a class="btn btn-default" id="button" style="width:60%" href="https://go.microsoft.com/fwlink/?LinkId=301866"> Web Usabilty Testing  </a> </p>
+
+                                </div>
+                                <div>
+                                    <p> <a class="btn btn-default" id="button" style="width:60%" href="https://go.microsoft.com/fwlink/?LinkId=301866"> Design of Everyday Things </a> </p>
+
+
+                                </div>
+                                <div>
+                                    <p> <a class="btn btn-default" id="button" style="width:60%" href="https://go.microsoft.com/fwlink/?LinkId=301866"> Practical Empathy: For Collaboration & Creativity in Your Work </a> </p>
+
+
+                                </div>
+                                <div>
+                                    <p> <a class="btn btn-default" id="button" style="width:60%" href="https://go.microsoft.com/fwlink/?LinkId=301866"> About Face: The Essentials of Interaction Design </a> </p>
+
+
+                                </div>*@
+
+                            <!-- #endregion -->
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="tab-pane fade" id="branches">
+                    <div class="comp-software-section">
+                        <dl style="color:white">
+
+                            <dt><u>DURUR A.Ş.</u></dt>
+                            <dd> <i class="material-icons" style="font-size:20px">room</i> adres </dd>
+                            <dd> <span class="glyphicon glyphicon-earphone" style="font-size:20px">telefon </span></dd>
+                            <dd> <i class="fa fa-envelope" style="font-size:18px"></i> e-mail<br></dd>
+
+                            <dt><u>Oğuzhan A.Ş.</u></dt>
+                            <dd> <i class="material-icons" style="font-size:20px">room</i> adres </dd>
+                            <dd> <span class="glyphicon glyphicon-earphone" style="font-size:20px">telefon </span></dd>
+                            <dd> <i class="fa fa-envelope" style="font-size:18px"></i> e-mail</dd>
+                        </dl>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- #region Önceki Firma Yazılımları kodu -->
+        @*<div class="comp-software-section" id="comments">
+                <h3 class="comp-section-titles">FİRMAYA AİT YAZILIMLAR</h3>
+                <hr style="width:60%">
+                <div class="items-body">
+                    <div>
+                        <p> <a class="btn btn-default" id="button" style="width:60%" href="https://go.microsoft.com/fwlink/?LinkId=301866"> Web Usabilty Testing  </a> </p>
+
+                    </div>
+                    <div>
+                        <p> <a class="btn btn-default" id="button" style="width:60%" href="https://go.microsoft.com/fwlink/?LinkId=301866"> Design of Everyday Things </a> </p>
+
+
+                    </div>
+                    <div>
+                        <p> <a class="btn btn-default" id="button" style="width:60%" href="https://go.microsoft.com/fwlink/?LinkId=301866"> Practical Empathy: For Collaboration & Creativity in Your Work </a> </p>
+
+
+                    </div>
+                    <div>
+                        <p> <a class="btn btn-default" id="button" style="width:60%" href="https://go.microsoft.com/fwlink/?LinkId=301866"> About Face: The Essentials of Interaction Design </a> </p>
+
+
+                    </div>
+
+                </div>
+            </div>*@
+        <!-- #endregion -->
+
+    </div>
+
+    <div class="column side" align="center">
+
+        <h3 class="comp-section-titles" align="center"> SEKTÖRLER</h3>
+        <hr style="width:75%">
+        <ul style="color:white">
+            @foreach (var compSector in TempData["CompanySectors"] as IEnumerable<TDSI_TurkiyeYerliYazilimEnvanteri.Models.CompanySector>)
+            {
+                <li id="box"> @compSector.Sector.sectorName </li>
+            }
+            <!-- #region eski sektörler -->
+            @*<li id="box"> Savunma </li>
+                <li id="box">Eğitim</li>
+                <li id="box"> İletişim </li>
+                <li id="box">Siber Güvenlik</li>*@
+            <!-- #endregion -->
+        </ul>
+
+        <br>
+        <div id="about-info">
+            <h3 class="comp-section-titles" align="center">İLETİŞİM</h3>
+            <hr style="width:50%">
+
+            <a href="@company"></a>
+            <p>
+                <i class="material-icons" style="font-size:20px">room</i>
+                <i> @company.companyAddress</i>
+            </p>
+
+            <p>
+                <span class="glyphicon glyphicon-earphone" style="font-size:20px"></span>
+                @*<i>@company.companyTelNum</i>*@
+                <i>0312 219 5787 </i>
+            </p>
+            <p>
+                @* maile yönlendirme yapılacak *@
+                <i class="fa fa-envelope" style="font-size:18px"></i>
+                <a href="@company.Account.accountMail">@company.Account.accountMail</a>
+
+            </p>
+
+        </div>
+
+        <div align="center">
+            <br>
+            <h3 class="comp-section-titles" align="center">BİZİ TAKİP EDİN  </h3>
+            <hr style="width:75%">
+            <div class="exsprite" style="width: 120%">
+
+
+                <a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/f1.png" title="Facebook" id="ayırma" /></a>
+                <a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/t1.png" title="Twitter" id="ayırma" /></a>
+                <a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/g1.png" title="Google+" /></a>
+                <br /><a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/i1.png" title="Instagram" /></a>
+                <a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/t2.png" title="Tumblr" /></a>
+                <a href="#" target="_blank"><img src="https://www.teknobeyin.com/wp-content/themes/astra/images/y1.png" title="YouTube" /></a>
+            </div><br /><br />
+        </div>
+        <!-- #region eski kod -->
+        @*<h3 class="comp-section-titles" align="center">ŞUBELERİM</h3>
+            <hr style="width:60%">
+            <div align="right" style="width: 100%" >
+
+                BUTON1
+
+                <div align="left">
+
+
+                    <button class="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" id="button" style="width: 100%">Havelsan Hava Teknoloji Sanayi</button>
+                    <div class="collapse" id="collapseExample">
+
+                        <p id="info">
+                            <i class="material-icons" style="font-size: 20px; margin-top:10px;">room</i>
+                            <i> Mustafa Kemal Mahallesi 2120 Cad. No:39 P.K. : 06510 Çankaya/Ankara</i>
+                        </p>
+                        <p id="info">
+                            <span class="glyphicon glyphicon-earphone" style="font-size:20px"></span>
+                            <i>0312 219 5787 </i>
+                        </p>
+                        <p>
+                            <i class="fa fa-envelope" style="font-size:18px"></i>
+                            <a href="info@havelsan.com.tr">  info@havelsan.com.tr</a>
+
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div align="right" style="width: 100%" >
+
+                BUTON2
+
+                <div align="left">
+
+
+
+                    <button class="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" id="button" style="width: 100%">Havelsan Hava Teknoloji Sanayi</button>
+                    <div class="collapse" id="collapseExample1">
+
+                        <p id="info">
+                            <i class="material-icons" style="font-size:20px; margin-top:10px;">room</i>
+                            <i> Mustafa Kemadfghjklşid. No:39 P.K. : 06510 Çankaya/Ankara</i>
+                        </p>
+                        <p id="info">
+                            <span class="glyphicon glyphicon-earphone" style="font-size:20px"></span>
+                            <i>0312 219 5787 </i>
+                        </p>
+                        <p>
+                            <i class="fa fa-envelope" style="font-size:18px"></i>
+                            <a href="info@havelsan.com.tr">  info@havelsan.com.tr</a>
+
+                        </p>
+                    </div>
+                </div>
+
+            </div>*@
+        <!-- #endregion -->
+    </div>
+</div>
+
+<style>
+</style>
+
+
+
+
+
+
+
+

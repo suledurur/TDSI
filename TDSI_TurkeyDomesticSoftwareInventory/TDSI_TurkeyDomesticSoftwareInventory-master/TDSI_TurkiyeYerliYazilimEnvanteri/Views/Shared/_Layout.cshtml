@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - TrYazılım </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/Index.css")
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/Site.css")
+
+</head>
+
+<body @*style="background-image: url(/Images/bckgrnd4.jpg);"*@ style="background: rgb(57,72,82);">
+
+    <style>
+        #searchbar {
+            margin: 7px;
+        }
+    </style>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="position:inherit; margin-bottom:0px;">
+        <div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("TDSI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul style="width: 50%" class="nav navbar-nav">
+
+                    <li>@Html.ActionLink("Anasayfa", "Index", "Home")</li>
+                    <li><a href="#jumbo">Hakkımızda</a></li>
+                    <li>@Html.ActionLink("İletişim", "Contact", "Home")</li>
+                    <li><a href="@Url.Action("Router", "Error", new { err_code = 100})">Error Test!(100)</a></li>
+                    <li><a href="@Url.Action("Software", "Softwares", new { pg = 1 })">Yazılımlar</a></li>
+                    <li><a href="@Url.Action("Company", "Companies", new { pg = 1 })">Şirketler</a></li>
+                    <li></li>
+                    <li style="width: 30%">
+                        <div id="searchbar" class="form-group pull-left">
+                            <input type="text" size="70" class="search form-control" placeholder="Site içi arama" FR>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+
+                    <li class="pull-left" style="margin-right:50px;">@Html.Partial("_LoginPartial")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+
+    </div>
+
+
+
+
+    <div class="footer" style=" position:page; bottom:5px;">
+        <p>&copy; @DateTime.Now.Year -  Türkiye Yerli Yazılımlar Envanteri</p>
+        <p>Tüm Hakları Saklıdır.</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+    <script>
+        const options = {
+            bottom: '64px', // default: '32px'
+            right: '32px', // default: '32px'
+            left: 'unset', // default: 'unset'
+            time: '1s', // default: '0.3s'
+            mixColor: '#fff', // default: '#fff'
+            backgroundColor: 'rgb(57,72,82)',  // default: '#fff'
+            buttonColorDark: '#100f2c',  // default: '#100f2c'
+            buttonColorLight: '#fff', // default: '#fff'
+            saveInCookies: true, // default: true,
+            label: '🌓', // default: ''
+            autoMatchOsTheme: true // default: true
+        }
+
+        const darkmode = new Darkmode(options);
+        darkmode.showWidget();
+
+    </script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+
+
+
+</body>
+</html>

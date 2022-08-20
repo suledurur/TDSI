@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+    @Styles.Render("~/Content/iletisim.css")
+
+
+    <div class="container1">
+        <form id="contact" action="" method="post">
+            <h3>TDSI Iletişim Formu</h3>
+            <h4>Iletişime Geçin</h4>
+            <fieldset>
+                <input placeholder="Adınız Soyadınız" type="text" tabindex="1" required autofocus>
+            </fieldset>
+            <fieldset>
+                <input placeholder="E-mail Adresiniz" type="email" tabindex="2" required>
+            </fieldset>
+            <fieldset>
+                <input placeholder="Telefon Numaranız (İsteğe Bağlı)" type="tel" tabindex="3">
+            </fieldset>
+            <fieldset>
+                <input placeholder="Web Siteniz (İsteğe Bağlı)" type="url" tabindex="4">
+            </fieldset>
+            <fieldset>
+                <textarea placeholder="Iletinizi buraya yazınız..." tabindex="5" required></textarea>
+            </fieldset>
+            <fieldset>
+                <button name="Gönder" type="submit" id="contact-submit" data-submit="...Sending">Gönder</button>
+            </fieldset>
+
+
+
+
+            @*<p class="copyright">Designed by <a href="https://colorlib.com" target="_blank" title="Nuri Berk Çiftpınar">Colorlib</a></p>*@
+        </form>
+    </div>

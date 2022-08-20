@@ -1,0 +1,2339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TDSIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountNotificationBlocks">
+          <Key>
+            <PropertyRef Name="anbID" />
+          </Key>
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="blockedID" Type="int" Nullable="false" />
+          <Property Name="anbID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="accountID" />
+          </Key>
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="roleID" Type="smallint" Nullable="false" />
+          <Property Name="accountName" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="loginName" Type="nvarchar" MaxLength="22" Nullable="false" />
+          <Property Name="loginPassword" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="accountMail" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="accountTelNum" Type="nvarchar" MaxLength="18" />
+          <Property Name="accountPhoto" Type="varbinary(max)" />
+          <Property Name="accountDescription" Type="nvarchar" MaxLength="2000" />
+          <Property Name="accountCreated" Type="datetime2" Precision="6" Nullable="false" />
+          <Property Name="accountLastSeen" Type="datetime2" Precision="6" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="commentID" />
+          </Key>
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="rate" Type="smallint" Nullable="false" />
+          <Property Name="commentID" Type="int" Nullable="false" />
+          <Property Name="commentContent" Type="nvarchar(max)" />
+          <Property Name="commentDate" Type="datetime2" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Companies">
+          <Key>
+            <PropertyRef Name="companyID" />
+          </Key>
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="companyTelNum" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="companyAddress" Type="nvarchar(max)" />
+          <Property Name="companyWebSiteLink" Type="nvarchar(max)" />
+          <Property Name="isStationExist" Type="bit" Nullable="false" />
+          <Property Name="companyID" Type="int" Nullable="false" />
+          <Property Name="taxNumber" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CompanySectors">
+          <Key>
+            <PropertyRef Name="csID" />
+          </Key>
+          <Property Name="companyID" Type="int" Nullable="false" />
+          <Property Name="sectorID" Type="smallint" Nullable="false" />
+          <Property Name="csID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompanyStatistics">
+          <Key>
+            <PropertyRef Name="csID" />
+          </Key>
+          <Property Name="companyID" Type="int" Nullable="false" />
+          <Property Name="profileViewsTotal" Type="int" Nullable="false" />
+          <Property Name="profileViewsMonthly" Type="int" Nullable="false" />
+          <Property Name="profileViewDate" Type="datetime2" Precision="6" Nullable="false" />
+          <Property Name="csID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FavoriteSoftwares">
+          <Key>
+            <PropertyRef Name="fsID" />
+          </Key>
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="favsoftwareID" Type="int" Nullable="false" />
+          <Property Name="fsID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Follows">
+          <Key>
+            <PropertyRef Name="fID" />
+          </Key>
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="followingID" Type="int" Nullable="false" />
+          <Property Name="fID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InstantNotifications">
+          <Key>
+            <PropertyRef Name="notificationID" />
+          </Key>
+          <Property Name="notificationID" Type="int" Nullable="false" />
+          <Property Name="notificationText" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MailActivation">
+          <Key>
+            <PropertyRef Name="maID" />
+          </Key>
+          <Property Name="maID" Type="int" Nullable="false" />
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="isVerified" Type="bit" Nullable="false" />
+          <Property Name="activationCode" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="validationDate" Type="datetime2" Precision="6" Nullable="false" />
+          <Property Name="verifiedDate" Type="datetime2" Precision="6" />
+        </EntityType>
+        <EntityType Name="MonthlySoftwareStatistics">
+          <Key>
+            <PropertyRef Name="mssID" />
+          </Key>
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="softwareViewsMonthly" Type="int" Nullable="false" />
+          <Property Name="softwareViewDate" Type="date" Nullable="false" />
+          <Property Name="mssID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="notificationID" />
+          </Key>
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="notificationSourceID" Type="int" Nullable="false" />
+          <Property Name="notificationTypeID" Type="smallint" Nullable="false" />
+          <Property Name="notificationContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isNotificationSeen" Type="bit" Nullable="false" />
+          <Property Name="notificationDate" Type="datetime2" Precision="6" Nullable="false" />
+          <Property Name="notificationID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NotificationTypes">
+          <Key>
+            <PropertyRef Name="notificationTypeID" />
+          </Key>
+          <Property Name="notificationTypeID" Type="smallint" Nullable="false" />
+          <Property Name="notificationTitle" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="roleID" />
+          </Key>
+          <Property Name="roleID" Type="smallint" Nullable="false" />
+          <Property Name="roleName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sectors">
+          <Key>
+            <PropertyRef Name="sectorID" />
+          </Key>
+          <Property Name="sectorID" Type="smallint" Nullable="false" />
+          <Property Name="sectorName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SocialMedias">
+          <Key>
+            <PropertyRef Name="smID" />
+          </Key>
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="instagramLink" Type="nvarchar(max)" />
+          <Property Name="twitterLink" Type="nvarchar(max)" />
+          <Property Name="linkedinLink" Type="nvarchar(max)" />
+          <Property Name="facebookLink" Type="nvarchar(max)" />
+          <Property Name="youtubeLink" Type="nvarchar(max)" />
+          <Property Name="smID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoftwareEdits">
+          <Key>
+            <PropertyRef Name="seID" />
+          </Key>
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="updateDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="updateDate" Type="datetime2" Precision="6" Nullable="false" />
+          <Property Name="seID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoftwareIsFree">
+          <Key>
+            <PropertyRef Name="sifID" />
+          </Key>
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="isDemo" Type="bit" />
+          <Property Name="isFullVersion" Type="bit" />
+          <Property Name="isBeta" Type="bit" />
+          <Property Name="isFree" Type="bit" />
+          <Property Name="sifID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoftwareNewPatches">
+          <Key>
+            <PropertyRef Name="snpID" />
+          </Key>
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="softwareNewVersion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="patchNotes" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="softwareNewVersionDate" Type="date" Nullable="false" />
+          <Property Name="snpID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoftwareNotificationBlocks">
+          <Key>
+            <PropertyRef Name="snbID" />
+          </Key>
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="snbID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoftwareOldPatches">
+          <Key>
+            <PropertyRef Name="sopID" />
+          </Key>
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="softwareOldVersion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="patchNotes" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="softwareOldVersionDate" Type="date" Nullable="false" />
+          <Property Name="sopID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Softwares">
+          <Key>
+            <PropertyRef Name="softwareID" />
+          </Key>
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="softwareName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="softwareVersion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="softwareImg" Type="varbinary(max)" />
+          <Property Name="softwareCreatedDate" Type="datetime2" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoftwareStatistics">
+          <Key>
+            <PropertyRef Name="ssID" />
+          </Key>
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="softwareViewsTotal" Type="int" Nullable="false" />
+          <Property Name="softwareViewsMonthly" Type="int" Nullable="false" />
+          <Property Name="softwareViewsDaily" Type="int" Nullable="false" />
+          <Property Name="softwareViewDate" Type="datetime2" Precision="6" Nullable="false" />
+          <Property Name="ssID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoftwareTags">
+          <Key>
+            <PropertyRef Name="stID" />
+          </Key>
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="tagID" Type="smallint" Nullable="false" />
+          <Property Name="stID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoftwareVideos">
+          <Key>
+            <PropertyRef Name="svID" />
+          </Key>
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="softwareVideoLink" Type="nvarchar(max)" />
+          <Property Name="svID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoftwareWorkPlatform">
+          <Key>
+            <PropertyRef Name="swpID" />
+          </Key>
+          <Property Name="softwareID" Type="int" Nullable="false" />
+          <Property Name="isWindows" Type="bit" />
+          <Property Name="isLinux" Type="bit" />
+          <Property Name="isUnix" Type="bit" />
+          <Property Name="isPardus" Type="bit" />
+          <Property Name="isAndroid" Type="bit" />
+          <Property Name="isIOS" Type="bit" />
+          <Property Name="isDesktopApp" Type="bit" />
+          <Property Name="isWebApp" Type="bit" />
+          <Property Name="isOthers" Type="bit" />
+          <Property Name="swpID" Type="int" Nullable="false" />
+          <Property Name="isMacOS" Type="bit" />
+        </EntityType>
+        <EntityType Name="Stations">
+          <Key>
+            <PropertyRef Name="sID" />
+          </Key>
+          <Property Name="companyID" Type="int" Nullable="false" />
+          <Property Name="stationName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="stationAddress" Type="nvarchar(max)" />
+          <Property Name="stationTelNum" Type="nvarchar(max)" />
+          <Property Name="stationDescription" Type="nvarchar(max)" />
+          <Property Name="sID" Type="int" Nullable="false" />
+          <Property Name="stationWebSite" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="tagID" />
+          </Key>
+          <Property Name="tagID" Type="smallint" Nullable="false" />
+          <Property Name="tagName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="ticketID" />
+          </Key>
+          <Property Name="ticketID" Type="int" Nullable="false" />
+          <Property Name="accountID" Type="int" Nullable="false" />
+          <Property Name="ticketTypeID" Type="smallint" Nullable="false" />
+          <Property Name="ticketContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="complainedID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TicketTitles">
+          <Key>
+            <PropertyRef Name="ticketTypeID" />
+          </Key>
+          <Property Name="ticketTypeID" Type="smallint" Nullable="false" />
+          <Property Name="ticketIssue" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AccountNotificationBlocks_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="AccountNotificationBlocks" Type="Self.AccountNotificationBlocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="AccountNotificationBlocks">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountNotificationBlocks_Accounts1">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="AccountNotificationBlocks" Type="Self.AccountNotificationBlocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="AccountNotificationBlocks">
+              <PropertyRef Name="blockedID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="roleID" />
+            </Principal>
+            <Dependent Role="Accounts">
+              <PropertyRef Name="roleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Companies_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Companies" Type="Self.Companies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Companies">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanySectors_Companies">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="1" />
+          <End Role="CompanySectors" Type="Self.CompanySectors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="companyID" />
+            </Principal>
+            <Dependent Role="CompanySectors">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanySectors_Sectors">
+          <End Role="Sectors" Type="Self.Sectors" Multiplicity="1" />
+          <End Role="CompanySectors" Type="Self.CompanySectors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sectors">
+              <PropertyRef Name="sectorID" />
+            </Principal>
+            <Dependent Role="CompanySectors">
+              <PropertyRef Name="sectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyStatistics_Companies">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="1" />
+          <End Role="CompanyStatistics" Type="Self.CompanyStatistics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="companyID" />
+            </Principal>
+            <Dependent Role="CompanyStatistics">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteSoftwares_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="FavoriteSoftwares" Type="Self.FavoriteSoftwares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="FavoriteSoftwares">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteSoftwares_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="FavoriteSoftwares" Type="Self.FavoriteSoftwares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="FavoriteSoftwares">
+              <PropertyRef Name="favsoftwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Follows_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Follows" Type="Self.Follows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Follows">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Follows_Companies">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="1" />
+          <End Role="Follows" Type="Self.Follows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="companyID" />
+            </Principal>
+            <Dependent Role="Follows">
+              <PropertyRef Name="followingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MailActivation_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="MailActivation" Type="Self.MailActivation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="MailActivation">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySoftwareStatistics_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="MonthlySoftwareStatistics" Type="Self.MonthlySoftwareStatistics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="MonthlySoftwareStatistics">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Accounts1">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="notificationSourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_NotificationTypes">
+          <End Role="NotificationTypes" Type="Self.NotificationTypes" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotificationTypes">
+              <PropertyRef Name="notificationTypeID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="notificationTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SocialMedias_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="SocialMedias" Type="Self.SocialMedias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="SocialMedias">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareEdits_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="SoftwareEdits" Type="Self.SoftwareEdits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="SoftwareEdits">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareEdits_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="SoftwareEdits" Type="Self.SoftwareEdits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareEdits">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareIsFree_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="SoftwareIsFree" Type="Self.SoftwareIsFree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareIsFree">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareNewPatches_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="SoftwareNewPatches" Type="Self.SoftwareNewPatches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareNewPatches">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareNotificationBlocks_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="SoftwareNotificationBlocks" Type="Self.SoftwareNotificationBlocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="SoftwareNotificationBlocks">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareNotificationBlocks_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="SoftwareNotificationBlocks" Type="Self.SoftwareNotificationBlocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareNotificationBlocks">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareOldPatches_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="SoftwareOldPatches" Type="Self.SoftwareOldPatches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareOldPatches">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Softwares_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Softwares">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareStatistics_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="SoftwareStatistics" Type="Self.SoftwareStatistics" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareStatistics">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareTags_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="SoftwareTags" Type="Self.SoftwareTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareTags">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareTags_Tags">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+          <End Role="SoftwareTags" Type="Self.SoftwareTags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="tagID" />
+            </Principal>
+            <Dependent Role="SoftwareTags">
+              <PropertyRef Name="tagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareVideos_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="SoftwareVideos" Type="Self.SoftwareVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareVideos">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareWorkPlatform_Softwares">
+          <End Role="Softwares" Type="Self.Softwares" Multiplicity="1" />
+          <End Role="SoftwareWorkPlatform" Type="Self.SoftwareWorkPlatform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareWorkPlatform">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stations_Companies">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="1" />
+          <End Role="Stations" Type="Self.Stations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="companyID" />
+            </Principal>
+            <Dependent Role="Stations">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_TicketTitles">
+          <End Role="TicketTitles" Type="Self.TicketTitles" Multiplicity="1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TicketTitles">
+              <PropertyRef Name="ticketTypeID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="ticketTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="TDSIModelStoreContainer">
+          <EntitySet Name="AccountNotificationBlocks" EntityType="Self.AccountNotificationBlocks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Companies" EntityType="Self.Companies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanySectors" EntityType="Self.CompanySectors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyStatistics" EntityType="Self.CompanyStatistics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FavoriteSoftwares" EntityType="Self.FavoriteSoftwares" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Follows" EntityType="Self.Follows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InstantNotifications" EntityType="Self.InstantNotifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailActivation" EntityType="Self.MailActivation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthlySoftwareStatistics" EntityType="Self.MonthlySoftwareStatistics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotificationTypes" EntityType="Self.NotificationTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sectors" EntityType="Self.Sectors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SocialMedias" EntityType="Self.SocialMedias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoftwareEdits" EntityType="Self.SoftwareEdits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoftwareIsFree" EntityType="Self.SoftwareIsFree" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoftwareNewPatches" EntityType="Self.SoftwareNewPatches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoftwareNotificationBlocks" EntityType="Self.SoftwareNotificationBlocks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoftwareOldPatches" EntityType="Self.SoftwareOldPatches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Softwares" EntityType="Self.Softwares" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoftwareStatistics" EntityType="Self.SoftwareStatistics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoftwareTags" EntityType="Self.SoftwareTags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoftwareVideos" EntityType="Self.SoftwareVideos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoftwareWorkPlatform" EntityType="Self.SoftwareWorkPlatform" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stations" EntityType="Self.Stations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TicketTitles" EntityType="Self.TicketTitles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AccountNotificationBlocks_Accounts" Association="Self.FK_AccountNotificationBlocks_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="AccountNotificationBlocks" EntitySet="AccountNotificationBlocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountNotificationBlocks_Accounts1" Association="Self.FK_AccountNotificationBlocks_Accounts1">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="AccountNotificationBlocks" EntitySet="AccountNotificationBlocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_Roles" Association="Self.FK_Accounts_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Accounts" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Accounts" Association="Self.FK_Comments_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Softwares" Association="Self.FK_Comments_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Companies_Accounts" Association="Self.FK_Companies_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Companies" EntitySet="Companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanySectors_Companies" Association="Self.FK_CompanySectors_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="CompanySectors" EntitySet="CompanySectors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanySectors_Sectors" Association="Self.FK_CompanySectors_Sectors">
+            <End Role="Sectors" EntitySet="Sectors" />
+            <End Role="CompanySectors" EntitySet="CompanySectors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyStatistics_Companies" Association="Self.FK_CompanyStatistics_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="CompanyStatistics" EntitySet="CompanyStatistics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteSoftwares_Accounts" Association="Self.FK_FavoriteSoftwares_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="FavoriteSoftwares" EntitySet="FavoriteSoftwares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteSoftwares_Softwares" Association="Self.FK_FavoriteSoftwares_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="FavoriteSoftwares" EntitySet="FavoriteSoftwares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Follows_Accounts" Association="Self.FK_Follows_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Follows" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Follows_Companies" Association="Self.FK_Follows_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Follows" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MailActivation_Accounts" Association="Self.FK_MailActivation_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="MailActivation" EntitySet="MailActivation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySoftwareStatistics_Softwares" Association="Self.FK_MonthlySoftwareStatistics_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="MonthlySoftwareStatistics" EntitySet="MonthlySoftwareStatistics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Accounts" Association="Self.FK_Notifications_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Accounts1" Association="Self.FK_Notifications_Accounts1">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_NotificationTypes" Association="Self.FK_Notifications_NotificationTypes">
+            <End Role="NotificationTypes" EntitySet="NotificationTypes" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SocialMedias_Accounts" Association="Self.FK_SocialMedias_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="SocialMedias" EntitySet="SocialMedias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareEdits_Accounts" Association="Self.FK_SoftwareEdits_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="SoftwareEdits" EntitySet="SoftwareEdits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareEdits_Softwares" Association="Self.FK_SoftwareEdits_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareEdits" EntitySet="SoftwareEdits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareIsFree_Softwares" Association="Self.FK_SoftwareIsFree_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareIsFree" EntitySet="SoftwareIsFree" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareNewPatches_Softwares" Association="Self.FK_SoftwareNewPatches_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareNewPatches" EntitySet="SoftwareNewPatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareNotificationBlocks_Accounts" Association="Self.FK_SoftwareNotificationBlocks_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="SoftwareNotificationBlocks" EntitySet="SoftwareNotificationBlocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareNotificationBlocks_Softwares" Association="Self.FK_SoftwareNotificationBlocks_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareNotificationBlocks" EntitySet="SoftwareNotificationBlocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareOldPatches_Softwares" Association="Self.FK_SoftwareOldPatches_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareOldPatches" EntitySet="SoftwareOldPatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Softwares_Accounts" Association="Self.FK_Softwares_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Softwares" EntitySet="Softwares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareStatistics_Softwares" Association="Self.FK_SoftwareStatistics_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareStatistics" EntitySet="SoftwareStatistics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareTags_Softwares" Association="Self.FK_SoftwareTags_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareTags" EntitySet="SoftwareTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareTags_Tags" Association="Self.FK_SoftwareTags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="SoftwareTags" EntitySet="SoftwareTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareVideos_Softwares" Association="Self.FK_SoftwareVideos_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareVideos" EntitySet="SoftwareVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareWorkPlatform_Softwares" Association="Self.FK_SoftwareWorkPlatform_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareWorkPlatform" EntitySet="SoftwareWorkPlatform" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stations_Companies" Association="Self.FK_Stations_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Stations" EntitySet="Stations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_Accounts" Association="Self.FK_Tickets_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_TicketTitles" Association="Self.FK_Tickets_TicketTitles">
+            <End Role="TicketTitles" EntitySet="TicketTitles" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TDSIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccountNotificationBlock">
+          <Key>
+            <PropertyRef Name="anbID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="blockedID" Type="Int32" Nullable="false" />
+          <Property Name="anbID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_AccountNotificationBlocks_Accounts" FromRole="AccountNotificationBlocks" ToRole="Accounts" />
+          <NavigationProperty Name="Account1" Relationship="Self.FK_AccountNotificationBlocks_Accounts1" FromRole="AccountNotificationBlocks" ToRole="Accounts" />
+        </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="accountID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="roleID" Type="Int16" Nullable="false" />
+          <Property Name="accountName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="loginName" Type="String" MaxLength="22" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="loginPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="accountMail" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="accountTelNum" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="accountPhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="accountDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="accountCreated" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="accountLastSeen" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AccountNotificationBlocks" Relationship="Self.FK_AccountNotificationBlocks_Accounts" FromRole="Accounts" ToRole="AccountNotificationBlocks" />
+          <NavigationProperty Name="AccountNotificationBlocks1" Relationship="Self.FK_AccountNotificationBlocks_Accounts1" FromRole="Accounts" ToRole="AccountNotificationBlocks" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Accounts_Roles" FromRole="Accounts" ToRole="Roles" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Accounts" FromRole="Accounts" ToRole="Comments" />
+          <NavigationProperty Name="Companies" Relationship="Self.FK_Companies_Accounts" FromRole="Accounts" ToRole="Companies" />
+          <NavigationProperty Name="FavoriteSoftwares" Relationship="Self.FK_FavoriteSoftwares_Accounts" FromRole="Accounts" ToRole="FavoriteSoftwares" />
+          <NavigationProperty Name="Follows" Relationship="Self.FK_Follows_Accounts" FromRole="Accounts" ToRole="Follows" />
+          <NavigationProperty Name="MailActivations" Relationship="Self.FK_MailActivation_Accounts" FromRole="Accounts" ToRole="MailActivation" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK_Notifications_Accounts" FromRole="Accounts" ToRole="Notifications" />
+          <NavigationProperty Name="Notifications1" Relationship="Self.FK_Notifications_Accounts1" FromRole="Accounts" ToRole="Notifications" />
+          <NavigationProperty Name="SocialMedias" Relationship="Self.FK_SocialMedias_Accounts" FromRole="Accounts" ToRole="SocialMedias" />
+          <NavigationProperty Name="SoftwareEdits" Relationship="Self.FK_SoftwareEdits_Accounts" FromRole="Accounts" ToRole="SoftwareEdits" />
+          <NavigationProperty Name="SoftwareNotificationBlocks" Relationship="Self.FK_SoftwareNotificationBlocks_Accounts" FromRole="Accounts" ToRole="SoftwareNotificationBlocks" />
+          <NavigationProperty Name="Softwares" Relationship="Self.FK_Softwares_Accounts" FromRole="Accounts" ToRole="Softwares" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_Accounts" FromRole="Accounts" ToRole="Tickets" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="commentID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="rate" Type="Int16" Nullable="false" />
+          <Property Name="commentID" Type="Int32" Nullable="false" />
+          <Property Name="commentContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="commentDate" Type="DateTime" Nullable="false" Precision="6" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Comments_Accounts" FromRole="Comments" ToRole="Accounts" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_Comments_Softwares" FromRole="Comments" ToRole="Softwares" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="companyID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="companyTelNum" Type="String" MaxLength="18" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="companyAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="companyWebSiteLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isStationExist" Type="Boolean" Nullable="false" />
+          <Property Name="companyID" Type="Int32" Nullable="false" />
+          <Property Name="taxNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Companies_Accounts" FromRole="Companies" ToRole="Accounts" />
+          <NavigationProperty Name="CompanySectors" Relationship="Self.FK_CompanySectors_Companies" FromRole="Companies" ToRole="CompanySectors" />
+          <NavigationProperty Name="CompanyStatistics" Relationship="Self.FK_CompanyStatistics_Companies" FromRole="Companies" ToRole="CompanyStatistics" />
+          <NavigationProperty Name="Follows" Relationship="Self.FK_Follows_Companies" FromRole="Companies" ToRole="Follows" />
+          <NavigationProperty Name="Stations" Relationship="Self.FK_Stations_Companies" FromRole="Companies" ToRole="Stations" />
+        </EntityType>
+        <EntityType Name="CompanySector">
+          <Key>
+            <PropertyRef Name="csID" />
+          </Key>
+          <Property Name="companyID" Type="Int32" Nullable="false" />
+          <Property Name="sectorID" Type="Int16" Nullable="false" />
+          <Property Name="csID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_CompanySectors_Companies" FromRole="CompanySectors" ToRole="Companies" />
+          <NavigationProperty Name="Sector" Relationship="Self.FK_CompanySectors_Sectors" FromRole="CompanySectors" ToRole="Sectors" />
+        </EntityType>
+        <EntityType Name="CompanyStatistic">
+          <Key>
+            <PropertyRef Name="csID" />
+          </Key>
+          <Property Name="companyID" Type="Int32" Nullable="false" />
+          <Property Name="profileViewsTotal" Type="Int32" Nullable="false" />
+          <Property Name="profileViewsMonthly" Type="Int32" Nullable="false" />
+          <Property Name="profileViewDate" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="csID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_CompanyStatistics_Companies" FromRole="CompanyStatistics" ToRole="Companies" />
+        </EntityType>
+        <EntityType Name="FavoriteSoftware">
+          <Key>
+            <PropertyRef Name="fsID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="favsoftwareID" Type="Int32" Nullable="false" />
+          <Property Name="fsID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_FavoriteSoftwares_Accounts" FromRole="FavoriteSoftwares" ToRole="Accounts" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_FavoriteSoftwares_Softwares" FromRole="FavoriteSoftwares" ToRole="Softwares" />
+        </EntityType>
+        <EntityType Name="Follow">
+          <Key>
+            <PropertyRef Name="fID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="followingID" Type="Int32" Nullable="false" />
+          <Property Name="fID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Follows_Accounts" FromRole="Follows" ToRole="Accounts" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Follows_Companies" FromRole="Follows" ToRole="Companies" />
+        </EntityType>
+        <EntityType Name="MailActivation">
+          <Key>
+            <PropertyRef Name="maID" />
+          </Key>
+          <Property Name="maID" Type="Int32" Nullable="false" />
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="isVerified" Type="Boolean" Nullable="false" />
+          <Property Name="activationCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="validationDate" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="verifiedDate" Type="DateTime" Precision="6" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_MailActivation_Accounts" FromRole="MailActivation" ToRole="Accounts" />
+        </EntityType>
+        <EntityType Name="MonthlySoftwareStatistic">
+          <Key>
+            <PropertyRef Name="mssID" />
+          </Key>
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="softwareViewsMonthly" Type="Int32" Nullable="false" />
+          <Property Name="softwareViewDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="mssID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_MonthlySoftwareStatistics_Softwares" FromRole="MonthlySoftwareStatistics" ToRole="Softwares" />
+        </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="notificationID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="notificationSourceID" Type="Int32" Nullable="false" />
+          <Property Name="notificationTypeID" Type="Int16" Nullable="false" />
+          <Property Name="notificationContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isNotificationSeen" Type="Boolean" Nullable="false" />
+          <Property Name="notificationDate" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="notificationID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Notifications_Accounts" FromRole="Notifications" ToRole="Accounts" />
+          <NavigationProperty Name="Account1" Relationship="Self.FK_Notifications_Accounts1" FromRole="Notifications" ToRole="Accounts" />
+          <NavigationProperty Name="NotificationType" Relationship="Self.FK_Notifications_NotificationTypes" FromRole="Notifications" ToRole="NotificationTypes" />
+        </EntityType>
+        <EntityType Name="NotificationType">
+          <Key>
+            <PropertyRef Name="notificationTypeID" />
+          </Key>
+          <Property Name="notificationTypeID" Type="Int16" Nullable="false" />
+          <Property Name="notificationTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK_Notifications_NotificationTypes" FromRole="NotificationTypes" ToRole="Notifications" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="roleID" />
+          </Key>
+          <Property Name="roleID" Type="Int16" Nullable="false" />
+          <Property Name="roleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK_Accounts_Roles" FromRole="Roles" ToRole="Accounts" />
+        </EntityType>
+        <EntityType Name="Sector">
+          <Key>
+            <PropertyRef Name="sectorID" />
+          </Key>
+          <Property Name="sectorID" Type="Int16" Nullable="false" />
+          <Property Name="sectorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CompanySectors" Relationship="Self.FK_CompanySectors_Sectors" FromRole="Sectors" ToRole="CompanySectors" />
+        </EntityType>
+        <EntityType Name="SocialMedia">
+          <Key>
+            <PropertyRef Name="smID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="instagramLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="twitterLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="linkedinLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="facebookLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="youtubeLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="smID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_SocialMedias_Accounts" FromRole="SocialMedias" ToRole="Accounts" />
+        </EntityType>
+        <EntityType Name="SoftwareEdit">
+          <Key>
+            <PropertyRef Name="seID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="updateDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="updateDate" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="seID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_SoftwareEdits_Accounts" FromRole="SoftwareEdits" ToRole="Accounts" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_SoftwareEdits_Softwares" FromRole="SoftwareEdits" ToRole="Softwares" />
+        </EntityType>
+        <EntityType Name="SoftwareIsFree">
+          <Key>
+            <PropertyRef Name="sifID" />
+          </Key>
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="isDemo" Type="Boolean" />
+          <Property Name="isFullVersion" Type="Boolean" />
+          <Property Name="isBeta" Type="Boolean" />
+          <Property Name="isFree" Type="Boolean" />
+          <Property Name="sifID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_SoftwareIsFree_Softwares" FromRole="SoftwareIsFree" ToRole="Softwares" />
+        </EntityType>
+        <EntityType Name="SoftwareNewPatch">
+          <Key>
+            <PropertyRef Name="snpID" />
+          </Key>
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="softwareNewVersion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="patchNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="softwareNewVersionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="snpID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_SoftwareNewPatches_Softwares" FromRole="SoftwareNewPatches" ToRole="Softwares" />
+        </EntityType>
+        <EntityType Name="SoftwareNotificationBlock">
+          <Key>
+            <PropertyRef Name="snbID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="snbID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_SoftwareNotificationBlocks_Accounts" FromRole="SoftwareNotificationBlocks" ToRole="Accounts" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_SoftwareNotificationBlocks_Softwares" FromRole="SoftwareNotificationBlocks" ToRole="Softwares" />
+        </EntityType>
+        <EntityType Name="SoftwareOldPatch">
+          <Key>
+            <PropertyRef Name="sopID" />
+          </Key>
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="softwareOldVersion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="patchNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="softwareOldVersionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="sopID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_SoftwareOldPatches_Softwares" FromRole="SoftwareOldPatches" ToRole="Softwares" />
+        </EntityType>
+        <EntityType Name="Software">
+          <Key>
+            <PropertyRef Name="softwareID" />
+          </Key>
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="softwareName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="softwareVersion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="softwareImg" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="softwareCreatedDate" Type="DateTime" Nullable="false" Precision="6" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Softwares_Accounts" FromRole="Softwares" ToRole="Accounts" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Softwares" FromRole="Softwares" ToRole="Comments" />
+          <NavigationProperty Name="FavoriteSoftwares" Relationship="Self.FK_FavoriteSoftwares_Softwares" FromRole="Softwares" ToRole="FavoriteSoftwares" />
+          <NavigationProperty Name="MonthlySoftwareStatistics" Relationship="Self.FK_MonthlySoftwareStatistics_Softwares" FromRole="Softwares" ToRole="MonthlySoftwareStatistics" />
+          <NavigationProperty Name="SoftwareEdits" Relationship="Self.FK_SoftwareEdits_Softwares" FromRole="Softwares" ToRole="SoftwareEdits" />
+          <NavigationProperty Name="SoftwareIsFrees" Relationship="Self.FK_SoftwareIsFree_Softwares" FromRole="Softwares" ToRole="SoftwareIsFree" />
+          <NavigationProperty Name="SoftwareNewPatches" Relationship="Self.FK_SoftwareNewPatches_Softwares" FromRole="Softwares" ToRole="SoftwareNewPatches" />
+          <NavigationProperty Name="SoftwareNotificationBlocks" Relationship="Self.FK_SoftwareNotificationBlocks_Softwares" FromRole="Softwares" ToRole="SoftwareNotificationBlocks" />
+          <NavigationProperty Name="SoftwareOldPatches" Relationship="Self.FK_SoftwareOldPatches_Softwares" FromRole="Softwares" ToRole="SoftwareOldPatches" />
+          <NavigationProperty Name="SoftwareStatistics" Relationship="Self.FK_SoftwareStatistics_Softwares" FromRole="Softwares" ToRole="SoftwareStatistics" />
+          <NavigationProperty Name="SoftwareTags" Relationship="Self.FK_SoftwareTags_Softwares" FromRole="Softwares" ToRole="SoftwareTags" />
+          <NavigationProperty Name="SoftwareVideos" Relationship="Self.FK_SoftwareVideos_Softwares" FromRole="Softwares" ToRole="SoftwareVideos" />
+          <NavigationProperty Name="SoftwareWorkPlatforms" Relationship="Self.FK_SoftwareWorkPlatform_Softwares" FromRole="Softwares" ToRole="SoftwareWorkPlatform" />
+        </EntityType>
+        <EntityType Name="SoftwareStatistic">
+          <Key>
+            <PropertyRef Name="ssID" />
+          </Key>
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="softwareViewsTotal" Type="Int32" Nullable="false" />
+          <Property Name="softwareViewsMonthly" Type="Int32" Nullable="false" />
+          <Property Name="softwareViewsDaily" Type="Int32" Nullable="false" />
+          <Property Name="softwareViewDate" Type="DateTime" Nullable="false" Precision="6" />
+          <Property Name="ssID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_SoftwareStatistics_Softwares" FromRole="SoftwareStatistics" ToRole="Softwares" />
+        </EntityType>
+        <EntityType Name="SoftwareTag">
+          <Key>
+            <PropertyRef Name="stID" />
+          </Key>
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="tagID" Type="Int16" Nullable="false" />
+          <Property Name="stID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_SoftwareTags_Softwares" FromRole="SoftwareTags" ToRole="Softwares" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK_SoftwareTags_Tags" FromRole="SoftwareTags" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="SoftwareVideo">
+          <Key>
+            <PropertyRef Name="svID" />
+          </Key>
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="softwareVideoLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="svID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_SoftwareVideos_Softwares" FromRole="SoftwareVideos" ToRole="Softwares" />
+        </EntityType>
+        <EntityType Name="SoftwareWorkPlatform">
+          <Key>
+            <PropertyRef Name="swpID" />
+          </Key>
+          <Property Name="softwareID" Type="Int32" Nullable="false" />
+          <Property Name="isWindows" Type="Boolean" />
+          <Property Name="isLinux" Type="Boolean" />
+          <Property Name="isUnix" Type="Boolean" />
+          <Property Name="isPardus" Type="Boolean" />
+          <Property Name="isAndroid" Type="Boolean" />
+          <Property Name="isIOS" Type="Boolean" />
+          <Property Name="isDesktopApp" Type="Boolean" />
+          <Property Name="isWebApp" Type="Boolean" />
+          <Property Name="isOthers" Type="Boolean" />
+          <Property Name="swpID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Software" Relationship="Self.FK_SoftwareWorkPlatform_Softwares" FromRole="SoftwareWorkPlatform" ToRole="Softwares" />
+          <Property Name="isMacOS" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="sID" />
+          </Key>
+          <Property Name="companyID" Type="Int32" Nullable="false" />
+          <Property Name="stationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="stationAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="stationTelNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="stationDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sID" Type="Int32" Nullable="false" />
+          <Property Name="stationWebSite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Stations_Companies" FromRole="Stations" ToRole="Companies" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="tagID" />
+          </Key>
+          <Property Name="tagID" Type="Int16" Nullable="false" />
+          <Property Name="tagName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SoftwareTags" Relationship="Self.FK_SoftwareTags_Tags" FromRole="Tags" ToRole="SoftwareTags" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="ticketID" />
+          </Key>
+          <Property Name="ticketID" Type="Int32" Nullable="false" />
+          <Property Name="accountID" Type="Int32" Nullable="false" />
+          <Property Name="ticketTypeID" Type="Int16" Nullable="false" />
+          <Property Name="ticketContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="complainedID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Tickets_Accounts" FromRole="Tickets" ToRole="Accounts" />
+          <NavigationProperty Name="TicketTitle" Relationship="Self.FK_Tickets_TicketTitles" FromRole="Tickets" ToRole="TicketTitles" />
+        </EntityType>
+        <EntityType Name="TicketTitle">
+          <Key>
+            <PropertyRef Name="ticketTypeID" />
+          </Key>
+          <Property Name="ticketTypeID" Type="Int16" Nullable="false" />
+          <Property Name="ticketIssue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_TicketTitles" FromRole="TicketTitles" ToRole="Tickets" />
+        </EntityType>
+        <Association Name="FK_AccountNotificationBlocks_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="AccountNotificationBlocks" Type="Self.AccountNotificationBlock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="AccountNotificationBlocks">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountNotificationBlocks_Accounts1">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="AccountNotificationBlocks" Type="Self.AccountNotificationBlock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="AccountNotificationBlocks">
+              <PropertyRef Name="blockedID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_Roles">
+          <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+          <End Role="Accounts" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="roleID" />
+            </Principal>
+            <Dependent Role="Accounts">
+              <PropertyRef Name="roleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Companies_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="Companies" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Companies">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteSoftwares_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="FavoriteSoftwares" Type="Self.FavoriteSoftware" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="FavoriteSoftwares">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Follows_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="Follows" Type="Self.Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Follows">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MailActivation_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="MailActivation" Type="Self.MailActivation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="MailActivation">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Accounts1">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="notificationSourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SocialMedias_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="SocialMedias" Type="Self.SocialMedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="SocialMedias">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareEdits_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="SoftwareEdits" Type="Self.SoftwareEdit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="SoftwareEdits">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareNotificationBlocks_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="SoftwareNotificationBlocks" Type="Self.SoftwareNotificationBlock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="SoftwareNotificationBlocks">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Softwares_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="Softwares" Type="Self.Software" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Softwares">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_Accounts">
+          <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="accountID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="accountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanySectors_Companies">
+          <End Role="Companies" Type="Self.Company" Multiplicity="1" />
+          <End Role="CompanySectors" Type="Self.CompanySector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="companyID" />
+            </Principal>
+            <Dependent Role="CompanySectors">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanyStatistics_Companies">
+          <End Role="Companies" Type="Self.Company" Multiplicity="1" />
+          <End Role="CompanyStatistics" Type="Self.CompanyStatistic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="companyID" />
+            </Principal>
+            <Dependent Role="CompanyStatistics">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Follows_Companies">
+          <End Role="Companies" Type="Self.Company" Multiplicity="1" />
+          <End Role="Follows" Type="Self.Follow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="companyID" />
+            </Principal>
+            <Dependent Role="Follows">
+              <PropertyRef Name="followingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stations_Companies">
+          <End Role="Companies" Type="Self.Company" Multiplicity="1" />
+          <End Role="Stations" Type="Self.Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="companyID" />
+            </Principal>
+            <Dependent Role="Stations">
+              <PropertyRef Name="companyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanySectors_Sectors">
+          <End Role="Sectors" Type="Self.Sector" Multiplicity="1" />
+          <End Role="CompanySectors" Type="Self.CompanySector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sectors">
+              <PropertyRef Name="sectorID" />
+            </Principal>
+            <Dependent Role="CompanySectors">
+              <PropertyRef Name="sectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteSoftwares_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="FavoriteSoftwares" Type="Self.FavoriteSoftware" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="FavoriteSoftwares">
+              <PropertyRef Name="favsoftwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySoftwareStatistics_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="MonthlySoftwareStatistics" Type="Self.MonthlySoftwareStatistic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="MonthlySoftwareStatistics">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_NotificationTypes">
+          <End Role="NotificationTypes" Type="Self.NotificationType" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotificationTypes">
+              <PropertyRef Name="notificationTypeID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="notificationTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareEdits_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="SoftwareEdits" Type="Self.SoftwareEdit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareEdits">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareIsFree_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="SoftwareIsFree" Type="Self.SoftwareIsFree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareIsFree">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareNewPatches_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="SoftwareNewPatches" Type="Self.SoftwareNewPatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareNewPatches">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareNotificationBlocks_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="SoftwareNotificationBlocks" Type="Self.SoftwareNotificationBlock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareNotificationBlocks">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareOldPatches_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="SoftwareOldPatches" Type="Self.SoftwareOldPatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareOldPatches">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareStatistics_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="SoftwareStatistics" Type="Self.SoftwareStatistic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareStatistics">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareTags_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="SoftwareTags" Type="Self.SoftwareTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareTags">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareVideos_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="SoftwareVideos" Type="Self.SoftwareVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareVideos">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareWorkPlatform_Softwares">
+          <End Role="Softwares" Type="Self.Software" Multiplicity="1" />
+          <End Role="SoftwareWorkPlatform" Type="Self.SoftwareWorkPlatform" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Softwares">
+              <PropertyRef Name="softwareID" />
+            </Principal>
+            <Dependent Role="SoftwareWorkPlatform">
+              <PropertyRef Name="softwareID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoftwareTags_Tags">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="1" />
+          <End Role="SoftwareTags" Type="Self.SoftwareTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="tagID" />
+            </Principal>
+            <Dependent Role="SoftwareTags">
+              <PropertyRef Name="tagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tickets_TicketTitles">
+          <End Role="TicketTitles" Type="Self.TicketTitle" Multiplicity="1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TicketTitles">
+              <PropertyRef Name="ticketTypeID" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="ticketTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TDSIEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountNotificationBlocks" EntityType="Self.AccountNotificationBlock" />
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="CompanySectors" EntityType="Self.CompanySector" />
+          <EntitySet Name="CompanyStatistics" EntityType="Self.CompanyStatistic" />
+          <EntitySet Name="FavoriteSoftwares" EntityType="Self.FavoriteSoftware" />
+          <EntitySet Name="Follows" EntityType="Self.Follow" />
+          <EntitySet Name="MailActivations" EntityType="Self.MailActivation" />
+          <EntitySet Name="MonthlySoftwareStatistics" EntityType="Self.MonthlySoftwareStatistic" />
+          <EntitySet Name="Notifications" EntityType="Self.Notification" />
+          <EntitySet Name="NotificationTypes" EntityType="Self.NotificationType" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Sectors" EntityType="Self.Sector" />
+          <EntitySet Name="SocialMedias" EntityType="Self.SocialMedia" />
+          <EntitySet Name="SoftwareEdits" EntityType="Self.SoftwareEdit" />
+          <EntitySet Name="SoftwareIsFrees" EntityType="Self.SoftwareIsFree" />
+          <EntitySet Name="SoftwareNewPatches" EntityType="Self.SoftwareNewPatch" />
+          <EntitySet Name="SoftwareNotificationBlocks" EntityType="Self.SoftwareNotificationBlock" />
+          <EntitySet Name="SoftwareOldPatches" EntityType="Self.SoftwareOldPatch" />
+          <EntitySet Name="Softwares" EntityType="Self.Software" />
+          <EntitySet Name="SoftwareStatistics" EntityType="Self.SoftwareStatistic" />
+          <EntitySet Name="SoftwareTags" EntityType="Self.SoftwareTag" />
+          <EntitySet Name="SoftwareVideos" EntityType="Self.SoftwareVideo" />
+          <EntitySet Name="SoftwareWorkPlatforms" EntityType="Self.SoftwareWorkPlatform" />
+          <EntitySet Name="Stations" EntityType="Self.Station" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+          <EntitySet Name="TicketTitles" EntityType="Self.TicketTitle" />
+          <AssociationSet Name="FK_AccountNotificationBlocks_Accounts" Association="Self.FK_AccountNotificationBlocks_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="AccountNotificationBlocks" EntitySet="AccountNotificationBlocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountNotificationBlocks_Accounts1" Association="Self.FK_AccountNotificationBlocks_Accounts1">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="AccountNotificationBlocks" EntitySet="AccountNotificationBlocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_Roles" Association="Self.FK_Accounts_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Accounts" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Accounts" Association="Self.FK_Comments_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Companies_Accounts" Association="Self.FK_Companies_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Companies" EntitySet="Companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteSoftwares_Accounts" Association="Self.FK_FavoriteSoftwares_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="FavoriteSoftwares" EntitySet="FavoriteSoftwares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Follows_Accounts" Association="Self.FK_Follows_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Follows" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MailActivation_Accounts" Association="Self.FK_MailActivation_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="MailActivation" EntitySet="MailActivations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Accounts" Association="Self.FK_Notifications_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Accounts1" Association="Self.FK_Notifications_Accounts1">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SocialMedias_Accounts" Association="Self.FK_SocialMedias_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="SocialMedias" EntitySet="SocialMedias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareEdits_Accounts" Association="Self.FK_SoftwareEdits_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="SoftwareEdits" EntitySet="SoftwareEdits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareNotificationBlocks_Accounts" Association="Self.FK_SoftwareNotificationBlocks_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="SoftwareNotificationBlocks" EntitySet="SoftwareNotificationBlocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Softwares_Accounts" Association="Self.FK_Softwares_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Softwares" EntitySet="Softwares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_Accounts" Association="Self.FK_Tickets_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Softwares" Association="Self.FK_Comments_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanySectors_Companies" Association="Self.FK_CompanySectors_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="CompanySectors" EntitySet="CompanySectors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanyStatistics_Companies" Association="Self.FK_CompanyStatistics_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="CompanyStatistics" EntitySet="CompanyStatistics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Follows_Companies" Association="Self.FK_Follows_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Follows" EntitySet="Follows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stations_Companies" Association="Self.FK_Stations_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Stations" EntitySet="Stations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanySectors_Sectors" Association="Self.FK_CompanySectors_Sectors">
+            <End Role="Sectors" EntitySet="Sectors" />
+            <End Role="CompanySectors" EntitySet="CompanySectors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteSoftwares_Softwares" Association="Self.FK_FavoriteSoftwares_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="FavoriteSoftwares" EntitySet="FavoriteSoftwares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySoftwareStatistics_Softwares" Association="Self.FK_MonthlySoftwareStatistics_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="MonthlySoftwareStatistics" EntitySet="MonthlySoftwareStatistics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_NotificationTypes" Association="Self.FK_Notifications_NotificationTypes">
+            <End Role="NotificationTypes" EntitySet="NotificationTypes" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareEdits_Softwares" Association="Self.FK_SoftwareEdits_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareEdits" EntitySet="SoftwareEdits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareIsFree_Softwares" Association="Self.FK_SoftwareIsFree_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareIsFree" EntitySet="SoftwareIsFrees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareNewPatches_Softwares" Association="Self.FK_SoftwareNewPatches_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareNewPatches" EntitySet="SoftwareNewPatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareNotificationBlocks_Softwares" Association="Self.FK_SoftwareNotificationBlocks_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareNotificationBlocks" EntitySet="SoftwareNotificationBlocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareOldPatches_Softwares" Association="Self.FK_SoftwareOldPatches_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareOldPatches" EntitySet="SoftwareOldPatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareStatistics_Softwares" Association="Self.FK_SoftwareStatistics_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareStatistics" EntitySet="SoftwareStatistics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareTags_Softwares" Association="Self.FK_SoftwareTags_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareTags" EntitySet="SoftwareTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareVideos_Softwares" Association="Self.FK_SoftwareVideos_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareVideos" EntitySet="SoftwareVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareWorkPlatform_Softwares" Association="Self.FK_SoftwareWorkPlatform_Softwares">
+            <End Role="Softwares" EntitySet="Softwares" />
+            <End Role="SoftwareWorkPlatform" EntitySet="SoftwareWorkPlatforms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoftwareTags_Tags" Association="Self.FK_SoftwareTags_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="SoftwareTags" EntitySet="SoftwareTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tickets_TicketTitles" Association="Self.FK_Tickets_TicketTitles">
+            <End Role="TicketTitles" EntitySet="TicketTitles" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(TDSIModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(TDSIModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="InstantNotifications" EntityType="TDSIModel.InstantNotification" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="InstantNotification">
+          <Key>
+            <PropertyRef Name="notificationID" />
+          </Key>
+          <Property Name="notificationID" Type="Int32" Nullable="false" />
+          <Property Name="notificationText" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TDSIModelStoreContainer" CdmEntityContainer="TDSIEntities">
+          <EntitySetMapping Name="AccountNotificationBlocks">
+            <EntityTypeMapping TypeName="TDSIModel.AccountNotificationBlock">
+              <MappingFragment StoreEntitySet="AccountNotificationBlocks">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="blockedID" ColumnName="blockedID" />
+                <ScalarProperty Name="anbID" ColumnName="anbID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="TDSIModel.Account">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="roleID" ColumnName="roleID" />
+                <ScalarProperty Name="accountName" ColumnName="accountName" />
+                <ScalarProperty Name="loginName" ColumnName="loginName" />
+                <ScalarProperty Name="loginPassword" ColumnName="loginPassword" />
+                <ScalarProperty Name="accountMail" ColumnName="accountMail" />
+                <ScalarProperty Name="accountTelNum" ColumnName="accountTelNum" />
+                <ScalarProperty Name="accountPhoto" ColumnName="accountPhoto" />
+                <ScalarProperty Name="accountDescription" ColumnName="accountDescription" />
+                <ScalarProperty Name="accountCreated" ColumnName="accountCreated" />
+                <ScalarProperty Name="accountLastSeen" ColumnName="accountLastSeen" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="TDSIModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="commentID" ColumnName="commentID" />
+                <ScalarProperty Name="commentContent" ColumnName="commentContent" />
+                <ScalarProperty Name="commentDate" ColumnName="commentDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="TDSIModel.Company">
+              <MappingFragment StoreEntitySet="Companies">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="companyTelNum" ColumnName="companyTelNum" />
+                <ScalarProperty Name="companyAddress" ColumnName="companyAddress" />
+                <ScalarProperty Name="companyWebSiteLink" ColumnName="companyWebSiteLink" />
+                <ScalarProperty Name="isStationExist" ColumnName="isStationExist" />
+                <ScalarProperty Name="companyID" ColumnName="companyID" />
+                <ScalarProperty Name="taxNumber" ColumnName="taxNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanySectors">
+            <EntityTypeMapping TypeName="TDSIModel.CompanySector">
+              <MappingFragment StoreEntitySet="CompanySectors">
+                <ScalarProperty Name="companyID" ColumnName="companyID" />
+                <ScalarProperty Name="sectorID" ColumnName="sectorID" />
+                <ScalarProperty Name="csID" ColumnName="csID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyStatistics">
+            <EntityTypeMapping TypeName="TDSIModel.CompanyStatistic">
+              <MappingFragment StoreEntitySet="CompanyStatistics">
+                <ScalarProperty Name="companyID" ColumnName="companyID" />
+                <ScalarProperty Name="profileViewsTotal" ColumnName="profileViewsTotal" />
+                <ScalarProperty Name="profileViewsMonthly" ColumnName="profileViewsMonthly" />
+                <ScalarProperty Name="profileViewDate" ColumnName="profileViewDate" />
+                <ScalarProperty Name="csID" ColumnName="csID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FavoriteSoftwares">
+            <EntityTypeMapping TypeName="TDSIModel.FavoriteSoftware">
+              <MappingFragment StoreEntitySet="FavoriteSoftwares">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="favsoftwareID" ColumnName="favsoftwareID" />
+                <ScalarProperty Name="fsID" ColumnName="fsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Follows">
+            <EntityTypeMapping TypeName="TDSIModel.Follow">
+              <MappingFragment StoreEntitySet="Follows">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="followingID" ColumnName="followingID" />
+                <ScalarProperty Name="fID" ColumnName="fID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailActivations">
+            <EntityTypeMapping TypeName="TDSIModel.MailActivation">
+              <MappingFragment StoreEntitySet="MailActivation">
+                <ScalarProperty Name="maID" ColumnName="maID" />
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="isVerified" ColumnName="isVerified" />
+                <ScalarProperty Name="activationCode" ColumnName="activationCode" />
+                <ScalarProperty Name="validationDate" ColumnName="validationDate" />
+                <ScalarProperty Name="verifiedDate" ColumnName="verifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlySoftwareStatistics">
+            <EntityTypeMapping TypeName="TDSIModel.MonthlySoftwareStatistic">
+              <MappingFragment StoreEntitySet="MonthlySoftwareStatistics">
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="softwareViewsMonthly" ColumnName="softwareViewsMonthly" />
+                <ScalarProperty Name="softwareViewDate" ColumnName="softwareViewDate" />
+                <ScalarProperty Name="mssID" ColumnName="mssID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="TDSIModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="notificationSourceID" ColumnName="notificationSourceID" />
+                <ScalarProperty Name="notificationTypeID" ColumnName="notificationTypeID" />
+                <ScalarProperty Name="notificationContent" ColumnName="notificationContent" />
+                <ScalarProperty Name="isNotificationSeen" ColumnName="isNotificationSeen" />
+                <ScalarProperty Name="notificationDate" ColumnName="notificationDate" />
+                <ScalarProperty Name="notificationID" ColumnName="notificationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationTypes">
+            <EntityTypeMapping TypeName="TDSIModel.NotificationType">
+              <MappingFragment StoreEntitySet="NotificationTypes">
+                <ScalarProperty Name="notificationTypeID" ColumnName="notificationTypeID" />
+                <ScalarProperty Name="notificationTitle" ColumnName="notificationTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TDSIModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="roleID" ColumnName="roleID" />
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sectors">
+            <EntityTypeMapping TypeName="TDSIModel.Sector">
+              <MappingFragment StoreEntitySet="Sectors">
+                <ScalarProperty Name="sectorID" ColumnName="sectorID" />
+                <ScalarProperty Name="sectorName" ColumnName="sectorName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SocialMedias">
+            <EntityTypeMapping TypeName="TDSIModel.SocialMedia">
+              <MappingFragment StoreEntitySet="SocialMedias">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="instagramLink" ColumnName="instagramLink" />
+                <ScalarProperty Name="twitterLink" ColumnName="twitterLink" />
+                <ScalarProperty Name="linkedinLink" ColumnName="linkedinLink" />
+                <ScalarProperty Name="facebookLink" ColumnName="facebookLink" />
+                <ScalarProperty Name="youtubeLink" ColumnName="youtubeLink" />
+                <ScalarProperty Name="smID" ColumnName="smID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoftwareEdits">
+            <EntityTypeMapping TypeName="TDSIModel.SoftwareEdit">
+              <MappingFragment StoreEntitySet="SoftwareEdits">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="updateDescription" ColumnName="updateDescription" />
+                <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+                <ScalarProperty Name="seID" ColumnName="seID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoftwareIsFrees">
+            <EntityTypeMapping TypeName="TDSIModel.SoftwareIsFree">
+              <MappingFragment StoreEntitySet="SoftwareIsFree">
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="isDemo" ColumnName="isDemo" />
+                <ScalarProperty Name="isFullVersion" ColumnName="isFullVersion" />
+                <ScalarProperty Name="isBeta" ColumnName="isBeta" />
+                <ScalarProperty Name="isFree" ColumnName="isFree" />
+                <ScalarProperty Name="sifID" ColumnName="sifID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoftwareNewPatches">
+            <EntityTypeMapping TypeName="TDSIModel.SoftwareNewPatch">
+              <MappingFragment StoreEntitySet="SoftwareNewPatches">
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="softwareNewVersion" ColumnName="softwareNewVersion" />
+                <ScalarProperty Name="patchNotes" ColumnName="patchNotes" />
+                <ScalarProperty Name="softwareNewVersionDate" ColumnName="softwareNewVersionDate" />
+                <ScalarProperty Name="snpID" ColumnName="snpID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoftwareNotificationBlocks">
+            <EntityTypeMapping TypeName="TDSIModel.SoftwareNotificationBlock">
+              <MappingFragment StoreEntitySet="SoftwareNotificationBlocks">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="snbID" ColumnName="snbID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoftwareOldPatches">
+            <EntityTypeMapping TypeName="TDSIModel.SoftwareOldPatch">
+              <MappingFragment StoreEntitySet="SoftwareOldPatches">
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="softwareOldVersion" ColumnName="softwareOldVersion" />
+                <ScalarProperty Name="patchNotes" ColumnName="patchNotes" />
+                <ScalarProperty Name="softwareOldVersionDate" ColumnName="softwareOldVersionDate" />
+                <ScalarProperty Name="sopID" ColumnName="sopID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Softwares">
+            <EntityTypeMapping TypeName="TDSIModel.Software">
+              <MappingFragment StoreEntitySet="Softwares">
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="softwareName" ColumnName="softwareName" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="softwareVersion" ColumnName="softwareVersion" />
+                <ScalarProperty Name="softwareImg" ColumnName="softwareImg" />
+                <ScalarProperty Name="softwareCreatedDate" ColumnName="softwareCreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoftwareStatistics">
+            <EntityTypeMapping TypeName="TDSIModel.SoftwareStatistic">
+              <MappingFragment StoreEntitySet="SoftwareStatistics">
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="softwareViewsTotal" ColumnName="softwareViewsTotal" />
+                <ScalarProperty Name="softwareViewsMonthly" ColumnName="softwareViewsMonthly" />
+                <ScalarProperty Name="softwareViewsDaily" ColumnName="softwareViewsDaily" />
+                <ScalarProperty Name="softwareViewDate" ColumnName="softwareViewDate" />
+                <ScalarProperty Name="ssID" ColumnName="ssID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoftwareTags">
+            <EntityTypeMapping TypeName="TDSIModel.SoftwareTag">
+              <MappingFragment StoreEntitySet="SoftwareTags">
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="tagID" ColumnName="tagID" />
+                <ScalarProperty Name="stID" ColumnName="stID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoftwareVideos">
+            <EntityTypeMapping TypeName="TDSIModel.SoftwareVideo">
+              <MappingFragment StoreEntitySet="SoftwareVideos">
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="softwareVideoLink" ColumnName="softwareVideoLink" />
+                <ScalarProperty Name="svID" ColumnName="svID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoftwareWorkPlatforms">
+            <EntityTypeMapping TypeName="TDSIModel.SoftwareWorkPlatform">
+              <MappingFragment StoreEntitySet="SoftwareWorkPlatform">
+                <ScalarProperty Name="isMacOS" ColumnName="isMacOS" />
+                <ScalarProperty Name="softwareID" ColumnName="softwareID" />
+                <ScalarProperty Name="isWindows" ColumnName="isWindows" />
+                <ScalarProperty Name="isLinux" ColumnName="isLinux" />
+                <ScalarProperty Name="isUnix" ColumnName="isUnix" />
+                <ScalarProperty Name="isPardus" ColumnName="isPardus" />
+                <ScalarProperty Name="isAndroid" ColumnName="isAndroid" />
+                <ScalarProperty Name="isIOS" ColumnName="isIOS" />
+                <ScalarProperty Name="isDesktopApp" ColumnName="isDesktopApp" />
+                <ScalarProperty Name="isWebApp" ColumnName="isWebApp" />
+                <ScalarProperty Name="isOthers" ColumnName="isOthers" />
+                <ScalarProperty Name="swpID" ColumnName="swpID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stations">
+            <EntityTypeMapping TypeName="TDSIModel.Station">
+              <MappingFragment StoreEntitySet="Stations">
+                <ScalarProperty Name="companyID" ColumnName="companyID" />
+                <ScalarProperty Name="stationName" ColumnName="stationName" />
+                <ScalarProperty Name="stationAddress" ColumnName="stationAddress" />
+                <ScalarProperty Name="stationTelNum" ColumnName="stationTelNum" />
+                <ScalarProperty Name="stationDescription" ColumnName="stationDescription" />
+                <ScalarProperty Name="sID" ColumnName="sID" />
+                <ScalarProperty Name="stationWebSite" ColumnName="stationWebSite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TDSIModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="TDSIModel.Tag">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="tagID" ColumnName="tagID" />
+                <ScalarProperty Name="tagName" ColumnName="tagName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="TDSIModel.Ticket">
+              <MappingFragment StoreEntitySet="Tickets">
+                <ScalarProperty Name="ticketID" ColumnName="ticketID" />
+                <ScalarProperty Name="accountID" ColumnName="accountID" />
+                <ScalarProperty Name="ticketTypeID" ColumnName="ticketTypeID" />
+                <ScalarProperty Name="ticketContent" ColumnName="ticketContent" />
+                <ScalarProperty Name="complainedID" ColumnName="complainedID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TicketTitles">
+            <EntityTypeMapping TypeName="TDSIModel.TicketTitle">
+              <MappingFragment StoreEntitySet="TicketTitles">
+                <ScalarProperty Name="ticketTypeID" ColumnName="ticketTypeID" />
+                <ScalarProperty Name="ticketIssue" ColumnName="ticketIssue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="TDSIModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="TDSIModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="TDSIModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="TDSIModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TDSIModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="TDSIModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TDSIModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="TDSIModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="TDSIModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="InstantNotifications">
+            <EntityTypeMapping TypeName="TDSIModel.InstantNotification">
+              <MappingFragment StoreEntitySet="InstantNotifications">
+                <ScalarProperty Name="notificationText" ColumnName="notificationText" />
+                <ScalarProperty Name="notificationID" ColumnName="notificationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

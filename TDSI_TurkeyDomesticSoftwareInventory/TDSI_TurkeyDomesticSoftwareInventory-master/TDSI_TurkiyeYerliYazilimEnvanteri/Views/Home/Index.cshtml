@@ -1,0 +1,374 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+@Styles.Render("~/Content/Index.css")
+@Styles.Render("~/Content/contact.css")
+@Styles.Render("~/Content/title.css")
+
+
+@*<div class="jumbotron" style="background: url(/Images/Handshake_1.jpg) no-repeat center center fixed;" align="center" position="relative">*@
+<div class="lead">
+    <h1 align="center">Türkiye Yerli Yazılımlar Envanteri</h1>
+    <p align="center">Türkiyenin Tüm Yerli Yazlımlarının Toplandığı Portal</p>
+</div>
+<style>
+    .lead {
+        background: linear-gradient(#273c47, #1F2D34);
+        border-radius: 10px;
+        margin: 10px;
+        margin-top: 25px;
+        padding: 1px;
+        color:#65def9;
+       
+    }
+    .darkmode--activated .lead{
+        background:#ece8db;
+        color:black;
+    }
+</style>
+
+
+@*</div>*@
+@* En üst taraf *@
+
+
+<div class="container">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="https://i.imgyukle.com/2020/09/08/xh7wqR.png" alt="Handshake" style="width:100%; height:700px;">
+            </div>
+
+            <div class="item">
+                <img src="https://i.imgyukle.com/2020/09/08/xh7fLc.png" alt="Contact" style="width:100%; height:700px;">
+            </div>
+
+            <div class="item">
+                <img src="https://i.imgyukle.com/2020/09/08/xh700e.png" alt="Desktop" style="width:100%; height:700px;">
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+<br />
+
+
+
+<style>
+ @* Style kodu ilk üçlü için *@
+    #section {
+        border-radius: 10px;
+        background-color: #1F2D34;
+        margin: 5px;
+        width: 32.5%;
+        height: 280px;
+        box-shadow: 3px 3px 4px #000;
+    }
+
+    #hr {
+        border-color: #65def9;
+    }
+    .darkmode--activated #section {
+        background-color: #ece8db;
+        box-shadow: 3px 3px 4px #a75d5d;
+    }
+
+    #jumbo {
+        font-family: Verdana, monospace, sans-serif;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: justify;
+        background: #1F2D34; /* Old browsers */
+        background: -moz-linear-gradient(top, #1F2D34 0%, #3B6C84 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1F2D34), color-stop(100%,#3B6C84)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #1F2D34 0%,#3B6C84 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #1F2D34 0%,#3B6C84 100%); /* Opera 11.10+ */
+        background: linear-gradient(to bottom, #1F2D34 0%,#3B6C84 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='1F2D34', endColorstr='#3B6C84',GradientType=0 ); /* IE6-9 */
+        box-shadow: 3px 3px 4px #000;
+    }
+    .darkmode--activated #jumbo {
+        background: #1F2D34; /* Old browsers */
+        background: -moz-linear-gradient(top, #ece8db 0%, # 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ece8db), color-stop(100%,#fff)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #ece8db 0%,#fff 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #ece8db 0%,#fff 100%); /* Opera 11.10+ */
+        background: linear-gradient(to bottom, #ece8db 0%,#fff 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ece8db', endColorstr='#fff',GradientType=0 ); /* IE6-9 */
+        box-shadow: 3px 3px 4px #a75d5d;
+    }
+    #photoradius {
+        border-radius: 25px 5px;
+        margin: 10px;
+        float: left;
+        width: 200px;
+        height: 200px;
+    }
+</style>
+
+<div class="row">
+    @* İlk üçlü html *@
+    <div id="section" class="col-md-3">
+
+        <h2> Yerli Firmalar ve Yerli Yazılımcılar</h2>
+
+        <p>
+            Türkiye Yerli Yazılımlar Envanterinde bir çok yerli şirket ve yerli yazılımcı
+            bulunmakta. Kurumsal veya Kişisel kendi yazılımını tanıtmak isteyen ve iletişime
+            geçmek isteyen herkese kolaylık sağlayan platform.
+
+
+
+        </p>
+        <p> <a style="box-shadow: 3px 3px 4px #000;" class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865"> Daha Fazlası &raquo;</a> </p>
+    </div>
+    <div id="section" class="col-md-3">
+        <h2> Hiç Görmediğiniz Yerli Yazılımlar</h2>
+        <p>
+            Belkide hiç rastlamadığınız aklınızın almadığı yeni yerli yazılımları görüntüleyebilecek bunların yanında eskiden süregelen yazılımların güncellemelerini bulabileceksiniz.
+
+
+        </p>
+        <p> <a style="box-shadow: 3px 3px 4px #000;" class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866"> Daha Fazlası &raquo;</a> </p>
+    </div>
+    <div id="section" class="col-md-3">
+        <h2> Birçok Sektör </h2>
+        <p>
+            Birçok sektöre ve birçok farklı amaca hizmet edecek, amacınıza yönelik, çözümsel ve farklı platformlarda çalışabilen yerli yazılımlar farklı filtreleme seçenekleriyle.
+
+
+        </p>
+        <p> <br /><a style="box-shadow: 3px 3px 4px #000;" class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867"> Daha Fazlası &raquo;</a> </p>
+    </div>
+</div>
+<hr id="hr" />
+
+@*Pasta Grafik*@
+<section align="left">
+    <div>
+        <canvas id="canvas" width="600" height="500">
+            Eğer tarayıcı HTML5'i desteklemiyorsa bu kısım görünecek.
+        </canvas>
+    </div>
+
+    <script type="text/javascript">
+        var myColor = ["#39ca74", "#e54d42", "#f0c330", "#3999d8", "#35485d"];
+        var myData = [80, 23, 15, 7, 1];
+        var myLabel = ["Bilişim", "Tarım", "Ulaşım", "Güvenlik", "Eğitim"];
+
+        function getTotal() {
+            var myTotal = 0;
+            for (var j = 0; j < myData.length; j++) {
+                myTotal += (typeof myData[j] == 'number') ? myData[j] : 0;
+            }
+            return myTotal;
+        }
+
+        function plotData() {
+            var canvas;
+            var ctx;
+            var lastend = 0;
+            var myTotal = getTotal();
+            var doc;
+            canvas = document.getElementById("canvas");
+            var x = (canvas.width) / 2;
+            var y = (canvas.height) / 2;
+            var r = 150;
+
+            ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (var i = 0; i < myData.length; i++) {
+                ctx.fillStyle = myColor[i];
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.arc(x, y, r, lastend, lastend + (Math.PI * 2 * (myData[i] / myTotal)), false);
+                ctx.lineTo(x, y);
+                ctx.fill();
+
+                // Grafik üzerindeki ifadeler bu kısımdan sonra yaptırılacak.
+                ctx.beginPath();
+                var start = [];
+                var end = [];
+                var last = 0;
+                var flip = 0;
+                var textOffset = 0;
+                var precentage = (myData[i] / myTotal) * 100;
+                start = getPoint(x, y, r - 20, (lastend + (Math.PI * 2 * (myData[i] / myTotal)) / 2));
+                end = getPoint(x, y, r + 20, (lastend + (Math.PI * 2 * (myData[i] / myTotal)) / 2));
+                if (start[0] <= x) {
+                    flip = -1;
+                    textOffset = -110;
+                }
+                else {
+                    flip = 1;
+                    textOffset = 10;
+                }
+                ctx.moveTo(start[0], start[1]);
+                ctx.lineTo(end[0], end[1]);
+                ctx.lineTo(end[0] + 120 * flip, end[1]);
+                ctx.strokeStyle = "#bdc3c7";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Etiketler ayarlanıyor
+                ctx.font = "17px Arial";
+                ctx.fillText(myLabel[i] + " " + precentage.toFixed(2) + "%", end[0] + textOffset, end[1] - 4);
+
+                // Döngü artırılıyor
+                lastend += Math.PI * 2 * (myData[i] / myTotal);
+
+            }
+        }
+        // Sihirli nokta bulunuyor.
+        function getPoint(c1, c2, radius, angle) {
+            return [c1 + Math.cos(angle) * radius, c2 + Math.sin(angle) * radius];
+        }
+        // Çizim fonksiyonu çalıştırılıyor.
+        plotData();
+
+    </script>
+</section>
+@*Pasta Grafik*@
+
+<hr />
+
+<div id="jumbo" class="col-md-12 jumbotron">
+    @* Hakkımızda html *@
+    <div class="col-md-12">
+        <p><b>Hakkımızda</b></p>
+        <p>
+            <a href="#"><img id="photoradius" src="~/Images/Code_1.jpg" alt="Code" border="0" width="320" height="250" class="sola-kaydir" /></a>
+            Türkiye Yerli Yazılımlar Envanteri Projesi ülkemizdeki yazılım firmalarının ve bireysel
+            yazılımcıların ürettiği işlere hak ettiği değerin verilerek tanıtımının sağlanmasını ve
+            kullanıcıya ulaştırılmasını hedeflemektedir.Bunun yanı sıra bu bilgiler sayesinde insanlara
+            iş olanağı ve yeni fikirler sunmayı amaçlamaktadır.
+
+
+        </p>
+    </div>
+</div>
+
+
+<style>
+ @* Alttaki üçlü style*@
+    .container2 {
+        position: relative;
+        width: 32.5%;
+        margin: 5px;
+        float: left;
+
+    }
+
+    .image {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 3px 3px 4px #000;
+    }
+    .darkmode--activated .image {
+        box-shadow: 3px 3px 4px #a75d5d;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        border-radius: 15px;
+        transition: .5s ease;
+        background: #1F2D34; /* Old browsers */
+        background: -moz-linear-gradient(top, #1F2D34 0%, #3B6C84 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1F2D34), color-stop(100%,#3B6C84)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #1F2D34 0%,#3B6C84 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #1F2D34 0%,#3B6C84 100%); /* Opera 11.10+ */
+        background: linear-gradient(to bottom, #1F2D34 0%,#3B6C84 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='1F2D34', endColorstr='#3B6C84',GradientType=0 ); /* IE6-9 */
+    }
+
+    .darkmode--activated .overlay {
+        background: #1F2D34; /* Old browsers */
+        background: -moz-linear-gradient(top, #ece8db 0%, #fff 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ece8db), color-stop(100%,#fff)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #ece8db 0%,#fff 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #ece8db 0%,#fff 100%); /* Opera 11.10+ */
+        background: linear-gradient(to bottom, #ece8db 0%,#fff 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='ece8db', endColorstr='fff',GradientType=0 ); /* IE6-9 */
+    }
+    .container2:hover .overlay {
+        opacity: 1;
+    }
+
+
+    .text {
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #65def9;
+
+    }
+ 
+</style>
+@*Alt üçlü html *@
+
+
+<h2>Çeşitli Platformlar</h2>
+<p>
+    Masaüstü Uygulamaları, Web uygulamaları ve birçok mobil uygulama olmak üzere sayamayacağımzı kadar yerli yazılım.
+</p>
+
+
+<div class="container2" align="left">
+    <img src="~/Images/Desktop.png" alt="Desktop" class="image">
+    <div class="overlay">
+        <div class="text">Masaüstü Uygulamaları</div>
+        <div style="color:#fff; position :absolute;top: 55%; left: 45%;">(1332 Adet)</div>
+    </div>
+</div>
+<div class="container2" align="center">
+    <img src="~/Images/Mobile.png" alt="Mobile" class="image">
+    <div class="overlay">
+        <div class="text">Mobil Uygulamalar</div>
+        <div style="color:#fff; position :absolute;top: 55%; left: 45%;">(4523 Adet)</div>
+    </div>
+</div>
+<div class="container2" align="right">
+    <img src="~/Images/Web.png" alt="Web" class="image">
+    <div class="overlay">
+        <div class="text">Web Uygulamaları</div>
+        <div class="number" style="color:#fff; position :absolute;top: 55%; left: 45%;">(805 Adet)</div>
+    </div>
+</div>
+
+

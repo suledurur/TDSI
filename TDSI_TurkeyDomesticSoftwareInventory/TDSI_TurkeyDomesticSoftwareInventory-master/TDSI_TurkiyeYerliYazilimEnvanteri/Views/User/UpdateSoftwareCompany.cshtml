@@ -1,0 +1,437 @@
+﻿
+@{
+    ViewBag.Title = "Yazılımı Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@*@Styles.Render("~/Content/bootstrap.css")*@
+@Styles.Render("~/Content/CompanyProfile.css")
+@Styles.Render("~/Content/Site.css")
+@Scripts.Render("~/Scripts/CompanyProfile.js")
+@*@Styles.Render("~/Content/login.css")*@
+@*@Scripts.Render("~/Scripts/login.js")*@
+@Scripts.Render("~/Scripts/Angular.min.js")
+
+
+@{
+    List<bool> chk_isFreeList = new List<bool>();
+    foreach (var item in TempData["chk_isFreeList"] as IEnumerable<bool>)
+    {
+        chk_isFreeList.Add(item);
+    }
+    List<bool> chk_platformList = TempData["chk_platformList"] as List<bool>;
+}
+<script>
+    var app = angular.module('checkSoftwareAddApp', []);
+
+    app.controller('softwareController', function ($scope, $http) {
+        $http.get('/User/GetSoftwares').then(function (response) {
+            $scope.softwares = response.data;
+        });
+
+    });
+
+    $(document).ready(function () {
+        //platform
+        if (document.getElementById("chk_isWindowsCtrl").innerText == 'True') {
+            document.getElementById("Windows").checked = true;
+        } if (document.getElementById("chk_isLinuxCtrl").innerText == 'True') {
+            document.getElementById("Linux").checked = true;
+        } if (document.getElementById("chk_isUnixCtrl").innerText == 'True') {
+            document.getElementById("Unix").checked = true;
+        } if (document.getElementById("chk_isPardusCtrl").innerText == 'True') {
+            document.getElementById("Pardus").checked = true;
+        } if (document.getElementById("chk_isAndroidCtrl").innerText == 'True') {
+            document.getElementById("Android").checked = true;
+        } if (document.getElementById("chk_isIOSCtrl").innerText == 'True') {
+            document.getElementById("IOS").checked = true;
+        } if (document.getElementById("chk_isDesktopCtrl").innerText == 'True') {
+            document.getElementById("Desktop").checked = true;
+        } if (document.getElementById("chk_isWebAppCtrl").innerText == 'True') {
+            document.getElementById("WebApp").checked = true;
+        } if (document.getElementById("chk_isOtherCtrl").innerText == 'True') {
+            document.getElementById("Other").checked = true;
+        } if (document.getElementById("chk_isMacOSCtrl").innerText == 'True') {
+            document.getElementById("MacOS").checked = true;
+        }
+
+        //free
+        if (document.getElementById("chk_isDemoCtrl").innerText == 'True') {
+            document.getElementById("Demo").checked = true;
+        } if (document.getElementById("chk_isFullVersionCtrl").innerText == 'True') {
+            document.getElementById("Demo").checked = true;
+        } if (document.getElementById("chk_isBeta").innerText == 'True') {
+            document.getElementById("Demo").checked = true;
+        } if (document.getElementById("chk_isFree").innerText == 'True') {
+            document.getElementById("Demo").checked = true;
+        }
+    });
+</script>
+<style>
+    body {
+        height: 100vh;
+        text-align: center;
+    }
+    /*Trigger Button*/
+    .login-trigger {
+        font-weight: bold;
+        color: #fff;
+        background: linear-gradient(to bottom right, #B05574, #F87E7B);
+        padding: 15px 30px;
+        border-radius: 30px;
+        position: relative;
+        top: 50%;
+    }
+
+    /*Modal*/
+    h4 {
+        font-weight: bold;
+        color: #73bbf9;
+    }
+
+    .pop-close {
+        color: #2b7ac5;
+        opacity: 0.6;
+        transform: scale(1.6);
+        text-shadow: 0 1px 0 #0342dc;
+    }
+
+        .pop-close:hover {
+            color: #2b7ac5;
+            opacity: 1;
+        }
+
+    .modal-content {
+        font-weight: bold;
+        background: linear-gradient(to left,#1a31489c,#2d4f73)
+    }
+
+    .form-control-pop {
+        margin: 1em 0;
+    }
+
+    .form-control:hover, .form-control:focus {
+        box-shadow: none;
+        border-color: #5b9bd1;
+    }
+
+    .username, .password {
+        border: 1px solid #5b9bd15c;
+        border-radius: 5px;
+        box-shadow: none;
+        border-bottom: 2px solid #5b9bd1ad;
+        padding-left: 5px;
+        font-weight: normal;
+        background: #0b2a4024;
+        color: #73bbf9;
+    }
+
+    .form-control::-webkit-input-placeholder {
+        color: #5b9bd15c;
+    }
+
+    .form-control:focus::-webkit-input-placeholder {
+        font-weight: bold;
+        color: #5b9bd1;
+    }
+
+    .check-grp {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        border-bottom: 2px solid #5b9bd1;
+        padding-left: 0;
+        font-weight: normal;
+        background: transparent;
+        color: #73bbf9;
+        width: auto;
+    }
+
+        .check-grp::-webkit-input-placeholder {
+            color: #5b9bd1;
+        }
+
+    .area-grp {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        padding-left: 0;
+        font-weight: normal;
+        margin-bottom: 0;
+        font-size: large;
+        background: transparent;
+        color: #73bbf9;
+        width: inherit;
+    }
+
+        .area-grp::-webkit-input-placeholder {
+            color: #5b9bd1;
+        }
+
+    .software-add-btn {
+        padding: 6px 20px;
+        border-radius: 20px;
+        background: none;
+        border: 2px solid #5b9bd1;
+        color: #5b9bd1;
+        font-weight: bold;
+        transition: all .5s;
+        margin-top: 2em;
+    }
+
+        .software-add-btn:hover {
+            background: #5b9bd1;
+            color: #fff;
+        }
+
+    button.software-chck-btn {
+        width: 96%;
+        height: 100%;
+    }
+
+    button.software-add-btn:hover {
+        background: #5b9bd1;
+        color: #fff;
+    }
+
+    .checkbox {
+        height: 0px;
+        width: 0px;
+    }
+
+    .checkbox-button {
+        height: auto;
+        margin: 2px 2px;
+    }
+
+    .label {
+        padding: 5px 60px 5px 20px;
+        font-size: 15px;
+        font-weight: 500;
+        background-color: white;
+        position: relative;
+        color: #485474;
+        box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.08);
+        border-radius: 55px;
+        transition: 0.4s;
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    }
+
+        .label::after {
+            position: absolute;
+            content: "";
+            height: 25px;
+            width: 25px;
+            border: 1px solid #c4c4c4;
+            border-radius: 20px;
+            right: 20px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            box-sizing: border-box;
+        }
+
+    .checkbox:checked + .label {
+        background-color: #2f80ed;
+        color: white;
+        border: 0;
+    }
+
+        .checkbox:checked + .label::after {
+            background-color: white;
+            border-color: white;
+            content: "";
+            height: 25px;
+            width: 25px;
+            background-size: 25px;
+            box-sizing: border-box;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAIuSURBVHgB7do9bhNBGMbxZ4xEkJAid7ScINojhBIhivQ0nIAjJHSUcAMoqKlQ6GJuYJEDQEuFRVLkyzvZd5SNkihOvDPv7ryePD/Jn8XO6i97v2YBIiIiIiIiIiIiIiIiKkb1bTyWB5SN8ABs/Fh/59fm/+Sxsbu+DUWPUDgJ5rz/0H52wOazN0/w9+vxTygoOuBFvJ2b32tGLDbgongtrYhFBrwvXksjokNhlo13Ve3xdv/VwWdEKGovHBNPOPgKkYoJGBtPjE7OPiJSEQFT4rnm7zvdOvqDSCu/DUyOF7ntu1wGeiCnTPXa2baDq5oN9Jf9xJVcJHe8sBwok3j+cb3XrOHlhtk7t/Pr5f/3UGQhnlA9DrwtntA+fbIST6gFXBSvpRXRUjyhEvC+eK3UiNbiCZXDmGXitSRAzCUli/HCspGo2h0/937+Gx112bFYjSfSf4FHmDXPM3S07C/RcjyRHHC6NZs5X79ADxGtxwvjQEn1/Wnl3Wivedt53uG2v/MqxAtjQZFWxFWJF8aDstSI8roq8cKY6EFKxFg54oVx0ZMhI+aKF8ZGj4aImDNeGB896zNi7nhhHTCAPiJaiBfWAwPRjGglnhj0kr5GREvxxOBzIikRrcUTWSaVYiJajCeyzcp1iWg1nsg6rblMRMvxRPZ54bsiWo8nTEys34jYXFf0EzfHp+nrwwmMM3NngkwNoJ5v4uR0knKrBRERERERERERERERERERXXMOrql2bUZwzf0AAAAASUVORK5CYII=);
+        }
+
+    @@media only screen and (max-width:640px) {
+        .container {
+            flex-direction: column;
+        }
+    }
+
+    .add-btn {
+        padding: 0;
+        color: #5b9bd1;
+        font-size: 27px;
+    }
+
+        .add-btn:hover {
+            color: #fff;
+        }
+
+    tbody {
+        color: #cdd6da;
+        border-top: 1px solid #7eb1cc !important;
+    }
+</style>
+
+<div class="hide">
+    <label id="chk_isWindowsCtrl">@chk_platformList.ElementAt(0)</label>
+    <label id="chk_isLinuxCtrl">@chk_platformList.ElementAt(1)</label>
+    <label id="chk_isUnixCtrl">@chk_platformList.ElementAt(2)</label>
+    <label id="chk_isPardusCtrl">@chk_platformList.ElementAt(3)</label>
+    <label id="chk_isAndroidCtrl">@chk_platformList.ElementAt(4)</label>
+    <label id="chk_isIOSCtrl">@chk_platformList.ElementAt(5)</label>
+    <label id="chk_isDesktopCtrl">@chk_platformList.ElementAt(6)</label>
+    <label id="chk_isWebAppCtrl">@chk_platformList.ElementAt(7)</label>
+    <label id="chk_isOthersCtrl">@chk_platformList.ElementAt(8)</label>
+    <label id="chk_isMacOSCtrl">@chk_platformList.ElementAt(9)</label>
+
+
+    <label id="chk_isDemoCtrl">@chk_isFreeList.ElementAt(0)</label>
+    <label id="chk_isFullVersionCtrl">@chk_isFreeList.ElementAt(1)</label>
+    <label id="chk_isBeta">@chk_isFreeList.ElementAt(2)</label>
+    <label id="chk_isFree">@chk_isFreeList.ElementAt(3)</label>
+
+    @*
+        <label id="chk_isFullVersionCtrl">@Convert.ToString(chk_isFreeList[2])</label>
+        <label id="chk_isFreeCtrl">@Convert.ToString(chk_isFreeList[3])</label>*@
+</div>
+<div id="software-adding" class="" role="dialog" ng-app="checkSoftwareAddApp">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-body" ng-controller="softwareController">
+                <button data-dismiss="modal" class="close pop-close ">&times;</button>
+                <h4>Yazılım Düzenle</h4>
+                @{
+                    TDSI_TurkiyeYerliYazilimEnvanteri.Models.Software software = TempData["UpdateSoftware"] as TDSI_TurkiyeYerliYazilimEnvanteri.Models.Software;
+                    int id = software.softwareID;
+                    string softwareName = software.softwareName;
+                    string softwareDescription = software.description;
+                }
+                @using (Html.BeginForm("UpdateSoftwareCompany", "User", new { sID = id }, FormMethod.Post))
+                {
+                    <form>
+                        <input type="text" style="cursor:auto; background-color:transparent; " name="s_name" class="username area-grp form-control form-control-pop" placeholder="Yazılım Adı" autocomplete="off" disabled />
+                        <input type="text" ng-model="search" style="" name="s_name" class="username form-control form-control-pop" placeholder="@softwareName" autocomplete="off" />
+                        <table class="table table-hover ">
+                            <tr ng-repeat="sf in softwares | filter: search | limitTo:1| orderBy:'softwareName'">
+                                <td class="hide" style="width: 100%;text-align: left;color: #73bbf9; border-top-color:transparent; border-bottom: 2px solid #5b9bd1;">
+                                    {{sf.softwareName}} <span class="glyphicon glyphicon-remove pull-right"></span>
+                                </td>
+                                <td ng-if="sf.softwareName == search && '@softwareName' != search" class="no-pointer" style="width: 100%; font-size: 10px;text-align: left;color: #73bbf9; border-top-color:transparent; border-bottom: 1px solid #5b9bd1;">
+                                    <span class="glyphicon glyphicon-remove-circle"></span> bu isimde bir yazılım bulunmakta
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="text" style="cursor:auto; background-color:transparent;" name="s_name" class="username area-grp form-control form-control-pop" placeholder="Yazılım Açıklaması" autocomplete="off" disabled />
+
+                        <textarea style="max-height:50vh; min-height:10%;" maxlength="2000" name="s_description" class="username form-control form-control-pop">@software.description</textarea>
+                        <input type="text" name="s_version" class="password form-control form-control-pop" value="@software.softwareVersion" autocomplete="off" />
+                        <input type="file" name="s_image" class="password form-control form-control-pop" placeholder="Yazılım Resmi" value="@software.softwareImg" autocomplete="off" />
+                        <input type="text" style="cursor:auto; background-color:transparent;" name="s_workPlatform" class="check-grp form-control form-control-pop" autocomplete="off" placeholder="Yazılım Platform:" disabled />
+                        <div class="row">
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_windows" value="true" class="checkbox" id="Windows">
+                                    <label for="Windows" class="label">Windows</label>
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_macOS" value="true" class="checkbox" id="MacOS">
+                                    <label for="MacOS" class="label">MacOS</label>
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_linux" value="true" class="checkbox" id="Linux">
+                                    <label for="Linux" class="label">Linux</label>
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_unix" value="true" class="checkbox" id="Unix">
+                                    <label for="Unix" class="label">Unix</label>
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_pardus" value="true" class="checkbox" id="Pardus">
+                                    <label for="Pardus" class="label">Pardus</label>
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_android" value="true" class="checkbox" id="Android">
+                                    <label for="Android" class="label">Android</label>
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_ios" value="true" class="checkbox" id="IOS">
+                                    <label for="IOS" class="label">IOS</label>
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_desktopApp" value="true" class="checkbox" id="DesktopApp">
+                                    <label for="DesktopApp" class="label">DesktopApp</label>
+                                </div>
+                            </div>
+
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_webApp" value="true" class="checkbox" id="WebApp">
+                                    <label for="WebApp" class="label">WebApp</label>
+                                </div>
+                            </div>
+
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_Other" value="true" class="checkbox" id="Other">
+                                    <label for="Other" class="label">Other</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <input type="text" name="password" class="password form-control form-control-pop" autocomplete="off" placeholder="Yazılım Tanıtım Video Linki" />
+                        <input type="text" style="cursor:auto; background-color:transparent;" name="s_workPlatform" class="check-grp form-control form-control-pop" autofocus placeholder="Yazılım Detayları" disabled />
+                        <div class="row">
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_demo" value="true" class="checkbox" id="Demo">
+                                    <label for="Demo" class="label">Demo</label>
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_fullVersion" value="true" class="checkbox" id="Full">
+                                    <label for="Full" class="label">Tam Sürüm</label>
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_beta" value="true" class="checkbox" id="Beta">
+                                    <label for="Beta" class="label">Beta</label>
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <div class="checkbox-button">
+                                    <input type="checkbox" name="chk_free" value="true" class="checkbox" id="Free">
+                                    <label for="Free" class="label">Ücretsiz</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        @*<input class="btn software-add-btn hide" type="submit" value="Ekle" />*@
+                        <div class="row">
+
+                            <button style="max-width:40%" class=" software-add-btn software-chck-btn">Onayla</button>
+                            <button style="max-width:40%" type="submit" class="software-add-btn software-chck-btn" onclick="@Url.Action("CompanyProfile","User", new { id = TDSI_TurkiyeYerliYazilimEnvanteri.Models.TemporaryUserData.OnlineUserID, notification = 17})">İptal</button>
+
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
